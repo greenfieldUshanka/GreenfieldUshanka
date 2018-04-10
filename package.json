@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "react-dev": "webpack -d --watch",
-    "server-dev": "nodemon server/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server-dev": "nodemon server/index.js"
   },
   "repository": {
     "type": "git",
@@ -20,10 +19,6 @@
   "homepage": "https://github.com/greenfieldUshanka/GreenfieldUshanka#readme",
   "dependencies": {
     "axios": "^0.18.0",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.4",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
     "moment": "^2.22.0",
@@ -31,8 +26,14 @@
     "nodemon": "^1.17.3",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
-    "semantic-ui": "^2.3.1",
-    "underscore": "^1.8.3",
-    "webpack": "^4.5.0"
+    "semantic-ui-css": "^2.3.1",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "webpack": "^2.2.1"
   }
 }
