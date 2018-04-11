@@ -19,6 +19,7 @@
   "homepage": "https://github.com/greenfieldUshanka/GreenfieldUshanka#readme",
   "dependencies": {
     "axios": "^0.18.0",
+    "bcrypt": "^2.0.0",
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
     "lodash": "^4.17.5",
