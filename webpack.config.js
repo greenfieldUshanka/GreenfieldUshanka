@@ -9,6 +9,17 @@ module.exports = {
   module: {
     loaders: [
       {
+        test: /\.(eot|woff|woff2|ttf|png|jp(e*)g|svg)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 100000,
+          name: 'images/[hash]-[name].[ext]'
+        }
+      },
+      { test: /\.css$/,
+        loader: "style-loader!css-loader"
+      },
+      {
         test: /\.jsx?/,
         include: path.resolve('./client'),
         loader: 'babel-loader',
