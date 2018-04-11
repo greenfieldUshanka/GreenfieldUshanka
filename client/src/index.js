@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import AppHeader from '../components/appheader';
-import 'semantic-ui-css/semantic.min.css';
 import HomePage from '../components/homepage';
+import Friends from '../components/friends.jsx'
 
 class App extends React.Component {
   constructor() {
@@ -16,6 +16,7 @@ class App extends React.Component {
         <div className="container">
           <HomePage/>
         </div>
+        <Friends/>
       </div>
     )
   }
