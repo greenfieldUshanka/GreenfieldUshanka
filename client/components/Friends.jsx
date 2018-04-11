@@ -5,6 +5,7 @@
 // ultimately, will want to show friends first in search results and then everyone else
 import React from 'react';
 import SearchBar from './SearchBar.jsx';
+import FriendCard from './FriendCard.jsx';
 
 class Friends extends React.Component {
   constructor() {
@@ -13,19 +14,26 @@ class Friends extends React.Component {
     this.state = {
       friends: [], // this is the array that the search results and friends will show in
     };
-
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
 
   }
 
+  handleChange(obj) {
+    this.setState({
+      friends: obj.data,
+    });
+  }
+
   render() {
     return (
       <div>
-        <SearchBar />
-        <div>
-          Map through friends array here and display new component friendCard or something like that
+        <SearchBar onChange={this.handleChange}/>
+        <br/>
+        <div className="ui stackable cards">
+            {this.state.friends.map(f => <FriendCard friend={f} key={f.id}/>)}
         </div>
       </div>
     )

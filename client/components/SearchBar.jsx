@@ -2,8 +2,8 @@ import React from 'react';
 const axios = require('axios');
 
 class SearchBar extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       searchTerm: '',
@@ -21,11 +21,16 @@ class SearchBar extends React.Component {
     this.setState({ searchTerm: e.target.value });
   }
 
+
+
   searchFriends(e) {
+    var searchThis = this; // dirty?...fix later?
     axios.get(`/friends?ID=${this.state.searchTerm}`)
     .then(function (res) {
-      console.log(res); // should be an array of people objects
-      //set state in here....clear search box and pass array of friends up through props
+      searchThis.props.onChange(res);
+      searchThis.setState({
+        searchTerm: '',
+      });
     })
     .catch(function (err) {
       console.log(err);
@@ -38,10 +43,10 @@ class SearchBar extends React.Component {
     return (
       <form onSubmit={this.searchFriends}>
         <label>
-          Search:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
+          <input type="text" value={this.state.searchTerm} onChange={this.handleChange} placeholder="Search for friends"/>
         </label>
-        <input type="submit" value="Submit" />
+        <a> </a>
+        <input type="submit" className="mini ui button" value="Search" />
       </form>
     )
   }
