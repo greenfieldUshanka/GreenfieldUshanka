@@ -9,7 +9,7 @@ CREATE TABLE users (
   `password` VARCHAR(255) NOT NULL,
   `full_name` VARCHAR(255) NOT NULL,
   `profile_picture` VARCHAR(255) NOT NULL,
-  `work` VARCHAR (255) NOT NULL,
+  `work` VARCHAR (255),
   `vodka_consumption` INT ,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,  
   `id_status` INT,
