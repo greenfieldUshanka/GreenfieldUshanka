@@ -1,30 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AppHeader from '../components/appheader';
-import HomePage from '../components/homepage';
-import Friends from '../components/friends.jsx'
-import Login from '../components/userLogin/Login.jsx';
+import Main from '../components/main';
+import Login from '../components/Login.jsx';
+import Friends from '../components/Friends.jsx';
+import './index.css';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 class App extends React.Component {
   constructor() {
     super();
+    this.state = {
+      id: ''
+    };
   }
-
-
 
   render() {
     return (
-      <div>
-        <AppHeader/>
-      <div className="container">
-        <HomePage />
-      </div>
-        <Friends/>
-        <Login /> 
-      </div>
-    )
+      <main>
+        <Switch>
+          <Route exact path='/' component={Main}/>
+          <Route exact path='/login' component={Login}/>
+          <Route exact path='/friends' component={Friends}/>
+        </Switch>
+      </main>
+    );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
-
+ReactDOM.render((
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+), document.getElementById('app'));

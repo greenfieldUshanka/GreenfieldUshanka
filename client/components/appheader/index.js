@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Image, Form, Input, Grid } from 'semantic-ui-react';
+import {Form, Input, Grid} from 'semantic-ui-react';
 import './index.css';
 
 const AppHeader = (props) => {
@@ -11,7 +11,7 @@ const AppHeader = (props) => {
             <Form>
               <Form.Field inline>
                 <label>Ushanka Icon placeholder</label>
-                <Input size={'mini'} placeholder='Search for friends...' />
+                <Input size={'mini'} placeholder='Search for friends...'/>
 
               </Form.Field>
             </Form>
