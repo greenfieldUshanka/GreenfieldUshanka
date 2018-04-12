@@ -31,7 +31,7 @@ class Login extends Component {
             profilePicture: 'https://source.unsplash.com/1600x900/?featured/?dog,cat,robots'
         }
 
-        axios.post('/api/newAccount/', newUserInfo)
+        axios.post('/newAccount/', newUserInfo)
             .then( response => {
                 console.log('Response from handleCreateAccount', response)
             })
@@ -42,7 +42,7 @@ class Login extends Component {
     }
 
     handleLogin(event) {
-        axios.get(`/api/Login/${this.state.username}/${this.state.password}`)
+        axios.get(`/Login/${this.state.username}/${this.state.password}`)
             .then( response => {
                 console.log('Response from handleLogin', response)
             })

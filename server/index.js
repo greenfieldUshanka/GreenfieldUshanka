@@ -10,8 +10,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(express.static(__dirname + '/../client/public'));
 app.use('/', router);
-
-app.use('/api', router);
+// app.use('/api', router);
 
 app.listen(PORT, () => {
   console.log('Listening on port ' + PORT);

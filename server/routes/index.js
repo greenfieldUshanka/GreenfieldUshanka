@@ -1,11 +1,14 @@
-const express = require('express')
-const router = express.Router()
-const LoginController = require('../Controllers/LoginController')
+const router = require('express').Router();
+const friends = require('../controllers/friends.js');
+const LoginController = require('../controllers/LoginController');
+
+router.get('/friends', friends.searchFriends);
+router.post('/addfriend', friends.addFriend);
 
 router.route('/newAccount')
-    .post(LoginController.createAccount)
+    .post(LoginController.createAccount);
 
 router.route('/Login/:username/:password')
-    .get(LoginController.Login)
+    .get(LoginController.Login);
 
 module.exports = router; 
