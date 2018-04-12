@@ -1,7 +1,7 @@
 #
 # TABLE STRUCTURE FOR: comments
 #
-
+use greenfield;
 DROP TABLE IF EXISTS `comments`;
 
 CREATE TABLE `comments` (
