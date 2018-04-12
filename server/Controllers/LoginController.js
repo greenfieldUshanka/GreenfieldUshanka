@@ -1,5 +1,5 @@
 const DB = require('../DB');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt-nodejs');
 
 const LoginController = {
     createAccount: ( req, res ) => {
