@@ -5,14 +5,23 @@ import Login from '../components/userLogin/Login.jsx';
 import Friends from '../components/Friends.jsx';
 import './index.css';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import axios from 'axios';
+import PostInput from './components/PostInput.js';
+import CommentInput from './components/CommentInput.js';
+import Post from './components/Post.js';
+import Friends from './components/Friends.jsx'
+import Login from './components/Login.jsx';
+import PostList from './components/PostList.js';
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      id: ''
+      id: '',
+      messages: []
     };
     this.setAuth = this.setAuth.bind(this);
+    this.fetchPostFeed = this.fetchPostFeed.bind(this);
   }
 
   isAuthenticated() {
@@ -23,6 +32,22 @@ class App extends React.Component {
   setAuth(id) {
     console.log('Setting id: ', id);
     this.setState({id: id});
+  }
+
+  fetchPostFeed() {
+    var thisIndex = this;
+    console.log('starting get request');
+    axios.get('/postFeed')
+    .then(function (response) {
+      console.log('back in the client', response);
+      var reverseData = response.data.reverse();
+      thisIndex.setState({
+        messages: reverseData
+      });
+    })
+    .catch(function (err) {
+      console.log(err);
+    });
   }
 
   render() {
@@ -39,6 +64,11 @@ class App extends React.Component {
           <Route exact path='/login' render={() => <Login setAuth={(id) => component.setAuth(id)}/>} />
           <Route exact path='/friends' component={Friends}/>
         </Switch>
+        <div>
+          <PostInput fetchPostFeed={this.fetchPostFeed}/>
+          <PostList posts={this.state.messages}/>
+          <Login />
+        </div>
       </main>
     );
   }

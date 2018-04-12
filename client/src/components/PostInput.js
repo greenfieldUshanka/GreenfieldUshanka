@@ -19,8 +19,9 @@ class PostInput extends React.Component {
 
   submitPost(event) {
     console.log(this.state.content);
+    var thisSubmitPost = this;
     event.preventDefault();
-    axios.post('/posts', {
+    axios.post('/postFeed', {
       id: null,
       post_text: this.state.content,
       createdAt: null,
@@ -29,7 +30,8 @@ class PostInput extends React.Component {
       profile_image: null,
       like_count: null
     }).then(function(response) {
-      console.log('Saved message to databeeeesssss');
+      console.log('Saved message to database!', response);
+      thisSubmitPost.props.fetchPostFeed();
     })
   }
 
