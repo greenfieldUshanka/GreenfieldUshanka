@@ -1,0 +1,13 @@
+.container-full-page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1em 1em 1em;
+}
+
+.newPost {
+    width: 490px !important;
+}
+
+.post {
+    width: 490px !important;
+}
