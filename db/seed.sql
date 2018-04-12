@@ -1,16 +1,8 @@
 #
 # TABLE STRUCTURE FOR: comments
 #
-
-DROP TABLE IF EXISTS `comments`;
-
-CREATE TABLE `comments` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `text_comment` text COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `id_post` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+use greenfield;
+TRUNCATE TABLE `comments`;
 
 INSERT INTO `comments` (`id`, `text_comment`, `created_at`, `id_post`) VALUES (1, 'Ducimus iste velit fugiat blanditiis odio consequatur dolores nostrum. Nobis enim quis nobis quibusdam dolor asperiores.', '1988-03-31 00:52:32', 36);
 INSERT INTO `comments` (`id`, `text_comment`, `created_at`, `id_post`) VALUES (2, 'Incidunt et aperiam unde molestiae et quis. Eaque rem adipisci qui est autem et vero. Ut itaque sunt cum molestiae sunt est accusamus qui. Ratione et veritatis consequatur explicabo. Animi et enim rem veniam quis molestiae.', '1991-12-20 20:02:18', 28);
@@ -68,16 +60,7 @@ INSERT INTO `comments` (`id`, `text_comment`, `created_at`, `id_post`) VALUES (5
 # TABLE STRUCTURE FOR: posts
 #
 
-DROP TABLE IF EXISTS `posts`;
-
-CREATE TABLE `posts` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `post_text` text COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `id_author` int(11) DEFAULT NULL,
-  `id_wall` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+TRUNCATE TABLE `posts`;
 
 INSERT INTO `posts` (`id`, `post_text`, `created_at`, `id_author`, `id_wall`) VALUES (1, 'Numquam nisi quod enim voluptatem sunt est molestias et. Et exercitationem placeat aliquid. Aut repellat et est rerum et.', '2002-10-02 19:11:49', 31, 23);
 INSERT INTO `posts` (`id`, `post_text`, `created_at`, `id_author`, `id_wall`) VALUES (2, 'Totam fugiat sed illo id doloremque. Voluptatem iusto voluptatem doloribus. Quos suscipit itaque atque consequatur.', '2007-02-23 05:14:38', 50, 2);
@@ -135,13 +118,7 @@ INSERT INTO `posts` (`id`, `post_text`, `created_at`, `id_author`, `id_wall`) VA
 # TABLE STRUCTURE FOR: status
 #
 
-DROP TABLE IF EXISTS `status`;
-
-CREATE TABLE `status` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `text` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+TRUNCATE TABLE `status`;
 
 INSERT INTO `status` (`id`, `text`) VALUES (1, 'Perspiciatis autem doloremque repudiandae dolores veritatis ut. Aut occaecati sit et corrupti optio. Ut impedit ut ea ut veniam aut. Voluptatem velit dolorem ut non provident et et minus.');
 INSERT INTO `status` (`id`, `text`) VALUES (2, 'Cum dolor quibusdam omnis non aut vel. Expedita assumenda omnis veniam et hic autem laudantium architecto. Debitis inventore quia velit non possimus. Dolorem repellat minima perferendis quae beatae.');
@@ -199,14 +176,7 @@ INSERT INTO `status` (`id`, `text`) VALUES (50, 'Illum est dolor recusandae volu
 # TABLE STRUCTURE FOR: user_friends
 #
 
-DROP TABLE IF EXISTS `user_friends`;
-
-CREATE TABLE `user_friends` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_one` int(11) DEFAULT NULL,
-  `id_two` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+TRUNCATE TABLE `user_friends`;
 
 INSERT INTO `user_friends` (`id`, `id_one`, `id_two`) VALUES (1, 31, 4);
 INSERT INTO `user_friends` (`id`, `id_one`, `id_two`) VALUES (2, 22, 9);
@@ -264,21 +234,7 @@ INSERT INTO `user_friends` (`id`, `id_one`, `id_two`) VALUES (50, 30, 29);
 # TABLE STRUCTURE FOR: users
 #
 
-DROP TABLE IF EXISTS `users`;
-
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `full_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `profile_picture` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `work` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `vodka_consumption` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `id_status` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `username_idx` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+TRUNCATE TABLE `users`;
 
 INSERT INTO `users` (`id`, `username`, `password`, `full_name`, `profile_picture`, `work`, `vodka_consumption`, `created_at`, `id_status`) VALUES (1, 'jdavis', '9e12481ef2c97d15808ed30a558914f083356585', 'Elias Upton PhD', 'https://source.unsplash.com/400x400/?robot', 'error', 3, '1988-12-21 19:16:59', NULL);
 INSERT INTO `users` (`id`, `username`, `password`, `full_name`, `profile_picture`, `work`, `vodka_consumption`, `created_at`, `id_status`) VALUES (2, 'becker.sandy', '0d421abd287b86a7869c0936f3ee8020963100d9', 'Prof. Kyle Gorczany', 'https://source.unsplash.com/400x400/?robot', 'facere', 3, '1976-05-31 03:05:13', NULL);
