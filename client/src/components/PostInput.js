@@ -28,6 +28,8 @@ class PostInput extends React.Component {
       id_wall: null,
       profile_image: null,
       like_count: null
+    }).then(function(response) {
+      console.log('Saved message to databeeeesssss');
     })
   }
 
