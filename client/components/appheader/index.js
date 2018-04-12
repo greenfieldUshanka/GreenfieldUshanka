@@ -1,7 +1,6 @@
 import React from 'react';
 import { Header, Image, Form, Input, Grid } from 'semantic-ui-react';
 import './index.css';
-import icon from '../../public/img/icon.png';
 
 const AppHeader = (props) => {
   return (
