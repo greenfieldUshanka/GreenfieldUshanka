@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AppHeader from '../components/AppHeader';
+import AppHeader from '../components/appheader';
 import 'semantic-ui-css/semantic.min.css';
-import HomePage from '../components/HomePage';
+import HomePage from '../components/homepage';
 
 class App extends React.Component {
   constructor() {

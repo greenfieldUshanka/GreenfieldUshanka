@@ -56,6 +56,6 @@ typings/
 
 # dotenv environment variables file
 .env
+
 client/public/bundle.js
-package-lock.json
 .idea/
