@@ -1,4 +1,4 @@
-const con = require('../db/db.js');
+const con = require('../db');
 
 var searchFriends = function(req, res) {
   var term = req.url.slice(12);
