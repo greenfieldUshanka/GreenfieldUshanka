@@ -25,7 +25,9 @@ class PostInput extends React.Component {
       post_text: this.state.content,
       createdAt: null,
       id_author: null,
-      id_wall: null
+      id_wall: null,
+      profile_image: null,
+      like_count: null
     })
   }
 

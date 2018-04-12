@@ -22,6 +22,14 @@ app.get('/*', function(req, res) {
   });
 });
 
+// app.post('/posts', function(req, res) {
+//   var postContent = req.body;
+//   connection.query('INSERT INTO posts (post_text) VALUES (postContent)', function(err, results) {
+//     if (err) throw err;
+//     res.send('Successfully added to the database!', results);
+//   });
+// });
+
 app.listen(PORT, () => {
   console.log('Listening on port ' + PORT);
 });

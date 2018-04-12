@@ -3,33 +3,26 @@ import axios from 'axios';
 import CommentInput from './CommentInput.js';
 import CommentList from './CommentList.js';
 
-const Post = (post) => (<div><div>
+const Post = (props) => (<div><div>
   <div className="ui top attached segment">
-  {/*<a>{post.id_author}</a>
-  <p>{post.createdAt}</p>
-  <br></br>
-  <p>{post.post_text}</p>
-</div>*/}
 <div className="ui comments">
 <div className="comment">
     <a className="avatar">
-      <img src=""/>
+      <img src={props.post.profile_image}/>
     </a>
     <div className="content">
-      <a className="author">Stevie Feliciano</a>
+      <a className="author">{props.post.id_author}</a>
       <br></br>
       <div className="metadata">
-        <div className="date">2 days ago</div>
+        <div className="date">{props.post.createdAt}</div>
         <div className="rating">
-          <i className="star icon"></i>
-          5 Faves
+          <i className="star icon"></i>{props.post.like_count}
         </div>
       </div>
     </div>
   </div>
 </div>
-<div className="text">
-        Hey guys, I hope this example comment is helping you read this documentation.
+<div className="text">{props.post.post_text}
       </div>
 </div>
 </div>

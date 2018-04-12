@@ -1,19 +1,17 @@
 import React from 'react';
 import axios from 'axios';
 
-const Comment = (comment) => (<div className="ui comments">
+const Comment = (props) => (<div className="ui comments">
   <div className="comment">
     <a className="avatar">
-      <img src=""/>
+      <img src={props.comment.profile_image}/>
     </a>
     <div className="content">
-      <a className="author">Stevie Feliciano</a>
+      <a className="author">{props.comment.id_author}</a>
       <div className="metadata">
-        <div className="date">2 days ago</div>
+        <div className="date">{props.comment.createdAt}</div>
       </div>
-      <div className="text">
-        Hey guys, I hope this example comment is helping you read this documentation.
-      </div>
+      <div className="text">{props.comment.post_text}</div>
     </div>
   </div>
 </div>
