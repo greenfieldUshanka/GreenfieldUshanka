@@ -1,8 +1,9 @@
 import React from 'react';
-import { Card, Image, Form, Input, Grid, TextArea, Button } from 'semantic-ui-react';
+import { Card, Image, Form, Grid, TextArea, Button } from 'semantic-ui-react';
 import './index.css';
+import Status from '../Status.jsx';
 
-const AppHeader = (props) => {
+const HomePage = (props) => {
   return (
     <div className="container-full-page">
       <Grid>
@@ -18,7 +19,7 @@ const AppHeader = (props) => {
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={6}>
-            <div>Status</div>
+            <Status />
             <div>Personal Info</div>
             <div>More stuff</div>
             <div>Even more profile info</div>
@@ -84,4 +85,4 @@ const AppHeader = (props) => {
   );
 };
 
-export default AppHeader;
+export default HomePage;
