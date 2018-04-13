@@ -4,7 +4,7 @@ import axios from "axios";
 import './index.css';
 
 
-class FixingLogin extends React.Component {
+class Login extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -88,15 +88,9 @@ class FixingLogin extends React.Component {
     </header>
     <div>
       <Grid>
-        <Grid.Column width={8} >
-        {/* <Image src='./images.jpeg' size='large' /> */}
-          {/* <Grid.Row className='maybe-logo'>
-              <Form>
-                <Form.Field inline>
-                  <h1> Something else </h1>
-                </Form.Field>
-              </Form>
-          </Grid.Row> */}
+        <Grid.Column width={8} className='left-side-Login' >
+        <Image src='https://source.unsplash.com/1600x900/?featured/?dog,cat,robots' size='large' />
+
         </Grid.Column>
         <Grid.Column width={8} >
         <Form className='STARTING-FORM' onSubmit={this.handleCreateAccount} > 
@@ -153,4 +147,4 @@ class FixingLogin extends React.Component {
   } 
 }
 
-export default FixingLogin;
+export default Login;

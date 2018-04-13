@@ -1,20 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import AppHeader from '../components/appheader';
-// import HomePage from '../components/homepage';
-// import Friends from '../components/friends.jsx'
-// import Login from '../Components/Login.jsx';
-import FixingLogin from '../components/userLogin/FixingLoginCSS.jsx';
+import AppHeader from '../components/appheader';
+import HomePage from '../components/homepage';
+import Friends from '../components/friends.jsx'
+import Login from '../components/userLogin/Login.jsx';
 
 class App extends React.Component {
   constructor() {
     super();
   }
 
+
+
   render() {
     return (
       <div>
-        <FixingLogin />
+        <AppHeader/>
+      <div className="container">
+        <HomePage />
+      </div>
+        <Friends/>
+        <Login /> 
       </div>
     )
   }
@@ -22,9 +28,3 @@ class App extends React.Component {
 
 ReactDOM.render(<App />, document.getElementById('app'));
 
-{/* <AppHeader/>
-<div className="container">
-  <HomePage />
-</div>
-<Friends/>
-<Login /> */}
