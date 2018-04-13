@@ -4,7 +4,7 @@ const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'));
 
 const LoginController = {
   createAccount: (req, res) => {
-    console.log('START LOGIN C', req.body.newPassword);
+    console.log('START LOGIN CONTROLLER', req.body.newPassword);
     bcrypt.genSaltAsync(10)
       .then(salt => {
         bcrypt.hashAsync(req.body.newPassword, salt, null)
@@ -20,14 +20,17 @@ const LoginController = {
       });
   },
   Login: (req, res) => {
+    console.log('Login', req.params.username, req.params.password)
     DB.query(`SELECT * FROM users WHERE username =?`, [req.params.username], (err, data) => {
       if (data.length) {
         bcrypt.compareAsync(req.params.password, data[0].password)
           .then(response => {
+
             res.status(200).send('Valid Password')
           })
           .catch(err => {
-            res.status(404).send('Request failed')
+            console.log('ERROR ',err)
+            res.status(404).send(err)
           })
       }
     })

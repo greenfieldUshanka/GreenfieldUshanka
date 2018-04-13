@@ -6,34 +6,32 @@ const statusOptions = [{key: 'hacking', text: 'hacking', value: 'hacking'},
 {key: 'happy', text: 'happy', value: 'happy'}]
 
 class Status extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            mood: '' 
-        }
+  constructor(props) {
+    super(props);
+    this.state = {
+      mood: '' 
     }
+  }
 
-    userState(data) {
-      this.setState({mood: data.value})
-    }
+  userState(e, data) {
+    this.setState({mood: data.value})
+  }
 
-    render() {
-      const {mood} = this.state; 
-        return(
-            <Dropdown
-            onChange={this.userState}
-            button 
-            className='icon'
-            floating
-            labeled
-            icon='barcode'
-            options={statusOptions}
-            search
-            text='Status'
-            value={mood}
-          />
-        ) 
-    }
+  render() {
+    return(
+      <Dropdown
+      onChange={this.userState.bind(this)}
+      button 
+      className='icon'
+      floating
+      labeled
+      icon='barcode'
+      options={statusOptions}
+      search
+      text='Status'
+    />
+    ) 
+  }
 }
 
 export default Status; 

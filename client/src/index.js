@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AppHeader from '../components/appheader';
-import HomePage from '../components/homepage';
-import Friends from '../components/friends.jsx'
-import Login from '../Components/Login.jsx';
+// import AppHeader from '../components/appheader';
+// import HomePage from '../components/homepage';
+// import Friends from '../components/friends.jsx'
+// import Login from '../Components/Login.jsx';
+import FixingLogin from '../components/userLogin/FixingLoginCSS.jsx';
 
 class App extends React.Component {
   constructor() {
@@ -13,15 +14,17 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <AppHeader/>
-        <div className="container">
-          <HomePage/>
-        </div>
-        <Friends/>
-        <Login />
+        <FixingLogin />
       </div>
     )
   }
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
+
+{/* <AppHeader/>
+<div className="container">
+  <HomePage />
+</div>
+<Friends/>
+<Login /> */}
