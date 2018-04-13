@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Main from '../components/main';
-import Login from '../components/Login.jsx';
+import Login from '../components/userLogin/Login.jsx';
 import Friends from '../components/Friends.jsx';
 import './index.css';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
@@ -35,7 +35,7 @@ class App extends React.Component {
             : (<Redirect to={{
               pathname: '/login',
               state: { from: component.location}}}/>)
-            )}/>
+          )}/>
           <Route exact path='/login' render={() => <Login setAuth={(id) => component.setAuth(id)}/>} />
           <Route exact path='/friends' component={Friends}/>
         </Switch>
