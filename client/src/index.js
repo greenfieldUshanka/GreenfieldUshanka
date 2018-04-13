@@ -2,13 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Main from '../components/main';
 import Login from '../components/userLogin/Login.jsx';
-import Friends from '../components/Friends.jsx';
 import './index.css';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import PostInput from './components/PostInput.js';
-import CommentInput from './components/CommentInput.js';
-import Post from './components/Post.js';
 import Friends from './components/Friends.jsx'
 import Login from './components/Login.jsx';
 import PostList from './components/PostList.js';
