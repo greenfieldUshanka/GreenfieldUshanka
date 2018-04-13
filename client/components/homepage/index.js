@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Grid } from 'semantic-ui-react';
+import { Card, Image, Form, Grid, TextArea, Button, Icon } from 'semantic-ui-react';
 import './index.css';
 import Status from '../Status.jsx';
 import PostInput from '../post/PostInput.js';

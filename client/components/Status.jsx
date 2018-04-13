@@ -1,20 +1,35 @@
 import React, { Component } from 'react'; 
 import { Dropdown } from 'semantic-ui-react';
-const statusOptions = [{key: 'hacking', text: 'hacking', value: 'hacking'}, 
-{key: 'drunk', text: 'drunk', value: 'drunk'}, 
-{key: 'sad', text: 'sad', value: 'sad'}, 
-{key: 'happy', text: 'happy', value: 'happy'}]
+import axios from 'axios'; 
+const statusOptions = [{key: 'hacking', text: 'Hacking', value: 'Hacking'}, 
+{key: 'drunk', text: 'Drunk', value: 'Drunk'}, 
+{key: 'sad', text: 'Sad', value: 'Sad'}, 
+{key: 'happy', text: 'Happy', value: 'Happy'}]
 
 class Status extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mood: '' 
+      mood: 'Status', 
+      id: props.id
     }
   }
 
   userState(e, data) {
     this.setState({mood: data.value})
+
+    const payload = {
+      id: this.state.id,
+      mood: data.value
+    }
+    
+    axios.post('/status', payload)
+      .then( response => {
+        console.log('Response from status.jsx', response);
+      })
+      .catch( err => {
+        console.log('Error from Status.jsx', err);
+      })
   }
 
   render() {
@@ -28,7 +43,7 @@ class Status extends Component {
       icon='barcode'
       options={statusOptions}
       search
-      text='Status'
+      text={this.state.mood}
     />
     ) 
   }
