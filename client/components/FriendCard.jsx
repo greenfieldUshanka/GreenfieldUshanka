@@ -1,3 +1,5 @@
+// I now know if they are my friend before this component is rendered, need to pass that value down in the prop and then update value once that changes?
+
 import React from 'react';
 const axios = require('axios');
 
@@ -6,24 +8,46 @@ class Card extends React.Component {
     super(props);
 
     this.state = {
-      buttonMessage: 'Add Friend',
+      buttonMessage: props.friend.is_my_friend === '0' ? 'Add Friend' : "Remove Friend",
     };
 
-    this.addFriend = this.addFriend.bind(this);
+    this.toggleFriend = this.toggleFriend.bind(this);
   }
 
-  addFriend() {
+  toggleFriend() {
     // ping server with request to add friend, server -> router -> controller sees if they are your friend
     // and adds them if they aren't and sends back a message with the result regardless, and changes the
     // button text with this message
-    console.log('trying to add ', this.props.friend.full_name, ' as a friend')
-
-    axios.post('/addfriend', {
+    var refThis = this;
+    axios.post('/toggleFriend', {
       potentialFriendId: this.props.friend.id, // change this to data I know to test friend logic
-      myId: 31, // this will be the id of the logged in user...using 31 bc it is in both columns of table
+      myId: this.props.myId, 
+      button: this.state.buttonMessage,
     })
     .then(function (res) {
-      console.log(res);
+      if (res.data === 'added') {
+        refThis.setState({
+          buttonMessage: 'Friend Added!'
+        });
+        if(refThis.state.buttonMessage === 'Friend Added!') {
+          setTimeout(() => {
+            refThis.setState({
+              buttonMessage: 'Remove Friend'
+            });
+          }, 1500)
+        }
+      } else if (res.data === 'deleted') {
+          refThis.setState({
+            buttonMessage: 'Friend Removed!'
+          });
+          if(refThis.state.buttonMessage === 'Friend Removed!') {
+            setTimeout(() => {
+              refThis.setState({
+                buttonMessage: 'Add Friend'
+              });
+            }, 1500)
+          }
+      }
     })
     .catch(function (err) {
       console.log(err);
@@ -43,7 +67,7 @@ class Card extends React.Component {
             <a>Drinks {this.props.friend.vodka_consumption} handles of vodka a week</a>
           </div>
         </div>
-        <div className="ui bottom attached button" onClick={this.addFriend}>
+        <div className="ui bottom attached button" onClick={this.toggleFriend}>
           <i className="add icon"></i>
           {this.state.buttonMessage}
         </div>

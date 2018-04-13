@@ -9,11 +9,12 @@ import SearchBar from './SearchBar.jsx';
 import FriendCard from './FriendCard.jsx';
 
 class Friends extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       friends: [],
+      potentialFriends: [],
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -22,19 +23,27 @@ class Friends extends React.Component {
 
   }
 
-  handleChange(obj) {
+  handleChange(obj) { 
     this.setState({
-      friends: obj.data,
-    });
+      friends: obj.data.filter((data) => {
+        return (data.id !== this.props.myId && data.is_my_friend === '1')}),
+      potentialFriends: obj.data.filter((data) => {
+        return (data.id !== this.props.myId && data.is_my_friend === '0')})
+      });
   }
 
   render() {
     return (
       <div>
-        <SearchBar onChange={this.handleChange}/>
+        <SearchBar onChange={this.handleChange} myId={this.props.myId}/>
         <br/>
+        Friends
         <div className="ui stackable cards">
-            {this.state.friends.map(f => <FriendCard friend={f} key={f.id}/>)}
+            {this.state.friends.map(f => <FriendCard friend={f} myId={this.props.myId} key={f.id}/>)}
+        </div>
+        Potential Friends
+        <div className="ui stackable cards">
+            {this.state.potentialFriends.map(f => <FriendCard friend={f} myId={this.props.myId} key={f.id}/>)}
         </div>
       </div>
     )

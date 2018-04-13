@@ -24,8 +24,13 @@ class SearchBar extends React.Component {
 
 
   searchFriends(e) {
-    var searchThis = this; // dirty?...fix later?
-    axios.get(`/friends?ID=${this.state.searchTerm}`)
+    var searchThis = this;
+    axios.get('/friends', {
+      params: {
+        term: searchThis.state.searchTerm,
+        myId: searchThis.props.myId, // hard coded for now until i can get the ID
+      }
+    })
     .then(function (res) {
       searchThis.props.onChange(res);
       searchThis.setState({
