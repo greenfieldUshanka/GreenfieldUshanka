@@ -5,10 +5,12 @@ class CommentInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      content: ''
+      content: '',
+      post: props.postId
     };
+    console.log(props);
     this.onChange = this.onChange.bind(this);
-    this.submitPost = this.submitPost.bind(this);
+    this.submitComment = this.submitComment.bind(this);
   }
 
   onChange (event) {
@@ -17,15 +19,19 @@ class CommentInput extends React.Component {
     });
   }
 
-  submitPost(event) {
+  submitComment(event) {
     console.log(this.state.content);
+    var thisSubmitComment = this;
+    console.log('comment post id', this.state.post);
     event.preventDefault();
-    axios.post('/posts', {
+    axios.post('/comments', {
       id: null,
       post_text: this.state.content,
       createdAt: null,
-      id_author: null,
-      id_wall: null
+      id_post: this.state.post
+    }).then(function(response) {
+      console.log('Saved comment to database!', response);
+      thisSubmitComment.props.fetchComments();
     })
   }
 
@@ -33,11 +39,11 @@ class CommentInput extends React.Component {
     return (<div className="ui comments">
   <form className="ui form">
     <div className="field">
-      <textarea placeholder="Share big American opinion" rows="1" onChange={this.onChange}>
+      <textarea placeholder="Share big Amerikan opinion" rows="1" onChange={this.onChange}>
       </textarea>
     </div>
     <div className="field">
-          <button className="small ui button" role="button" onClick={this.submitPost}>Comment</button>
+          <button className="small ui button" role="button" onClick={this.submitComment}>Comment</button>
         </div>
   </form>
 </div>)

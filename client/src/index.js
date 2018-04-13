@@ -14,8 +14,8 @@ import Login from './components/Login.jsx';
 import PostList from './components/PostList.js';
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       id: '',
       messages: []
@@ -32,6 +32,10 @@ class App extends React.Component {
   setAuth(id) {
     console.log('Setting id: ', id);
     this.setState({id: id});
+  }
+
+  componentDidMount() {
+    this.fetchPostFeed();
   }
 
   fetchPostFeed() {
@@ -66,7 +70,7 @@ class App extends React.Component {
         </Switch>
         <div>
           <PostInput fetchPostFeed={this.fetchPostFeed}/>
-          <PostList posts={this.state.messages}/>
+          <PostList posts={this.state.messages} fetchPostFeed={this.fetchPostFeed}/>
           <Login />
         </div>
       </main>
