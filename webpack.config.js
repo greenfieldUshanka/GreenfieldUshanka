@@ -4,7 +4,11 @@ module.exports = {
   entry: path.resolve('./client/src/index.js'),
   output: {
     path: path.resolve('./client/public/'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/'
+  },
+  devServer: {
+    historyApiFallback: true
   },
   module: {
     loaders: [

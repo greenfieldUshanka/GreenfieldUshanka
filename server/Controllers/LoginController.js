@@ -24,7 +24,7 @@ const LoginController = {
       if (data.length) {
         bcrypt.compareAsync(req.params.password, data[0].password)
           .then(response => {
-            res.status(200).send('Valid Password');
+            res.status(200).send({id: data[0].id});
           })
           .catch(err => {
             res.status(404).send('Request failed');
