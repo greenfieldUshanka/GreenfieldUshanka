@@ -1,7 +1,8 @@
 import React from 'react'; 
-import { Header, Image, Form, Input, Grid, Button } from 'semantic-ui-react';
+import { Image, Form, Grid, Button } from 'semantic-ui-react';
 import axios from "axios";
 import './index.css';
+import {Redirect} from 'react-router-dom';
 
 
 class Login extends React.Component {
@@ -12,7 +13,8 @@ class Login extends React.Component {
       password: "",
       fullName: "",
       newUsername: "",
-      newPassword: ""
+      newPassword: "",
+      isLoggedIn: false
     };
     this.handleCreateAccount = this.handleCreateAccount.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
@@ -50,9 +52,14 @@ class Login extends React.Component {
   }
 
   handleLogin(event) {
+    let component = this;
     axios
       .get(`/Login/${this.state.username}/${this.state.password}`)
       .then(response => {
+        component.props.setAuth(response.data.id);
+        component.setState({
+          isLoggedIn: true
+        });
         console.log("Response from handleLogin", response);
       })
       .catch(err => {
@@ -62,6 +69,11 @@ class Login extends React.Component {
   }
 
   render() {
+    if (this.state.isLoggedIn) {
+      return (
+        <Redirect to={"/"}/>
+      );
+    }
     return (
       <div>
       <header>

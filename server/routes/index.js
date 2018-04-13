@@ -6,9 +6,9 @@ router.get('/friends', friends.searchFriends);
 router.post('/addfriend', friends.addFriend);
 
 router.route('/newAccount')
-    .post(LoginController.createAccount);
+  .post(LoginController.createAccount);
 
 router.route('/Login/:username/:password')
-    .get(LoginController.Login);
+  .get(LoginController.Login);
 
 module.exports = router; 
