@@ -69,7 +69,7 @@ class Login extends React.Component {
     }
     return (
       <div>
-      <header>
+      <header id='login-header' >
       <Grid>
         <Grid.Row>
           <Grid.Column width={8}>

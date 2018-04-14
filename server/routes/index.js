@@ -24,7 +24,7 @@ router.route('/newAccount')
 router.route('/Login/:username/:password')
   .get(LoginController.Login);
 
-router.route('/status')
-  .post(PersonalInfoController.Status);
+router.route('/userProfileInfo/:id')
+  .get(PersonalInfoController.GetProfileInformation);
 
 module.exports = router; 

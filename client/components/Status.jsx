@@ -23,13 +23,13 @@ class Status extends Component {
       mood: data.value
     }
     
-    axios.post('/status', payload)
-      .then( response => {
-        console.log('Response from status.jsx', response);
-      })
-      .catch( err => {
-        console.log('Error from Status.jsx', err);
-      })
+    // axios.post('/status', payload)
+    //   .then( response => {
+    //     console.log('Response from status.jsx', response);
+    //   })
+    //   .catch( err => {
+    //     console.log('Error from Status.jsx', err);
+    //   })
   }
 
   render() {

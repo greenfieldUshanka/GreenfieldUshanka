@@ -1,16 +1,21 @@
-header {
-    top: 0;
-    padding-top: 10px;
-    padding-left: 50px;
-    margin-top: 0px;
-    background-color: #4267b2;
-    height: 50px;
-    position: relative;
-    width: 100%;
-    border-bottom: 1px solid #29487d;
-    color: #fff;
+#home-page-header {
+  top: 0;
+  padding-top: 20px;
+  padding-left: 50px;
+  margin-top: 0px;
+  background-color: #800020;
+  height: 80px;
+  position: relative;
+  width: 100%;
+  border-bottom: 1px solid #800020;
+  color: #fff;
 }
 
-header h2 {
-    margin-top: 0px !important;
+#home-page-header .logout-button {
+  margin-right: -500px;
 }
+
+#home-page-header .search-friends-bar {
+  margin-left: -180px;
+}
+
