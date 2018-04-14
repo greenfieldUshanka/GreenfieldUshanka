@@ -14,7 +14,7 @@ var savePosts = function (req, res) {
 };
 
 var fetchPosts = function (req, res) {
-  db.query('SELECT id, post_text, created_at, id_author FROM posts ORDER BY created_at DESC LIMIT 5', function (err, data) {
+  db.query('SELECT posts.id, post_text, posts.created_at, users.full_name FROM posts INNER JOIN users ON id_author = users.id ORDER BY created_at DESC LIMIT 5', function (err, data) {
     if (err) {
       res.send(err);
     } else {
@@ -24,7 +24,7 @@ var fetchPosts = function (req, res) {
           id: row.id,
           postText: row.post_text,
           createdAt: row.created_at,
-          idAuthor: row.id_author
+          idAuthor: row.full_name
         };
       }));
     }

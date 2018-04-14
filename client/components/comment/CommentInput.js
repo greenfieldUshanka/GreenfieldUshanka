@@ -37,7 +37,7 @@ class CommentInput extends React.Component {
           </textarea>
         </div>
         <div className="field">
-          <button className="small ui button" role="button" onClick={this.submitComment}>Comment</button>
+          <button className="small ui button" role="button" onClick={this.submitComment}>Komment</button>
         </div>
       </form>
     </div>);

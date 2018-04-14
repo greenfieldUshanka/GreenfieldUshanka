@@ -47,7 +47,7 @@ class Post extends React.Component {
                 <img src="https://i.imgur.com/HbR0x7G.jpg"/>
               </a>
               <div className="content">
-                <a className="author">{this.props.post.author}</a>
+                <a className="author">{this.props.post.idAuthor}</a>
                 <br />
                 <div className="metadata">
                   <div className="date"><Moment fromNow>{this.props.post.createdAt}</Moment></div>
