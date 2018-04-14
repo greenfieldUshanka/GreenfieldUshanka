@@ -2,7 +2,7 @@ import React from 'react';
 import AppHeader from './appheader';
 import HomePage from './homepage';
 import axios from 'axios';
-import Friends from './Friends.jsx';
+import Friends from './friends';
 import { Switch, Route } from 'react-router-dom';
 
 class Main extends React.Component {

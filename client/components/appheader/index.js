@@ -1,5 +1,6 @@
 import React from 'react';
 import {Form, Grid, Button} from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import './index.css';
 import SearchBar from '../SearchBar.jsx';
 
@@ -13,7 +14,9 @@ const AppHeader = (props) => {
           <Grid.Column width={4} > 
             <Form>
               <Form.Field inline>
-                <h1>ushanka</h1>
+                <h1>
+                  <Link to={'/main'}>ushanka</Link>
+                </h1>
               </Form.Field>
             </Form>
           </Grid.Column>
