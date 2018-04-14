@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import CommentInput from '../comment/CommentInput.js';
 import CommentList from '../comment/CommentList.js';
-import Moment from 'react-moment';
+import Moment from 'moment';
 
 class Post extends React.Component {
   constructor(props) {
@@ -50,7 +50,7 @@ class Post extends React.Component {
                 <a className="author">{this.props.post.idAuthor}</a>
                 <br />
                 <div className="metadata">
-                  <div className="date"><Moment fromNow>{this.props.post.createdAt}</Moment></div>
+                  {/* <div className="date"><Moment fromNow>{this.props.post.createdAt}</Moment></div> */}
                   <div className="rating">
                     <i className="star icon"></i>
                   </div>

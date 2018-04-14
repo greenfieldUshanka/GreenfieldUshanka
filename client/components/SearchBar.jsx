@@ -1,5 +1,6 @@
 import React from 'react';
 const axios = require('axios');
+import { Redirect } from 'react-router-dom';
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -7,6 +8,7 @@ class SearchBar extends React.Component {
 
     this.state = {
       searchTerm: '',
+      toFriends: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -24,12 +26,18 @@ class SearchBar extends React.Component {
 
 
   searchFriends(e) {
-    var searchThis = this; // dirty?...fix later?
-    axios.get(`/friends?ID=${this.state.searchTerm}`)
+    var searchThis = this;
+    axios.get('/friends', {
+      params: {
+        term: searchThis.state.searchTerm,
+        id: searchThis.props.id,
+      }
+    })
     .then(function (res) {
       searchThis.props.onChange(res);
       searchThis.setState({
         searchTerm: '',
+        toFriends: true, // this is causing redirect when already on main/friends
       });
     })
     .catch(function (err) {
@@ -40,6 +48,11 @@ class SearchBar extends React.Component {
 
 
   render() {
+    if (this.state.toFriends === true && this.props.currentPage !== 'friends') { // handle this differently
+      return <Redirect to={{
+        pathname: '/main/friends',
+    }}/>
+    }
     return (
       <form onSubmit={this.searchFriends}>
         <label>

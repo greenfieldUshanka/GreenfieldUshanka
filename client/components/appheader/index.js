@@ -1,6 +1,7 @@
 import React from 'react';
 import {Form, Input, Grid} from 'semantic-ui-react';
 import './index.css';
+import SearchBar from '../SearchBar.jsx';
 
 const AppHeader = (props) => {
   return (
@@ -11,8 +12,7 @@ const AppHeader = (props) => {
             <Form>
               <Form.Field inline>
                 <label>Ushanka Icon placeholder</label>
-                <Input size={'mini'} placeholder='Search for friends...'/>
-
+                <SearchBar onChange={props.onChange} currentPage={props.currentPage} id={props.id}/>
               </Form.Field>
             </Form>
           </Grid.Column>
