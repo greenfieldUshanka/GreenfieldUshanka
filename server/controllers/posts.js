@@ -5,12 +5,12 @@ var savePosts = function (req, res) {
   db.query('INSERT INTO posts (post_text, id_author, id_wall) VALUES (?, ?, ?)',
     [postContent.postText, postContent.idAuthor, postContent.idWall],
     function (err, data) {
-    if (err) {
-      res.send(err);
-    } else {
-      res.send(data);
-    }
-  });
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(data);
+      }
+    });
 };
 
 var fetchPosts = function (req, res) {
