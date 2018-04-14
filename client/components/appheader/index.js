@@ -12,7 +12,7 @@ const AppHeader = (props) => {
             <Form>
               <Form.Field inline>
                 <label>Ushanka Icon placeholder</label>
-                <SearchBar onChange={props.onChange} id={props.id}/>
+                <SearchBar onChange={props.onChange} currentPage={props.currentPage} id={props.id}/>
               </Form.Field>
             </Form>
           </Grid.Column>

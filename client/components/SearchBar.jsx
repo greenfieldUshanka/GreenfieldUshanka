@@ -48,7 +48,7 @@ class SearchBar extends React.Component {
 
 
   render() {
-    if (this.state.toFriends === true) { // handle this differently
+    if (this.state.toFriends === true && this.props.currentPage !== 'friends') { // handle this differently
       return <Redirect to={{
         pathname: '/main/friends',
     }}/>

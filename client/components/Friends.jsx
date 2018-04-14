@@ -7,10 +7,14 @@ class Friends extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    this.props.changePage('friends');
+  }
+
   render() {
     return (
       <div>
-      <AppHeader onChange={this.props.onChange} id={this.props.id}/>
+      {/* <AppHeader onChange={this.props.onChange} id={this.props.id}/> */}
         <br/>
         Friends
         <div className="ui stackable cards">
