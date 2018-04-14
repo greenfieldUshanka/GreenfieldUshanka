@@ -5,10 +5,8 @@ class CommentInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      content: '',
-      post: props.postId
+      content: ''
     };
-    console.log(props);
     this.onChange = this.onChange.bind(this);
     this.submitComment = this.submitComment.bind(this);
   }
@@ -20,15 +18,14 @@ class CommentInput extends React.Component {
   }
 
   submitComment(event) {
-    var thisSubmitComment = this;
+    let component = this;
     event.preventDefault();
     axios.post('/comments', {
-      id: null,
-      postText: this.state.content,
-      createdAt: null,
-      idPost: this.state.post
+      postText: component.state.content,
+      authorId: component.props.authorId,
+      idPost: component.props.postId
     }).then(function(response) {
-      thisSubmitComment.props.fetchComments();
+      component.props.fetchComments();
     });
   }
 

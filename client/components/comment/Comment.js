@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import Moment from 'react-moment';
 
 const Comment = (props) => (<div className="ui comments">
@@ -8,11 +7,11 @@ const Comment = (props) => (<div className="ui comments">
       <img src={props.comment.profileImage}/>
     </a>
     <div className="content">
-      <a className="author"></a>
+      <a className="author">{props.comment.author}</a>
       <div className="metadata">
-        <div className="date"><Moment fromNow>{props.comment.created_at}</Moment></div>
+        <div className="date"><Moment fromNow>{props.comment.createdAt}</Moment></div>
       </div>
-      <div className="text">{props.comment.text_comment}</div>
+      <div className="text">{props.comment.textComment}</div>
     </div>
   </div>
 </div>
