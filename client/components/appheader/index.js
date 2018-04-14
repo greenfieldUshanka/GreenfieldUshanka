@@ -15,7 +15,7 @@ const AppHeader = (props) => {
             <Form>
               <Form.Field inline>
                 <h1>
-                  <Link to={'/main'}>ushanka</Link>
+                  <Link className='name' to={'/main'}>ushanka</Link>
                 </h1>
               </Form.Field>
             </Form>

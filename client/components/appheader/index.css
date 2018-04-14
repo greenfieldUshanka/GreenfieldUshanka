@@ -16,6 +16,10 @@
   background-color: aqua; 
 }
 
+.name {
+  color: white;
+}
+
 /* #home-page-header .search-friends-bar {
   margin-left: -180px;
 } */
