@@ -17,7 +17,6 @@ const LoginController = {
         bcrypt.compareAsync(req.params.password, data[0].password)
           .then(response => {
             req.session.userId = data[0].id;
-            console.log('setting stuff: ', req.session.userId);
             res.status(200).send({id: data[0].id});
           })
           .catch(err => {
