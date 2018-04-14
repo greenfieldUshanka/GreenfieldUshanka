@@ -7,9 +7,9 @@ import PostList from '../post/PostList';
 import axios from 'axios';
 import moment from 'moment';
 const statusOptions = [{key: '3', text: '0 - 3', value: '0 - 3'}, 
-{key: '7', text: '4 - 7', value: '4 - 7'}, 
-{key: '8', text: '8 - 12', value: '8 - 12'}, 
-{key: '13+', text: '13++', value: '13++'}]
+  {key: '7', text: '4 - 7', value: '4 - 7'}, 
+  {key: '8', text: '8 - 12', value: '8 - 12'}, 
+  {key: '13+', text: '13++', value: '13++'}];
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -21,8 +21,8 @@ class HomePage extends React.Component {
       vodka: '',
       profilePic: '',
       vodkaTake: 'Vodka Consumption',
-    }
-    this.saveUserEditInformation = this.saveUserEditInformation.bind(this)
+    };
+    this.saveUserEditInformation = this.saveUserEditInformation.bind(this);
   }
 
   getUserInformation() {
@@ -36,7 +36,7 @@ class HomePage extends React.Component {
         });
       })
       .catch( err => {
-      })
+      });
   }
 
   saveUserEditInformation() {
@@ -45,22 +45,22 @@ class HomePage extends React.Component {
       work: this.state.work,
       vodka: this.state.vodkaTake,
       extra: this.state.extra, 
-    }
+    };
 
     axios.post('/editprofile', profileUpdate)
       .then( response => {
-        console.log('Response ', response)
+        console.log('Response ', response);
       })
       .catch( err => {
-        console.log('Error ', err)
-      })
+        console.log('Error ', err);
+      });
   }
 
   userVodkaTake(e, data) {
     this.setState({
       vodkaTake: data.value, 
       vodka: data.value
-    })
+    });
   }
 
   componentDidMount() {

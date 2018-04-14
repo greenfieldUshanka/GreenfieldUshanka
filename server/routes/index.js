@@ -26,4 +26,7 @@ router.route('/Login/:username/:password')
 router.route('/userProfileInfo/:id')
   .get(PersonalInfoController.GetProfileInformation);
 
+router.route('/editprofile')
+  .post(PersonalInfoController.SaveUpdatedProfile);
+
 module.exports = router; 
