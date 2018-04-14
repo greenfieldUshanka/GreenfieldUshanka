@@ -13,20 +13,21 @@ var searchFriends = function(req, res) {
         res.send(data);
       }
     });
+  } else {
+    res.send('');
   }
 };
 
 var toggleFriend = function(req, res) {
   var potentialFriendId = req.body.potentialFriendId;
-  var myId = req.body.myId;
+  var id = req.body.id;
   var button = req.body.button;
-  console.log('myId is ', myId, 'and my potential friends id is ', potentialFriendId)
-  con.query('SELECT `id_one`, `id_two` FROM `user_friends` WHERE id_one=? AND id_two=?', [potentialFriendId, myId], (err, searchData) => {
+  con.query('SELECT `id_one`, `id_two` FROM `user_friends` WHERE id_one=? AND id_two=?', [potentialFriendId, id], (err, searchData) => {
     if (err) res.send(err);
     else {
       if (searchData.length === 0) { // later change this logic to be a pending friend request
         if (button === 'Add Friend') {
-          con.query('INSERT INTO `user_friends` (`id_one`, `id_two`) VALUES (?, ?), (?, ?)', [potentialFriendId, myId, myId, potentialFriendId], (err, insertData) => {
+          con.query('INSERT INTO `user_friends` (`id_one`, `id_two`) VALUES (?, ?), (?, ?)', [potentialFriendId, id, id, potentialFriendId], (err, insertData) => {
             if (err) res.send(err);
             else {
               res.send('added');
@@ -37,7 +38,7 @@ var toggleFriend = function(req, res) {
         }
       } else {
         if (button === 'Remove Friend') {
-          con.query('DELETE FROM `user_friends` WHERE (`id_one`=? AND `id_two`=?) OR (`id_one`=? AND `id_two`=?)', [potentialFriendId, myId, myId, potentialFriendId], (err, deleteData) => {
+          con.query('DELETE FROM `user_friends` WHERE (`id_one`=? AND `id_two`=?) OR (`id_one`=? AND `id_two`=?)', [potentialFriendId, id, id, potentialFriendId], (err, deleteData) => {
             if (err) res.send(err);
               else {
                 console.log(deleteData)

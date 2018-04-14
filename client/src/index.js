@@ -37,7 +37,6 @@ class App extends React.Component {
               state: { from: component.location}}}/>)
           )}/>
           <Route exact path='/login' render={() => <Login setAuth={(id) => component.setAuth(id)}/>} />
-          <Route exact path='/friends' component={Friends}/>
         </Switch>
       </main>
     );

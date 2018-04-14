@@ -21,7 +21,7 @@ class Card extends React.Component {
     var refThis = this;
     axios.post('/toggleFriend', {
       potentialFriendId: this.props.friend.id, // change this to data I know to test friend logic
-      myId: this.props.myId, 
+      id: this.props.id, 
       button: this.state.buttonMessage,
     })
     .then(function (res) {

@@ -28,7 +28,7 @@ class SearchBar extends React.Component {
     axios.get('/friends', {
       params: {
         term: searchThis.state.searchTerm,
-        myId: searchThis.props.myId, // hard coded for now until i can get the ID
+        id: searchThis.props.id, // hard coded for now until i can get the ID
       }
     })
     .then(function (res) {
@@ -36,6 +36,7 @@ class SearchBar extends React.Component {
       searchThis.setState({
         searchTerm: '',
       });
+      
     })
     .catch(function (err) {
       console.log(err);
