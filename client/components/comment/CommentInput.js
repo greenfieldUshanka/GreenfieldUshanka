@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Input, Form, Button } from 'semantic-ui-react';
 
 class CommentInput extends React.Component {
   constructor(props) {
@@ -34,15 +35,14 @@ class CommentInput extends React.Component {
 
   render() {
     return (<div className="ui comments">
-      <form className="ui form">
+      <Form>
         <div className="field">
-          <textarea placeholder="Share big Amerikan opinion" rows="1" value={this.state.content} onChange={this.onChange}>
-          </textarea>
+          <Input placeholder="Share big Amerikan opinion" value={this.state.content} onChange={this.onChange} />
         </div>
         <div className="field">
-          <button className="small ui button" role="button" onClick={this.submitComment}>Komment</button>
+          <Button size='small' onClick={this.submitComment}>Komment</Button>
         </div>
-      </form>
+      </Form>
     </div>);
   }
 }

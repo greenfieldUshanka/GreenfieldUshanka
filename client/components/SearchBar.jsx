@@ -72,7 +72,7 @@ class SearchBar extends React.Component {
         <Form.Group>
           <Form.Input size={'small'} placeholder='username' width={6} value={this.state.searchTerm} onChange={this.handleChange} placeholder="Search for friends"/>
           <Button type="submit">Search</Button>
-        </Form.Group>  
+        </Form.Group>
       </Form>
     )
   }

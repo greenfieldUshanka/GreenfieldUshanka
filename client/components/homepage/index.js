@@ -21,6 +21,7 @@ class HomePage extends React.Component {
       vodka: '',
       profilePic: '',
       vodkaTake: 'Vodka Consumption',
+      wallId: this.props.id
     };
     this.saveUserEditInformation = this.saveUserEditInformation.bind(this);
   }
@@ -110,7 +111,7 @@ class HomePage extends React.Component {
                   <Form onSubmit={this.saveUserEditInformation}>
                     <div className='upi-personal-info'>
                       <Icon name='world' size={'large'} />
-                      <Label Update your personal Information/>
+                      <Label>Update your personal Information</Label>
                     </div>
                     <div className='upi-status'>
                       <Status id={this.props.id} />
@@ -153,6 +154,5 @@ class HomePage extends React.Component {
     );
   }
 }
-
 
 export default HomePage;
