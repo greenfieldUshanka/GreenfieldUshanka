@@ -35,10 +35,8 @@ class Main extends React.Component {
 
   fetchPostFeed() {
     let thisIndex = this;
-    console.log('starting get request');
     axios.get('/postFeed')
       .then(function (response) {
-        console.log('back in the client', response);
         thisIndex.setState({
           messages: response.data
         });

@@ -3,6 +3,7 @@ const friends = require('../controllers/friends.js');
 const LoginController = require('../controllers/LoginController');
 const posts = require('../controllers/posts.js');
 const comments = require('../controllers/comments.js');
+const session = require ('../controllers/session');
 
 router.get('/friends', friends.searchFriends);
 router.post('/togglefriend', friends.toggleFriend);
@@ -12,6 +13,9 @@ router.get('/postFeed', posts.fetchPosts);
 
 router.post('/comments', comments.saveComments);
 router.get('/comments', comments.fetchComments);
+
+router.get('/userSession', session.getSession);
+router.get('/logout', session.logout);
 
 router.route('/newAccount')
   .post(LoginController.createAccount);

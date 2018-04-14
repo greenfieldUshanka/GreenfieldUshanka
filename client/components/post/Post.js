@@ -26,7 +26,6 @@ class Post extends React.Component {
       }
     })
       .then(function (response) {
-        console.log('comments for :', thisPost.state.postId, response.data);
         thisPost.setState({
           comments: response.data
         });
@@ -37,7 +36,6 @@ class Post extends React.Component {
   }
 
   render() {
-    console.log('id in post', this.props.id);
     return (
       <div>
         <div className="ui top attached segment">

@@ -5,14 +5,38 @@ import Login from '../components/userLogin/Login.jsx';
 import './index.css';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Friends from '../components/Friends.jsx';
+import axios from "axios";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: ''
+      id: '',
+      hasSession: false
     };
     this.setAuth = this.setAuth.bind(this);
+    this.getSessionId();
+  }
+
+  getSessionId() {
+    axios
+      .get("/userSession")
+      .then(response => {
+        if (response.data.id) {
+          console.log('good stuff', response.data.id);
+          this.setState({
+            id: response.data.id,
+            hasSession: true
+          });
+        } else {
+          this.setState({
+            hasSession: true
+          });
+        }
+      })
+      .catch(err => {
+        console.log("Error getting session id", err);
+      });
   }
 
   isAuthenticated() {
@@ -27,6 +51,11 @@ class App extends React.Component {
 
   render() {
     let component = this;
+    if (!this.state.hasSession) {
+      return (
+        <div>Waiting for server</div>
+      );
+    }
     return (
       <main>
         <Switch>
