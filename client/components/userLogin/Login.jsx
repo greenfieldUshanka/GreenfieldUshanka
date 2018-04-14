@@ -51,7 +51,6 @@ class Login extends React.Component {
                   component.setState({
                     isLoggedIn: true
                   });
-                  // component.render();
                 }
               })
               .catch(err => {

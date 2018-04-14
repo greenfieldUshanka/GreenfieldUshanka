@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Input, Grid, Header, Button} from 'semantic-ui-react';
+import {Form, Grid, Button} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import './index.css';
 import SearchBar from '../SearchBar.jsx';

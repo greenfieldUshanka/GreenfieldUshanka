@@ -1,7 +1,6 @@
 import React from 'react';
 import FriendCard from '../FriendCard.jsx';
-import AppHeader from '../appheader/index.js';
-import {Form, Input, Grid, Header, Button} from 'semantic-ui-react';
+import {Grid} from 'semantic-ui-react';
 import './index.css';
 
 
