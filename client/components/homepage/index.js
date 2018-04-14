@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Image, Form, Grid, Button } from 'semantic-ui-react';
+import { Image, Grid } from 'semantic-ui-react';
 import './index.css';
 import Status from '../Status.jsx';
 import PostInput from '../post/PostInput.js';
@@ -38,7 +38,7 @@ class HomePage extends React.Component {
           </Grid.Row>
         </Grid>
       </div>
-    )
+    );
   }
 }
 

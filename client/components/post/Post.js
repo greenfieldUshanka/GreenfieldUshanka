@@ -2,7 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import CommentInput from '../comment/CommentInput.js';
 import CommentList from '../comment/CommentList.js';
-import Moment from 'moment';
+import moment from 'moment';
+import './post.css';
 
 class Post extends React.Component {
   constructor(props) {
@@ -26,7 +27,6 @@ class Post extends React.Component {
       }
     })
       .then(function (response) {
-        console.log('comments for :', thisPost.state.postId, response.data);
         thisPost.setState({
           comments: response.data
         });
@@ -37,9 +37,8 @@ class Post extends React.Component {
   }
 
   render() {
-    console.log('id in post', this.props.id);
     return (
-      <div>
+      <div className="post">
         <div className="ui top attached segment">
           <div className="ui comments">
             <div className="comment">
@@ -47,10 +46,10 @@ class Post extends React.Component {
                 <img src="https://i.imgur.com/HbR0x7G.jpg"/>
               </a>
               <div className="content">
-                <a className="author">{this.props.post.idAuthor}</a>
+                <a className="author">{this.props.post.author}</a>
                 <br />
                 <div className="metadata">
-                  {/* <div className="date"><Moment fromNow>{this.props.post.createdAt}</Moment></div> */}
+                  <div className="date">{moment(this.props.post.createdAt).fromNow()}</div>
                   <div className="rating">
                     <i className="star icon"></i>
                   </div>

@@ -24,21 +24,20 @@ class Main extends React.Component {
   }
 
   handleChange(obj) {
-    console.log('handle change in main ', obj)
     this.setState({
       friends: obj.data.filter((data) => {
-        return (data.id !== this.props.id && data.is_my_friend === '1')}),
+        return (data.id !== this.props.id && data.is_my_friend === '1');
+      }),
       potentialFriends: obj.data.filter((data) => {
-        return (data.id !== this.props.id && data.is_my_friend === '0')})
-      });
+        return (data.id !== this.props.id && data.is_my_friend === '0');
+      })
+    });
   }
 
   fetchPostFeed() {
     let thisIndex = this;
-    console.log('starting get request');
     axios.get('/postFeed')
       .then(function (response) {
-        console.log('back in the client', response);
         thisIndex.setState({
           messages: response.data
         });
@@ -46,23 +45,23 @@ class Main extends React.Component {
       .catch(function (err) {
         console.log(err);
       });
-    }
+  }
   
   changePage(page) {
     this.setState({
       currentPage: page,
-      });
+    });
   }
 
   render() {
     return (
       <div>
-        <AppHeader onChange={this.handleChange} id={this.props.id} currentPage={this.state.currentPage}/>
+        <AppHeader logout={this.props.logout} onChange={this.handleChange} id={this.props.id} currentPage={this.state.currentPage}/>
         <div className="container">
-            <Switch>
-              <Route exact path ='/main/friends' render={() => <Friends onChange={this.handleChange} changePage={this.changePage} friends={this.state.friends} id={this.props.id} potentialFriends={this.state.potentialFriends}/>} />
-              <Route exact path ='/main' render={() => <HomePage posts={this.state.messages} fetchPostFeed={this.fetchPostFeed} changePage={this.changePage} id={this.props.id}/>} />
-            </Switch>
+          <Switch>
+            <Route exact path ='/main/friends' render={() => <Friends onChange={this.handleChange} changePage={this.changePage} friends={this.state.friends} id={this.props.id} potentialFriends={this.state.potentialFriends}/>} />
+            <Route exact path ='/main' render={() => <HomePage posts={this.state.messages} fetchPostFeed={this.fetchPostFeed} changePage={this.changePage} id={this.props.id}/>} />
+          </Switch>
         </div>
       </div>
     );

@@ -24,11 +24,6 @@ class Login extends React.Component {
     this.setState({
       [e.target.name]: e.target.value
     });
-    console.log(
-      "thisStatefromInputs",
-      this.state.newUsername,
-      this.state.username
-    );
   }
 
   handleCreateAccount(event) {
@@ -43,7 +38,6 @@ class Login extends React.Component {
     axios
       .post("/newAccount/", newUserInfo)
       .then(response => {
-        console.log("Response from handleCreateAccount", response);
       })
       .catch(err => {
         console.log("Error from handleCreateAccount", err);
@@ -60,7 +54,6 @@ class Login extends React.Component {
         component.setState({
           isLoggedIn: true
         });
-        console.log("Response from handleLogin", response);
       })
       .catch(err => {
         console.log("Error from handleLogin", err);
