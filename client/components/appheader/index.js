@@ -9,14 +9,10 @@ const AppHeader = (props) => {
       <Grid>
         <Grid.Row>
           <Grid.Column width={15}>
-            <Form>
-              <Form.Field inline>
-                <label>Ushanka Icon placeholder</label>
-                <SearchBar onChange={props.onChange} currentPage={props.currentPage} id={props.id}/>
-              </Form.Field>
-            </Form>
+              Ushanka Icon placeholder
+            <SearchBar onChange={props.onChange} currentPage={props.currentPage} id={props.id}/>
           </Grid.Column>
-          <Grid.Column width={1}>
+          <Grid.Column width={1} onClick={props.logout}>
             Logout
           </Grid.Column>
         </Grid.Row>

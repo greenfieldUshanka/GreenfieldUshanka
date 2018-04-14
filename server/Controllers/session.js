@@ -6,9 +6,8 @@ const getSession = (req, res) => {
 };
 
 const logout = (req, res) => {
-  req.session.destroy(err => {
-    console.log('Logout error');
-  });
+  req.session = null;
+  res.status(200).send();
 };
 
 module.exports.getSession = getSession;

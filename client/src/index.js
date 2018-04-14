@@ -5,7 +5,7 @@ import Login from '../components/userLogin/Login.jsx';
 import './index.css';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Friends from '../components/Friends.jsx';
-import axios from "axios";
+import axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
@@ -15,12 +15,13 @@ class App extends React.Component {
       hasSession: false
     };
     this.setAuth = this.setAuth.bind(this);
+    this.logout = this.logout.bind(this);
     this.getSessionId();
   }
 
   getSessionId() {
     axios
-      .get("/userSession")
+      .get('/userSession')
       .then(response => {
         if (response.data.id) {
           this.setState({
@@ -34,8 +35,16 @@ class App extends React.Component {
         }
       })
       .catch(err => {
-        console.log("Error getting session id", err);
+        console.log('Error getting session id', err);
       });
+  }
+
+  logout() {
+    axios.get('/logout')
+      .catch(err => {
+        console.log('Error on logout:', err);
+      });
+    this.setState({id: ''});
   }
 
   isAuthenticated() {
@@ -58,7 +67,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path ='/' render={() => <Redirect to={{ pathname: '/main'}}/>}/>
           <Route path='/main' render={() => (component.isAuthenticated() ?
-            (<Main id={this.state.id}/>)
+            (<Main id={this.state.id} logout={this.logout}/>)
             : (<Redirect to={{
               pathname: '/login',
               state: { from: component.location}}}/>)

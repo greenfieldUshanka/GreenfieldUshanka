@@ -20,7 +20,7 @@ const LoginController = {
       });
   },
   Login: (req, res) => {
-    DB.query('SELECT * FROM users WHERE username =?', [req.params.username], (err, data) => {
+    DB.query('SELECT * FROM users WHERE username = ?', [req.params.username], (err, data) => {
       if (data.length) {
         bcrypt.compareAsync(req.params.password, data[0].password)
           .then(response => {

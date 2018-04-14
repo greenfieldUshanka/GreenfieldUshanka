@@ -38,7 +38,7 @@ class HomePage extends React.Component {
           </Grid.Row>
         </Grid>
       </div>
-    )
+    );
   }
 }
 
