@@ -1,5 +1,139 @@
+
+.home-page-header {
+  top: 0;
+  padding-top: 20px;
+  padding-left: 50px;
+  margin-top: 0px;
+  background-color: #800020;
+  height: 80px;
+  position: relative;
+  width: 100%;
+  border-bottom: 1px solid #800020;
+  color: #fff;
+}
+
+.logout-button {
+  margin-right: -1200px;
+}
+
+.search-friends-bar {
+  margin-left: -180px;
+}
+
 .container-full-page {
-    max-width: 960px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 1em 1em 1em;
 }
+
+.username-on-image {
+  position: absolute;
+  top: 90%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+  color: #fff; 
+}
+
+.profile-picture {
+  margin-top: -200px; 
+  margin-left: 30px;
+}
+
+.friends-profile-information {
+  margin-left: 30px;
+}
+
+.top-username {
+  color: white; 
+  margin-top: -200px; 
+  margin-left: 60px;
+}
+ 
+.user-profile-information {
+  background-color: #fff; 
+  border: solid lightgrey;
+  border-width: 1px;
+  border-radius: 4px;
+  height: 300px;
+  width: 70%;
+  margin-top: 50px;
+  margin-left: 25px;
+}
+
+.upi-personal-info {
+  background-color: #fff; 
+  border: solid lightgrey;
+  border-width: 0.50px;
+  border-radius: 4px;
+  height: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+}
+
+.upi-workplace {
+  background-color: #fff; 
+  border: solid lightgrey;
+  border-width: 1px;
+  border-radius: 4px;
+  height: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+}
+
+.upi-status {
+  background-color: #fff; 
+  border: solid lightgrey;
+  border-width: 1px;
+  border-radius: 4px;
+  height: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+}
+
+.upi-workplace {
+  background-color: #fff; 
+  border: solid lightgrey;
+  border-width: 1px;
+  border-radius: 4px;
+  height: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+}
+
+.upi-vodka {
+  background-color: #fff; 
+  border: solid lightgrey;
+  border-width: 1px;
+  border-radius: 4px;
+  height: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+}
+
+.upi-text {
+  background-color: #fff; 
+  border: solid lightgrey;
+  border-width: 1px;
+  border-radius: 4px;
+  height: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+}
+
+.upi-submit {
+  background-color: #fff; 
+  border: solid lightgrey;
+  border-width: 1px;
+  border-radius: 4px;
+  height: 50px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-left: 10px;
+}
+

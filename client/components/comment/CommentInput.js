@@ -25,6 +25,9 @@ class CommentInput extends React.Component {
       authorId: component.props.authorId,
       idPost: component.props.postId
     }).then(function(response) {
+      component.setState({
+        content: ''
+      });
       component.props.fetchComments();
     });
   }
@@ -33,7 +36,7 @@ class CommentInput extends React.Component {
     return (<div className="ui comments">
       <form className="ui form">
         <div className="field">
-          <textarea placeholder="Share big Amerikan opinion" rows="1" onChange={this.onChange}>
+          <textarea placeholder="Share big Amerikan opinion" rows="1" value={this.state.content} onChange={this.onChange}>
           </textarea>
         </div>
         <div className="field">

@@ -4,20 +4,12 @@ const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'));
 
 const LoginController = {
   createAccount: (req, res) => {
-    console.log('START LOGIN CONTROLLER', req.body.newPassword);
-    bcrypt.genSaltAsync(10)
-      .then(salt => {
-        bcrypt.hashAsync(req.body.newPassword, salt, null)
-          .then(hashedPassword => {
-            console.log('Hash', hashedPassword);
-            DB.query(`INSERT INTO users (full_name, username, password, profile_picture) 
-                VALUES (?, ?, ?, ?) `, [req.body.fullName, req.body.newUsername, hashedPassword, req.body.profilePicture], (err, data) => {
-              if (err) {
-                console.log('Datafromcontroller', data, err);
-              }
-            });
-          });
-      });
+    DB.query(`INSERT INTO users (full_name, username, password, profile_picture) 
+        VALUES (?, ?, ?, ?) `, [req.body.fullName, req.body.newUsername, req.body.newPassword, req.body.profilePicture], (err, data) => {
+      if (err) {
+        console.log('Datafromcontroller', data, err);
+      }
+    });
   },
   Login: (req, res) => {
     DB.query('SELECT * FROM users WHERE username = ?', [req.params.username], (err, data) => {
