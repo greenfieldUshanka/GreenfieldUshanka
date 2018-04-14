@@ -1,6 +1,7 @@
 import React from 'react';
 const axios = require('axios');
 import { Redirect } from 'react-router-dom';
+import { Form, Button } from 'semantic-ui-react';
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -67,13 +68,12 @@ class SearchBar extends React.Component {
       }
     }
     return (
-      <form onSubmit={this.searchFriends}>
-        <label>
-          <input type="text" value={this.state.searchTerm} onChange={this.handleChange} placeholder="Search for friends"/>
-        </label>
-        <a> </a>
-        <input type="submit" className="mini ui button" value="Search" />
-      </form>
+      <Form onSubmit={this.searchFriends}>
+        <Form.Group>
+          <Form.Input size={'small'} placeholder='username' width={6} value={this.state.searchTerm} onChange={this.handleChange} placeholder="Search for friends"/>
+          <Button type="submit">Search</Button>
+        </Form.Group>  
+      </Form>
     )
   }
 }
