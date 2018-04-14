@@ -5,10 +5,10 @@ import Moment from 'react-moment';
 const Comment = (props) => (<div className="ui comments">
   <div className="comment">
     <a className="avatar">
-      <img src={props.comment.profile_image}/>
+      <img src={props.comment.profileImage}/>
     </a>
     <div className="content">
-      <a className="author">Whoops</a>
+      <a className="author"></a>
       <div className="metadata">
         <div className="date"><Moment fromNow>{props.comment.created_at}</Moment></div>
       </div>

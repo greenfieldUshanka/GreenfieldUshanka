@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios'
+import axios from 'axios';
 
 class PostInput extends React.Component {
   constructor(props) {
@@ -18,21 +18,15 @@ class PostInput extends React.Component {
   }
 
   submitPost(event) {
-    console.log(this.state.content);
-    var thisSubmitPost = this;
+    var component = this;
     event.preventDefault();
     axios.post('/postFeed', {
-      id: null,
-      post_text: this.state.content,
-      createdAt: null,
-      id_author: null,
-      id_wall: null,
-      profile_image: null,
-      like_count: null
+      postText: this.state.content,
+      idAuthor: component.props.id,
+      idWall: component.props.id // XXX: Replace with real idWall later
     }).then(function(response) {
-      console.log('Saved message to database!', response);
-      thisSubmitPost.props.fetchPostFeed();
-    })
+      component.props.fetchPostFeed();
+    });
   }
 
   render() {
@@ -47,7 +41,7 @@ class PostInput extends React.Component {
           <button className="ui button" role="button" onClick={this.submitPost}>Post</button>
         </div>
       </form>
-    </div>)
+    </div>);
   }
 }
 

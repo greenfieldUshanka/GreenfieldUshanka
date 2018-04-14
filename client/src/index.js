@@ -4,21 +4,15 @@ import Main from '../components/main';
 import Login from '../components/userLogin/Login.jsx';
 import './index.css';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import axios from 'axios';
-import PostInput from './components/PostInput.js';
-import Friends from './components/Friends.jsx'
-import Login from './components/Login.jsx';
-import PostList from './components/PostList.js';
+import Friends from '../components/Friends.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: '',
-      messages: []
+      id: ''
     };
     this.setAuth = this.setAuth.bind(this);
-    this.fetchPostFeed = this.fetchPostFeed.bind(this);
   }
 
   isAuthenticated() {
@@ -31,33 +25,13 @@ class App extends React.Component {
     this.setState({id: id});
   }
 
-  componentDidMount() {
-    this.fetchPostFeed();
-  }
-
-  fetchPostFeed() {
-    var thisIndex = this;
-    console.log('starting get request');
-    axios.get('/postFeed')
-    .then(function (response) {
-      console.log('back in the client', response);
-      var reverseData = response.data.reverse();
-      thisIndex.setState({
-        messages: reverseData
-      });
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
-  }
-
   render() {
     let component = this;
     return (
       <main>
         <Switch>
           <Route exact path='/' render={() => (component.isAuthenticated() ?
-            (<Main />)
+            (<Main id={component.state.id}/>)
             : (<Redirect to={{
               pathname: '/login',
               state: { from: component.location}}}/>)
@@ -65,11 +39,6 @@ class App extends React.Component {
           <Route exact path='/login' render={() => <Login setAuth={(id) => component.setAuth(id)}/>} />
           <Route exact path='/friends' component={Friends}/>
         </Switch>
-        <div>
-          <PostInput fetchPostFeed={this.fetchPostFeed}/>
-          <PostList posts={this.state.messages} fetchPostFeed={this.fetchPostFeed}/>
-          <Login />
-        </div>
       </main>
     );
   }
