@@ -1,23 +1,28 @@
 import React from 'react';
-import { Card, Image, Form, Grid, Button, Icon, Label } from 'semantic-ui-react';
+import { Card, Image, Form, Grid, TextArea, Button, Icon, Dropdown, Label } from 'semantic-ui-react';
 import './index.css';
 import Status from '../Status.jsx';
 import PostInput from '../post/PostInput.js';
 import PostList from '../post/PostList';
 import axios from 'axios';
 import moment from 'moment';
-
+const statusOptions = [{key: '3', text: '0 - 3', value: '0 - 3'}, 
+{key: '7', text: '4 - 7', value: '4 - 7'}, 
+{key: '8', text: '8 - 12', value: '8 - 12'}, 
+{key: '13+', text: '13++', value: '13++'}]
 
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       username: '',
-      work: '',
+      work: 'Unemployed',
       join: '',
       vodka: '',
-      profilePic: ''
-    };
+      profilePic: '',
+      vodkaTake: 'Vodka Consumption',
+    }
+    this.saveUserEditInformation = this.saveUserEditInformation.bind(this)
   }
 
   getUserInformation() {
@@ -31,8 +36,31 @@ class HomePage extends React.Component {
         });
       })
       .catch( err => {
+      })
+  }
 
-      });
+  saveUserEditInformation() {
+    const profileUpdate = {
+      status: this.state.status, 
+      work: this.state.work,
+      vodka: this.state.vodkaTake,
+      extra: this.state.extra, 
+    }
+
+    axios.post('/editprofile', profileUpdate)
+      .then( response => {
+        console.log('Response ', response)
+      })
+      .catch( err => {
+        console.log('Error ', err)
+      })
+  }
+
+  userVodkaTake(e, data) {
+    this.setState({
+      vodkaTake: data.value, 
+      vodka: data.value
+    })
   }
 
   componentDidMount() {
@@ -67,9 +95,8 @@ class HomePage extends React.Component {
               <Grid.Column width={6}>
                 <div className='friends-profile-information'>
                   <Card>
-                    <Card.Content icon='world' header= {`Ushanka member since ${moment(this.state.join).fromNow()}`}/>
-                    <Card.Content extra >
-                      <Status id={this.props.id}/>
+                    <Card.Content header= {`Ushanka member since ${moment(this.state.join).fromNow()}`}/>
+                    <Card.Content description={'Current Status: '} >
                     </Card.Content>
                     <Card.Content description={`Workplace: ${this.state.work}`} />
                     <Card.Content name='cocktail' description={`Vodka Consumption: ${this.state.vodka}`} />
@@ -80,25 +107,35 @@ class HomePage extends React.Component {
 
                 {/* ////////////////////////////////////////////////////////////////////////////////// User information  */}
                 <div className='user-profile-information'>
-                  <Form>
+                  <Form onSubmit={this.saveUserEditInformation}>
                     <div className='upi-personal-info'>
                       <Icon name='world' size={'large'} />
-                      <Label />
+                      <Label Update your personal Information/>
                     </div>
                     <div className='upi-status'>
                       <Status id={this.props.id} />
                     </div>
                     <div className='upi-workplace' >
-                      <Form.Input size={'small'} placeholder='Workplace ' width={8} />
+                      <Form.Input className='input-workplace' size={'small'} placeholder='Workplace ' />
                     </div>
                     <div className='upi-vodka'>
-                      <Form.Input size={'small'} placeholder='Vodka consumption ' width={6} />
+                      <Dropdown
+                        onChange={this.userVodkaTake.bind(this)}
+                        button 
+                        className='icon'
+                        floating
+                        labeled
+                        icon='cocktail'
+                        options={statusOptions}
+                        search
+                        text={this.state.vodkaTake}
+                      />
                     </div>
                     <div className='upi-text'>
-                      <Form.Input size={'small'} placeholder='What else is on your mind? ' width={6} />
+                      <Form.Input size={'small'} placeholder='What else is on your mind? ' />
                     </div>
                     <div className='upi-submit'>
-                      <Button type='submit'>Submit</Button>
+                      <Button type='submit'>Update Changes</Button>
                     </div>
                   </Form>
                 </div>

@@ -54,7 +54,7 @@
   border: solid lightgrey;
   border-width: 1px;
   border-radius: 4px;
-  height: 300px;
+  height: 400px;
   width: 70%;
   margin-top: 50px;
   margin-left: 25px;
@@ -65,7 +65,7 @@
   border: solid lightgrey;
   border-width: 0.50px;
   border-radius: 4px;
-  height: 50px;
+  height: 66.66px;
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 10px;
@@ -76,10 +76,11 @@
   border: solid lightgrey;
   border-width: 1px;
   border-radius: 4px;
-  height: 50px;
+  height: 66.66px;
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 10px;
+  padding-right: 10px;
 }
 
 .upi-status {
@@ -87,7 +88,7 @@
   border: solid lightgrey;
   border-width: 1px;
   border-radius: 4px;
-  height: 50px;
+  height: 66.66px;
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 10px;
@@ -98,18 +99,7 @@
   border: solid lightgrey;
   border-width: 1px;
   border-radius: 4px;
-  height: 50px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 10px;
-}
-
-.upi-vodka {
-  background-color: #fff; 
-  border: solid lightgrey;
-  border-width: 1px;
-  border-radius: 4px;
-  height: 50px;
+  height: 66.66px;
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 10px;
@@ -120,20 +110,36 @@
   border: solid lightgrey;
   border-width: 1px;
   border-radius: 4px;
-  height: 50px;
+  height: 66.66px;
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 10px;
 }
+
+.upi-vodka {
+  background-color: #fff; 
+  border: solid lightgrey;
+  border-width: 1px;
+  border-radius: 4px;
+  height: 66.66px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+}
+
 
 .upi-submit {
   background-color: #fff; 
   border: solid lightgrey;
   border-width: 1px;
   border-radius: 4px;
-  height: 50px;
+  height: 66.66px;
   padding-top: 10px;
   padding-bottom: 20px;
   padding-left: 10px;
 }
 
+.input-workplace {
+  padding-bottom: 10px; 
+  
+}
