@@ -1,5 +1,3 @@
-// I now know if they are my friend before this component is rendered, need to pass that value down in the prop and then update value once that changes?
-
 import React from 'react';
 const axios = require('axios');
 

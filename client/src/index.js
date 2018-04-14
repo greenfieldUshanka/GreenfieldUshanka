@@ -30,8 +30,9 @@ class App extends React.Component {
     return (
       <main>
         <Switch>
-          <Route exact path='/' render={() => (component.isAuthenticated() ?
-            (<Main id={component.state.id}/>)
+          <Route exact path ='/' render={() => <Redirect to={{ pathname: '/main'}}/>}/>
+          <Route path='/main' render={() => (component.isAuthenticated() ?
+            (<Main id={this.state.id}/>)
             : (<Redirect to={{
               pathname: '/login',
               state: { from: component.location}}}/>)

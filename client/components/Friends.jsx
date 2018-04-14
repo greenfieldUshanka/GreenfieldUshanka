@@ -1,5 +1,6 @@
 import React from 'react';
 import FriendCard from './FriendCard.jsx';
+import AppHeader from './appheader/index.js';
 
 class Friends extends React.Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class Friends extends React.Component {
   render() {
     return (
       <div>
+      <AppHeader onChange={this.props.onChange} id={this.props.id}/>
         <br/>
         Friends
         <div className="ui stackable cards">

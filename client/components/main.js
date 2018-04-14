@@ -3,6 +3,7 @@ import AppHeader from './appheader';
 import HomePage from './homepage';
 import axios from 'axios';
 import Friends from './Friends.jsx';
+import { Switch, Route } from 'react-router-dom';
 
 class Main extends React.Component {
   constructor(props) {
@@ -50,8 +51,10 @@ class Main extends React.Component {
       <div>
         <AppHeader onChange={this.handleChange} id={this.props.id}/>
         <div className="container">
-          <HomePage id={this.props.id} posts={this.state.messages} fetchPostFeed={this.fetchPostFeed}/>
-          <Friends friends={this.state.friends} id={this.props.id} potentialFriends={this.state.potentialFriends}/>
+            <Switch>
+              <Route exact path ='/main/friends' render={() => <Friends onChange={this.handleChange} friends={this.state.friends} id={this.props.id} potentialFriends={this.state.potentialFriends}/>} />
+              <Route exact path ='/main' render={() => <HomePage id={this.props.id} posts={this.state.messages} fetchPostFeed={this.fetchPostFeed}/>} />
+            </Switch>
         </div>
       </div>
     );
