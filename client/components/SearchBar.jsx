@@ -9,14 +9,18 @@ class SearchBar extends React.Component {
     this.state = {
       searchTerm: '',
       toFriends: false,
+      mounted: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.searchFriends = this.searchFriends.bind(this);
+    this.preventRedirect = this.preventRedirect.bind(this);
   }
 
   componentDidMount() {
-
+    this.setState({
+      mounted: true
+    });
   }
 
   handleChange(e) {
@@ -37,7 +41,7 @@ class SearchBar extends React.Component {
       searchThis.props.onChange(res);
       searchThis.setState({
         searchTerm: '',
-        toFriends: true, // this is causing redirect when already on main/friends
+        toFriends: true,
       });
     })
     .catch(function (err) {
@@ -46,12 +50,21 @@ class SearchBar extends React.Component {
     e.preventDefault();
   }
 
+  preventRedirect() {
+      this.setState({
+      toFriends: false,
+    });
+  }
+
 
   render() {
-    if (this.state.toFriends === true && this.props.currentPage !== 'friends') { // handle this differently
+    if (this.state.toFriends && this.props.currentPage !== 'friends') {
+      if(this.state.mounted) {
+        this.preventRedirect();
       return <Redirect to={{
         pathname: '/main/friends',
     }}/>
+      }
     }
     return (
       <form onSubmit={this.searchFriends}>

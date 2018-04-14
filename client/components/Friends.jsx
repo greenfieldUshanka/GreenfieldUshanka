@@ -18,8 +18,10 @@ class Friends extends React.Component {
         <br/>
         Friends
         <div className="ui stackable cards">
-            {this.props.friends.map(f => <FriendCard friend={f} id={this.props.id} key={f.id}/>)}
+          <br/>
+            {this.props.friends.length ? this.props.friends.map(f => <FriendCard friend={f} id={this.props.id} key={f.id}/>) : "You have no friends with that name!"}
         </div>
+        <br/>
         Potential Friends
         <div className="ui stackable cards">
             {this.props.potentialFriends.map(f => <FriendCard friend={f} id={this.props.id} key={f.id}/>)}
