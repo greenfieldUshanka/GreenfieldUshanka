@@ -25,6 +25,9 @@ class PostInput extends React.Component {
       idAuthor: component.props.id,
       idWall: component.props.id // XXX: Replace with real idWall later
     }).then(function(response) {
+      component.setState({
+        content: ''
+      });
       component.props.fetchPostFeed();
     });
   }
@@ -34,7 +37,7 @@ class PostInput extends React.Component {
       <form className="ui form">
         <div className="field">
           <label>Post Message</label>
-          <textarea placeholder="Type Amerikan words" rows="3" onChange={this.onChange}>
+          <textarea placeholder="Type Amerikan words" rows="3" value={this.state.content} onChange={this.onChange}>
           </textarea>
         </div>
         <div className="field">

@@ -12,7 +12,8 @@ class Main extends React.Component {
       messages: [],
       friends: [],
       potentialFriends: [],
-      currentPage: 'homepage' //update this to whatever is first loaded
+      currentPage: 'homepage', //update this to whatever is first loaded
+      wallId: this.props.id, 
     };
     this.fetchPostFeed = this.fetchPostFeed.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -32,6 +33,16 @@ class Main extends React.Component {
         return (data.id !== this.props.id && data.is_my_friend === '0');
       })
     });
+  }
+
+  fetchUsersInfo() {
+    axios.get(`/render/wall/${this.state.wallId}`)
+      .then( response => {
+        console.log(response) 
+      })
+      .catch( err => {
+        console.log('Error from main.js', err)
+      })
   }
 
   fetchPostFeed() {

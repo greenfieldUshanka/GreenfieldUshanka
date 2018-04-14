@@ -5,7 +5,7 @@ const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'));
 const LoginController = {
   createAccount: (req, res) => {
     DB.query(`INSERT INTO users (full_name, username, password, profile_picture) 
-        VALUES (?, ?, ?, ?) `, [req.body.fullName, req.body.newUsername, hashedPassword, req.body.profilePicture], (err, data) => {
+        VALUES (?, ?, ?, ?) `, [req.body.fullName, req.body.newUsername, req.body.newPassword, req.body.profilePicture], (err, data) => {
       if (err) {
         console.log('Datafromcontroller', data, err);
       }

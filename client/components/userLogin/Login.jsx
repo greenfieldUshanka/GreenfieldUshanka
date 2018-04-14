@@ -1,6 +1,8 @@
 import React from 'react'; 
 import { Image, Form, Grid, Button } from 'semantic-ui-react';
 import axios from "axios";
+const Promise = require('bluebird');
+const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'));
 import './index.css';
 import {Redirect} from 'react-router-dom';
 
@@ -27,22 +29,28 @@ class Login extends React.Component {
   }
 
   handleCreateAccount(event) {
-    const newUserInfo = {
-      fullName: this.state.fullName,
-      newUsername: this.state.newUsername,
-      newPassword: this.state.newPassword,
-      profilePicture:
-        "https://source.unsplash.com/1600x900/?featured/?dog,cat,robots"
-    };
-
-    axios
-      .post("/newAccount/", newUserInfo)
-      .then(response => {
+    bcrypt.genSaltAsync(10) 
+      .then(salt => {
+        bcrypt.hashAsync(this.state.newPassword, salt, null)
+          .then(hashedPassword => {
+            const newUserInfo = {
+              fullName: this.state.fullName,
+              newUsername: this.state.newUsername,
+              newPassword: hashedPassword,
+              profilePicture:
+                "https://source.unsplash.com/1600x900/?featured/?dog,cat,robots"
+            };
+            axios
+              .post("/newAccount/", newUserInfo)
+              .then(response => {
+                console.log("Response from handleCreateAccount", response);
+              })
+              .catch(err => {
+                console.log("Error from handleCreateAccount", err);
+              });
+            event.preventDefault();
+          })
       })
-      .catch(err => {
-        console.log("Error from handleCreateAccount", err);
-      });
-    event.preventDefault();
   }
 
   handleLogin(event) {
