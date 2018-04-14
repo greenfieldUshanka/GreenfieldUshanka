@@ -40,10 +40,19 @@ class Login extends React.Component {
               profilePicture:
                 "https://source.unsplash.com/1600x900/?featured/?dog,cat,robots"
             };
+            let component = this;
             axios
               .post("/newAccount/", newUserInfo)
               .then(response => {
-                console.log("Response from handleCreateAccount", response);
+                if (response.data === 'exists') {
+                  alert("Username is taken! Choose a new one.");
+                } else if (response.data.id) {
+                  component.props.setAuth(response.data.id);
+                  component.setState({
+                    isLoggedIn: true
+                  });
+                  // component.render();
+                }
               })
               .catch(err => {
                 console.log("Error from handleCreateAccount", err);
@@ -58,10 +67,14 @@ class Login extends React.Component {
     axios
       .get(`/Login/${this.state.username}/${this.state.password}`)
       .then(response => {
-        component.props.setAuth(response.data.id);
-        component.setState({
-          isLoggedIn: true
-        });
+        if(response.data === 'wrong') {
+          alert("Wrong username or password!");
+        } else {
+          component.props.setAuth(response.data.id);
+          component.setState({
+            isLoggedIn: true
+          });
+        }
       })
       .catch(err => {
         console.log("Error from handleLogin", err);
