@@ -61,7 +61,7 @@ class Main extends React.Component {
         <div className="container">
             <Switch>
               <Route exact path ='/main/friends' render={() => <Friends onChange={this.handleChange} changePage={this.changePage} friends={this.state.friends} id={this.props.id} potentialFriends={this.state.potentialFriends}/>} />
-              <Route exact path ='/main' render={() => <HomePage changePage={this.changePage} id={this.props.id}/>} posts={this.state.messages} fetchPostFeed={this.fetchPostFeed}/>} />
+              <Route exact path ='/main' render={() => <HomePage posts={this.state.messages} fetchPostFeed={this.fetchPostFeed} changePage={this.changePage} id={this.props.id}/>} />
             </Switch>
         </div>
       </div>
