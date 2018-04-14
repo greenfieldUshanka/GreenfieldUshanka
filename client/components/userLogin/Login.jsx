@@ -94,7 +94,7 @@ class Login extends React.Component {
     <div>
       <Grid>
         <Grid.Column width={8} className='left-side-Login' >
-        <Image src='https://source.unsplash.com/1600x900/?featured/?dog,cat,robots' size='large' />
+        <Image src='https://source.unsplash.com/1600x900/?featured/?dog,cat,robots' size='large' rounded/>
 
         </Grid.Column>
         <Grid.Column width={8} >

@@ -22,6 +22,7 @@ class Status extends Component {
       id: this.state.id,
       mood: data.value
     }
+    //Save status in the database? 
     
     // axios.post('/status', payload)
     //   .then( response => {

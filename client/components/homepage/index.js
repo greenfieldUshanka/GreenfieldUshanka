@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Image, Form, Grid, TextArea, Button, Icon, Header, Label } from 'semantic-ui-react';
+import GridColumn, { Card, Image, Form, Grid, TextArea, Button, Icon, Header, Label, Advertisement } from 'semantic-ui-react';
 import './index.css';
 import Status from '../Status.jsx';
 import PostInput from '../post/PostInput.js';
@@ -44,34 +44,17 @@ class HomePage extends React.Component {
   render() {
     return (
       <div>
-      <header class='home-page-header' >
-      <Grid >
-        <Grid.Row>
-          <Grid.Column width={5} > 
-            <Form>
-              <Form.Field inline>
-                <h1>ushanka</h1>
-              </Form.Field>
-            </Form>
-          </Grid.Column>
-          <Grid.Column width={9} className='search-friends-bar' >
-            <Form>
-              <Form.Input icon='users' iconPosition='left' placeholder='Search users...' />
-            </Form>
-          </Grid.Column>
-          <Grid.Column width={2} className='logout-button'>
-          <Button>Log out</Button>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-      </header>
       <div className="container-full-page" >
         <Grid>
           <Grid.Row>
             <Grid.Column width={16}>
-              <Image src='https://source.unsplash.com/1600x400/?nature' rounded  /> 
-            </Grid.Column>
+              <div>
+                <Image src='https://source.unsplash.com/1600x400/?nature' rounded  /> 
+                <div className='username-on-image'><h1>{this.state.username}</h1></div>
+              </div>
+            </Grid.Column >
           </Grid.Row>
+
           <Grid.Row>
             <Grid.Column >
               <div className='profile-picture'>
@@ -80,11 +63,12 @@ class HomePage extends React.Component {
             </div>
             </Grid.Column>
           </Grid.Row>
+{/* /////////////////////////////////////////////////////////////////////////////// Friends information  */}
           <Grid.Row>
             <Grid.Column width={6}>
-            <div className='profile-information'>
+            <div className='friends-profile-information'>
             <Card>
-            <Card.Content header={ `${this.state.username}` } />
+            <Card.Content icon='world' header= {`Ushanka member since ${moment(this.state.join).fromNow()}`}/>
             <Card.Content extra >
               <Status  id={this.props.id}/>
             </Card.Content>
@@ -93,6 +77,34 @@ class HomePage extends React.Component {
             <Card.Content  description={'Personal information'} />
             </Card>
             </div>
+{/* /////////////////////////////////////////////////////////////////////////////// Friends information  */}
+
+{/* ////////////////////////////////////////////////////////////////////////////////// User information  */}
+            <div className='user-profile-information'>
+              <Form>
+                <div className='upi-personal-info'>
+
+                  <Icon name='world' size={'large'} />
+                </div>
+                <div className='upi-status'>
+                  <Status id={this.props.id} />
+                </div>
+                <div className='upi-workplace' >
+                  <Form.Input size={'small'} placeholder='Workplace ' width={8} />
+                </div>
+                <div className='upi-vodka'>
+                  <Form.Input size={'small'} placeholder='Vodka consumption ' width={6} />
+                </div>
+                <div className='upi-text'>
+                  <Form.Input size={'small'} placeholder='What else is on your mind? ' width={6} />
+                </div>
+                <div className='upi-submit'>
+                <Button type='submit'>Submit</Button>
+                </div>
+              </Form>
+            </div>
+
+{/* ////////////////////////////////////////////////////////////////////////////////// User information  */}
             </Grid.Column>
             <Grid.Column width={10}>
               <PostInput id={this.props.id} fetchPostFeed={this.props.fetchPostFeed}/>
