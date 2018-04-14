@@ -83,8 +83,8 @@ class HomePage extends React.Component {
             <div className='user-profile-information'>
               <Form>
                 <div className='upi-personal-info'>
-
                   <Icon name='world' size={'large'} />
+                  <Label />
                 </div>
                 <div className='upi-status'>
                   <Status id={this.props.id} />
