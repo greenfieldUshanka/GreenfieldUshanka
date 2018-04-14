@@ -1,7 +1,9 @@
 import React from 'react';
-import { Card, Image, Form, Grid, TextArea, Button } from 'semantic-ui-react';
+import { Card, Image, Form, Grid, Button } from 'semantic-ui-react';
 import './index.css';
 import Status from '../Status.jsx';
+import PostInput from '../post/PostInput.js';
+import PostList from '../post/PostList';
 
 const HomePage = (props) => {
   return (
@@ -9,75 +11,20 @@ const HomePage = (props) => {
       <Grid>
         <Grid.Row>
           <Grid.Column width={16}>
-            <Image src='https://source.unsplash.com/851x205/?cat' />
+            <Image src='https://source.unsplash.com/960x205/?cat' />
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={6}>
             Username goes here
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row>
-          <Grid.Column width={6}>
-            <Status />
+            <div><Status /></div>
             <div>Personal Info</div>
             <div>More stuff</div>
             <div>Even more profile info</div>
           </Grid.Column>
           <Grid.Column width={10}>
-            <Form>
-              <div>
-                <TextArea className="newPost" placeholder="Make a post" rows={3}></TextArea>
-              </div>
-              <div>
-                <Button>Post</Button>
-              </div>
-            </Form>
-            <Card className="post" fluid>
-              <Card.Content>
-                <Card.Header>
-                  Username
-                </Card.Header>
-                <Card.Meta>
-                  <span className='date'>
-                    Date of post
-                  </span>
-                </Card.Meta>
-                <Card.Description>
-                  Post Content
-                </Card.Description>
-              </Card.Content>
-            </Card>
-            <Card className="post" fluid>
-              <Card.Content>
-                <Card.Header>
-                  Username
-                </Card.Header>
-                <Card.Meta>
-                  <span className='date'>
-                    Date of post
-                  </span>
-                </Card.Meta>
-                <Card.Description>
-                  Post Content2
-                </Card.Description>
-              </Card.Content>
-            </Card>
-            <Card className="post" fluid>
-              <Card.Content>
-                <Card.Header>
-                  Username
-                </Card.Header>
-                <Card.Meta>
-                  <span className='date'>
-                    Date of post
-                  </span>
-                </Card.Meta>
-                <Card.Description>
-                  Post Content3
-                </Card.Description>
-              </Card.Content>
-            </Card>
+            <PostInput id={props.id} fetchPostFeed={props.fetchPostFeed}/>
+            <PostList id={props.id} posts={props.posts} fetchPostFeed={props.fetchPostFeed}/>
           </Grid.Column>
         </Grid.Row>
       </Grid>

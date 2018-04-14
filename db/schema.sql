@@ -31,6 +31,7 @@ CREATE TABLE comments (
   `text_comment` TEXT NOT NULL,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `id_post` INT,
+  `id_author` INT,
   PRIMARY KEY (`id`)
 );
 

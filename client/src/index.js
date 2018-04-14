@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Main from '../components/main';
 import Login from '../components/userLogin/Login.jsx';
-import Friends from '../components/Friends.jsx';
 import './index.css';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import Friends from '../components/Friends.jsx';
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       id: ''
     };
@@ -31,7 +31,7 @@ class App extends React.Component {
       <main>
         <Switch>
           <Route exact path='/' render={() => (component.isAuthenticated() ?
-            (<Main />)
+            (<Main id={component.state.id}/>)
             : (<Redirect to={{
               pathname: '/login',
               state: { from: component.location}}}/>)
