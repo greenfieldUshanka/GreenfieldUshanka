@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Input, Grid, Header, Button} from 'semantic-ui-react';
+import {Form, Grid, Button} from 'semantic-ui-react';
 import './index.css';
 import SearchBar from '../SearchBar.jsx';
 
@@ -18,18 +18,18 @@ const AppHeader = (props) => {
             </Form>
           </Grid.Column>
           <Grid.Column width={1}>
-            </Grid.Column>
+          </Grid.Column>
           <Grid.Column width={6} className='search-friends-bar' >
-          <SearchBar onChange={props.onChange} currentPage={props.currentPage} id={props.id}/>
+            <SearchBar onChange={props.onChange} currentPage={props.currentPage} id={props.id}/>
           </Grid.Column>
           <Grid.Column width={1}>
-            </Grid.Column>
-            <Grid.Column width={1}>
-            </Grid.Column>
-            <Grid.Column width={1}>
-            </Grid.Column>
+          </Grid.Column>
+          <Grid.Column width={1}>
+          </Grid.Column>
+          <Grid.Column width={1}>
+          </Grid.Column>
           <Grid.Column width={2} >
-          <Button className='logout-button' onClick={props.logout} >Log out</Button>
+            <Button className='logout-button' onClick={props.logout} >Log out</Button>
           </Grid.Column>
         </Grid.Row>
       </Grid>

@@ -38,16 +38,16 @@ class Main extends React.Component {
   fetchUsersInfo() {
     axios.get(`/render/wall/${this.state.wallId}`)
       .then( response => {
-        console.log(response) 
+        console.log(response); 
       })
       .catch( err => {
-        console.log('Error from main.js', err)
-      })
+        console.log('Error from main.js', err);
+      });
   }
 
   fetchPostFeed() {
     let thisIndex = this;
-    axios.get('/postFeed')
+    axios.get('/postFeed/' + this.props.id) // XXX: Change this to wall_id later
       .then(function (response) {
         thisIndex.setState({
           messages: response.data
