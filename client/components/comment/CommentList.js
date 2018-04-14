@@ -4,7 +4,7 @@ import Comment from './Comment.js';
 const CommentList = (props) => {
   return (
     <div>
-      {props.comments.map(comment => <Comment comment={comment} key={comment._id} />)}
+      {props.comments.map((comment, i) => <Comment comment={comment} key={i} />)}
     </div>
   );
 };

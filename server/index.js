@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const session = require('express-session');
+const session = require('cookie-session');
 const router = require('./routes/index.js');
 const path = require('path');
 const PORT = process.env.PORT;
@@ -15,9 +15,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(session({
   secret: 'super secret stuff',
-  cookie: { maxAge: 60000 },
-  resave: true,
-  saveUninitialized: false
+  maxAge: 8640000000
 }));
 app.use(express.static(__dirname + '/../client/public'));
 app.use('/', router);

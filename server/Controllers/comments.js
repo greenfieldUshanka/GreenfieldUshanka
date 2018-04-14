@@ -23,7 +23,6 @@ var fetchComments = function (req, res) {
     } else {
       res.send(
         data.map(row => {
-          console.log(row);
           return {
             textComment: row.text_comment,
             createdAt: row.created_at,

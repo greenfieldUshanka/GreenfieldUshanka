@@ -23,7 +23,6 @@ class App extends React.Component {
       .get("/userSession")
       .then(response => {
         if (response.data.id) {
-          console.log('good stuff', response.data.id);
           this.setState({
             id: response.data.id,
             hasSession: true
@@ -40,12 +39,10 @@ class App extends React.Component {
   }
 
   isAuthenticated() {
-    console.log('isAuth:', !!this.state.id);
     return !!this.state.id;
   }
 
   setAuth(id) {
-    console.log('Setting id: ', id);
     this.setState({id: id});
   }
 
