@@ -60,6 +60,16 @@
   margin-left: 25px;
 }
 
+.friends-list {
+  background-color: #fff;
+  border: solid lightgrey;
+  border-width: 1px;
+  border-radius: 4px;
+  width: 70%;
+  margin-top: 50px;
+  margin-left: 25px;
+}
+
 .upi-personal-info {
   background-color: #fff; 
   border: solid lightgrey;
@@ -143,3 +153,4 @@
   padding-bottom: 10px; 
   
 }
+

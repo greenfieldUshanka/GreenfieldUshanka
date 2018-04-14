@@ -21,7 +21,7 @@ class HomePage extends React.Component {
       vodka: '',
       profilePic: '',
       vodkaTake: 'Vodka Consumption',
-      wallId: this.props.id
+      friends: []
     };
     this.saveUserEditInformation = this.saveUserEditInformation.bind(this);
   }
@@ -38,6 +38,10 @@ class HomePage extends React.Component {
       })
       .catch( err => {
       });
+  }
+
+  getFriends() {
+
   }
 
   saveUserEditInformation() {
@@ -65,7 +69,8 @@ class HomePage extends React.Component {
   }
 
   componentDidMount() {
-    this.getUserInformation(); 
+    this.getUserInformation();
+    this.getFriends();
     this.props.changePage('homepage');
   }
 
@@ -140,11 +145,14 @@ class HomePage extends React.Component {
                     </div>
                   </Form>
                 </div>
+                <div className='friends-list'>
+                  <h4>Friends List</h4>
+                </div>
 
                 {/* ////////////////////////////////////////////////////////////////////////////////// User information  */}
               </Grid.Column>
               <Grid.Column width={10}>
-                <PostInput id={this.props.id} fetchPostFeed={this.props.fetchPostFeed}/>
+                <PostInput wallId={this.props.wallId} fetchPostFeed={this.props.fetchPostFeed}/>
                 <PostList id={this.props.id} posts={this.props.posts} fetchPostFeed={this.props.fetchPostFeed}/>
               </Grid.Column>
             </Grid.Row>

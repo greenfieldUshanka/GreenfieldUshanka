@@ -47,7 +47,7 @@ class Main extends React.Component {
 
   fetchPostFeed() {
     let thisIndex = this;
-    axios.get('/postFeed/' + this.props.id) // XXX: Change this to wall_id later
+    axios.get('/postFeed/' + this.state.wallId)
       .then(function (response) {
         thisIndex.setState({
           messages: response.data
