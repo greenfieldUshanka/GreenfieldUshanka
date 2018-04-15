@@ -49,9 +49,11 @@ class Main extends React.Component {
     let thisIndex = this;
     axios.get('/postFeed/' + this.props.id) // XXX: Change this to wall_id later
       .then(function (response) {
-        thisIndex.setState({
-          messages: response.data
-        });
+        if (response.data && response.data.length > 0) {
+          thisIndex.setState({
+            messages: response.data
+          });  
+        }
       })
       .catch(function (err) {
         console.log(err);
