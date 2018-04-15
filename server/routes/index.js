@@ -8,6 +8,7 @@ const PersonalInfoController = require('../controllers/personalInfoController');
 
 router.get('/friends', friends.searchFriends);
 router.post('/togglefriend', friends.toggleFriend);
+router.get('/friends/:id', friends.getFriends);
 
 router.post('/postFeed', posts.savePosts);
 router.get('/postFeed/:id', posts.fetchPosts);

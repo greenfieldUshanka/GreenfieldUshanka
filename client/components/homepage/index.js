@@ -27,7 +27,7 @@ class HomePage extends React.Component {
   }
 
   getUserInformation() {
-    axios.get(`/userProfileInfo/${this.props.id}`)
+    axios.get(`/userProfileInfo/${this.props.wallId}`)
       .then( response => {
         this.setState({
           username: response.data.username,
@@ -41,7 +41,18 @@ class HomePage extends React.Component {
   }
 
   getFriends() {
-
+    let component = this;
+    axios.get('/friends/' + this.props.id)
+      .then(response => {
+        if (response.data && response.data.length > 0) {
+          component.setState({
+            friends: response.data
+          });
+        }
+      })
+      .catch(err => {
+        console.log('error getting friends:', err);
+      })
   }
 
   saveUserEditInformation() {
@@ -146,13 +157,16 @@ class HomePage extends React.Component {
                   </Form>
                 </div>
                 <div className='friends-list'>
-                  <h4>Friends List</h4>
+                  <h3>Friends List</h3>
+                  {this.state.friends.map(friend =>
+                    <Image onClick={() => this.props.setWallId(friend.id)} src={friend.profile_picture} label={friend.full_name} size='small' key={friend.id} />
+                  )}
                 </div>
 
                 {/* ////////////////////////////////////////////////////////////////////////////////// User information  */}
               </Grid.Column>
               <Grid.Column width={10}>
-                <PostInput wallId={this.props.wallId} fetchPostFeed={this.props.fetchPostFeed}/>
+                <PostInput id={this.props.id} wallId={this.props.wallId} fetchPostFeed={this.props.fetchPostFeed}/>
                 <PostList id={this.props.id} posts={this.props.posts} fetchPostFeed={this.props.fetchPostFeed}/>
               </Grid.Column>
             </Grid.Row>
