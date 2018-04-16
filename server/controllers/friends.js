@@ -19,6 +19,19 @@ const searchFriends = function(req, res) {
   }
 };
 
+const getFriends = function(req, res) {
+  const userId = req.params.id;
+  con.query('SELECT `username`, `full_name`, `profile_picture`, users.`id` ' +
+    'FROM `users` INNER JOIN `user_friends` `uf` ON ' +
+    'uf.`id_one`=users.`id` WHERE uf.`id_two`=?', [userId], function(err, data) {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.send(data);
+    }
+  });
+};
+
 const toggleFriend = function(req, res) {
   const potentialFriendId = req.body.potentialFriendId;
   const id = req.body.id;
@@ -52,3 +65,4 @@ const toggleFriend = function(req, res) {
 
 exports.searchFriends = searchFriends;
 exports.toggleFriend = toggleFriend;
+exports.getFriends = getFriends;

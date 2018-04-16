@@ -18,10 +18,18 @@ class Main extends React.Component {
     this.fetchPostFeed = this.fetchPostFeed.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.changePage = this.changePage.bind(this);
+    this.setWallId = this.setWallId.bind(this);
   }
 
   componentDidMount() {
     this.fetchPostFeed();
+  }
+
+  setWallId(id) {
+    this.setState({
+      wallId: id
+    });
+    this.fetchPostFeed(id); // XXX: fix this later
   }
 
   handleChange(obj) {
@@ -38,19 +46,19 @@ class Main extends React.Component {
   fetchUsersInfo() {
     axios.get(`/render/wall/${this.state.wallId}`)
       .then( response => {
-        console.log(response); 
+        console.log(response);
       })
       .catch( err => {
         console.log('Error from main.js', err);
       });
   }
 
-  fetchPostFeed() {
+  fetchPostFeed(wallId = this.state.wallId) {
     let thisIndex = this;
-    axios.get('/postFeed/' + this.props.id) // XXX: Change this to wall_id later
+    axios.get('/postFeed/' + wallId)
       .then(function (response) {
         thisIndex.setState({
-          messages: response.data
+          messages: response.data || []
         });
       })
       .catch(function (err) {
@@ -71,7 +79,7 @@ class Main extends React.Component {
         <div className="container">
           <Switch>
             <Route exact path ='/main/friends' render={() => <Friends onChange={this.handleChange} changePage={this.changePage} friends={this.state.friends} id={this.props.id} potentialFriends={this.state.potentialFriends}/>} />
-            <Route exact path ='/main' render={() => <HomePage posts={this.state.messages} fetchPostFeed={this.fetchPostFeed} changePage={this.changePage} id={this.props.id}/>} />
+            <Route exact path ='/main' render={() => <HomePage setWallId={(id) => this.setWallId(id)} wallId={this.state.wallId} posts={this.state.messages} fetchPostFeed={this.fetchPostFeed} changePage={this.changePage} id={this.props.id}/>} />
           </Switch>
         </div>
       </div>

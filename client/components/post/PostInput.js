@@ -23,7 +23,7 @@ class PostInput extends React.Component {
     axios.post('/postFeed', {
       postText: this.state.content,
       idAuthor: component.props.id,
-      idWall: component.props.id // XXX: Replace with real idWall later
+      idWall: component.props.wallId
     }).then(function(response) {
       component.setState({
         content: ''
