@@ -1,12 +1,12 @@
 import React from 'react';
-import {Form, Grid, Button} from 'semantic-ui-react';
+import {Form, Grid, Button, Input, Icon, Header} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import './index.css';
 import SearchBar from '../SearchBar.jsx';
 
 
 const AppHeader = (props) => {
-  
+  console.log(props)
   return (
     <header className='home-page-header'>
       <Grid>
@@ -14,9 +14,10 @@ const AppHeader = (props) => {
           <Grid.Column width={4} > 
             <Form>
               <Form.Field inline>
-                <h1>
+              <Header as='h6' icon>
+                <Icon onClick={() => props.setWallId(props.id)} color={'grey'} name='home' />
+              </Header> 
                   <Link className='name' to={'/main'}>ushanka</Link>
-                </h1>
               </Form.Field>
             </Form>
           </Grid.Column>
