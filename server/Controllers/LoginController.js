@@ -27,10 +27,12 @@ const LoginController = {
 
   },
   Login: (req, res) => {
+    console.log('LOGIN CONTROLLER: ', req.params.username)
     DB.query('SELECT * FROM users WHERE username = ?', [req.params.username], (err, data) => {
       if (data.length) {
         bcrypt.compareAsync(req.params.password, data[0].password)
           .then(response => {
+            
             if(response) {
               req.session.userId = data[0].id;
               console.log('setting stuff: ', req.session.userId);
