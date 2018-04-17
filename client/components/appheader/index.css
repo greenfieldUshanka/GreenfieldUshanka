@@ -4,7 +4,7 @@
   padding-left: 50px;
   margin-top: 0px;
   background-color: #800020;
-  height: 80px;
+  height: 70px;
   position: relative;
   width: 100%;
   border-bottom: 1px solid #800020;
@@ -14,13 +14,11 @@
 .logout-button {
   margin: auto; 
   background-color: aqua; 
+  float: right; 
 }
 
 .name {
   color: white;
+  font-size: 30px;
+  font-weight: bold;
 }
-
-/* #home-page-header .search-friends-bar {
-  margin-left: -180px;
-} */
-
