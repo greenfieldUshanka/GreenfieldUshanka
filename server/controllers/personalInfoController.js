@@ -4,7 +4,10 @@ const PersonalInfoController = {
   GetProfileInformation: (req, res) => {
     console.log('PERSONAL INFORMATION CONTROLLER', req.body.id)
     DB.query('SELECT * from users WHERE id=?', [req.params.id], (err, data) => {
-      if (err) { console.log('Error from personalInfo', err); }
+      if (err) {
+        console.log('Error from personalInfo', err);
+        res.send(err);
+      }
       res.status(200).send({
         username: data[0].username, 
         profilePic: data[0].profile_picture, 
@@ -19,8 +22,11 @@ const PersonalInfoController = {
   SaveUpdatedProfile: (req, res) => {
     DB.query(`UPDATE users SET work = ? , vodka_consumption = ? , txt = ? , status = ? WHERE id = ?`, 
     [req.body.work, req.body.vodka, req.body.extra, req.body.status, req.body.id], (err, data) => {
-      if (err) {console.log('Error from personalInfoController', err); }
-      res.status(200).send('Succes')
+      if (err) {
+        console.log('Error from personalInfoController', err);
+        res.send(err);
+      }
+      res.status(200).send('Succes');
     }); 
   }
 };
