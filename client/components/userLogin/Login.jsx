@@ -63,6 +63,7 @@ class Login extends React.Component {
 
   handleLogin(event) {
     let component = this;
+    console.log('FROM LOGIN.JSX', this.state.username)
     axios
       .get(`/Login/${this.state.username}/${this.state.password}`)
       .then(response => {
@@ -105,7 +106,7 @@ class Login extends React.Component {
             <Form.Input name='username' size={'small'} placeholder='username' width={6} onChange={this.userAllInputFieldsChange.bind(this)} />
             <Form.Input name='password' size={'small'} type='password' placeholder='password' autoComplete='off' width={6} onChange={this.userAllInputFieldsChange.bind(this)} />
             <Button type='submit'>Login</Button>
-          </Form.Group >
+          </Form.Group>
           </Form> 
           </Grid.Column>
         </Grid.Row>
@@ -114,8 +115,9 @@ class Login extends React.Component {
     <div>
       <Grid>
         <Grid.Column width={8} className='left-side-Login' >
-        <Image src='https://source.unsplash.com/1600x900/?featured/?dog,cat,robots' size='large' rounded/>
-
+        <div className='left-picture' >
+        <Image src='https://source.unsplash.com/300x300/?featured/?dog,cat,robots' size='large' rounded/>
+        </div>
         </Grid.Column>
         <Grid.Column width={8} >
         <Form className='STARTING-FORM' onSubmit={this.handleCreateAccount} > 

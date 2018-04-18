@@ -1,3 +1,8 @@
+.container-full-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1em 1em 1em;
+}
 
 .home-page-header {
   top: 0;
@@ -12,19 +17,10 @@
   color: #fff;
 }
 
-.logout-button {
-  margin-right: -1200px;
-}
-
 .search-friends-bar {
   margin-left: -180px;
 }
 
-.container-full-page {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1em 1em 1em;
-}
 
 .username-on-image {
   position: absolute;
@@ -32,11 +28,6 @@
   left: 35%;
   transform: translate(-50%, -50%);
   color: #fff; 
-}
-
-.profile-picture {
-  margin-top: -200px; 
-  margin-left: 30px;
 }
 
 .friends-profile-information {
@@ -152,5 +143,29 @@
 .input-workplace {
   padding-bottom: 10px; 
   
+}
+
+.friends-list {
+  background-color: #fff; 
+  border: solid lightgrey;
+  border-width: thin;
+  height: 120px;
+  width: 72%; 
+  float: right; 
+  border-radius: 4px;
+  margin-top: -120px;
+  padding: 10px; 
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.profile-picture {
+  margin-top: -200px; 
+  margin-left: 30px;
+}
+
+.friend-entry {
+  flex: 0 0 auto;
 }
 
