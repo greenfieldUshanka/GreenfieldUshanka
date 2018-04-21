@@ -30,4 +30,6 @@ router.route('/userProfileInfo/:id')
 router.route('/editprofile')
   .post(PersonalInfoController.SaveUpdatedProfile);
 
+
+
 module.exports = router; 

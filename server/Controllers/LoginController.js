@@ -27,11 +27,13 @@ const LoginController = {
 
   },
   Login: (req, res) => {
+    console.log('LOGIN CONTROLLER: ', req.params.username)
     DB.query('SELECT * FROM users WHERE username = ?', [req.params.username], (err, data) => {
       if (data.length) {
         bcrypt.compareAsync(req.params.password, data[0].password)
           .then(response => {
-            if(response) {
+            
+            if (response) {
               req.session.userId = data[0].id;
               console.log('setting stuff: ', req.session.userId);
               res.status(200).send({id: data[0].id});
@@ -42,6 +44,8 @@ const LoginController = {
           .catch(err => {
             res.status(404).send('Request failed');
           });
+      } else {
+        res.send('wrong'); 
       }
     });
 
