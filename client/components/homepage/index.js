@@ -51,8 +51,8 @@ class HomePage extends React.Component {
     console.log('handleMsg', this.state.currentMsg);
   }
 
-  getUserInformation() {
-    axios.get(`/userProfileInfo/${this.state.viewId}`)
+  getUserInformation(viewId = this.state.viewId) {
+    axios.get(`/userProfileInfo/${viewId}`)
       .then( response => {
         this.setState({
           username: response.data.username,
@@ -85,8 +85,8 @@ class HomePage extends React.Component {
 
   getFriendInfo(id) {
     this.props.setWallId(id);
-    this.setState({viewId: this.props.wallId});
-    this.getUserInformation(this.props.wallId);
+    this.setState({viewId: id});
+    this.getUserInformation(id);
   }
 
   getFriends() {
