@@ -5,6 +5,7 @@ const posts = require('../controllers/posts.js');
 const comments = require('../controllers/comments.js');
 const session = require ('../controllers/session');
 const PersonalInfoController = require('../controllers/personalInfoController');
+const upload = require('../controllers/upload.js');
 
 router.get('/friends', friends.searchFriends);
 router.post('/togglefriend', friends.toggleFriend);
@@ -17,6 +18,8 @@ router.post('/comments', comments.saveComments);
 
 router.get('/userSession', session.getSession);
 router.get('/logout', session.logout);
+
+router.post('/upload', upload.saveProfilePicture);
 
 router.route('/newAccount')
   .post(LoginController.createAccount);
