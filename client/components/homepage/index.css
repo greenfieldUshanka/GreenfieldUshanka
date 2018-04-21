@@ -1,3 +1,8 @@
+.container-full-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1em 1em 1em;
+}
 
 .home-page-header {
   top: 0;
@@ -12,19 +17,10 @@
   color: #fff;
 }
 
-.logout-button {
-  margin-right: -1200px;
-}
-
 .search-friends-bar {
   margin-left: -180px;
 }
 
-.container-full-page {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1em 1em 1em;
-}
 
 .username-on-image {
   position: absolute;
@@ -32,11 +28,6 @@
   left: 35%;
   transform: translate(-50%, -50%);
   color: #fff; 
-}
-
-.profile-picture {
-  margin-top: -200px; 
-  margin-left: 30px;
 }
 
 .friends-profile-information {
@@ -54,9 +45,8 @@
   border: solid lightgrey;
   border-width: 1px;
   border-radius: 4px;
-  height: 400px;
+  height: 430px;
   width: 70%;
-  margin-top: 50px;
   margin-left: 25px;
 }
 
@@ -76,9 +66,8 @@
   border-width: 0.50px;
   border-radius: 4px;
   height: 66.66px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 10px;
+  padding-top: 22px;
+  padding-left: 30px;
 }
 
 .upi-workplace {
@@ -86,10 +75,10 @@
   border: solid lightgrey;
   border-width: 1px;
   border-radius: 4px;
-  height: 66.66px;
+  height: 81.66px;
   padding-top: 10px;
   padding-bottom: 10px;
-  padding-left: 10px;
+  padding-left: 15px;
   padding-right: 10px;
 }
 
@@ -101,18 +90,7 @@
   height: 66.66px;
   padding-top: 10px;
   padding-bottom: 10px;
-  padding-left: 10px;
-}
-
-.upi-workplace {
-  background-color: #fff; 
-  border: solid lightgrey;
-  border-width: 1px;
-  border-radius: 4px;
-  height: 66.66px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 10px;
+  padding-left: 15px;
 }
 
 .upi-text {
@@ -120,10 +98,10 @@
   border: solid lightgrey;
   border-width: 1px;
   border-radius: 4px;
-  height: 66.66px;
+  height: 81.66px;
   padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 10px;
+  padding-bottom: 5px;
+  padding-left: 15px;
 }
 
 .upi-vodka {
@@ -134,7 +112,7 @@
   height: 66.66px;
   padding-top: 10px;
   padding-bottom: 10px;
-  padding-left: 10px;
+  padding-left: 15px;
 }
 
 
@@ -144,13 +122,59 @@
   border-width: 1px;
   border-radius: 4px;
   height: 66.66px;
-  padding-top: 10px;
-  padding-bottom: 20px;
-  padding-left: 10px;
+  padding-top: 13px;
+  text-align: center;
 }
 
-.input-workplace {
-  padding-bottom: 10px; 
+
+.friends-list {
+  background-color: #fff; 
+  border: solid lightgrey;
+  border-width: thin;
+  height: 120px;
+  width: 72%; 
+  float: right; 
+  border-radius: 4px;
+  margin-top: -120px;
+  padding: 10px; 
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+.each-friend {
+  background-color: white;
+  border: solid lightgrey;
+  border-width: thin; 
+  border-radius: 4px;
+  height: 95px;
+  width: 35%;
+  margin-right: 10px;
+  margin-left: 10px;
+  display: inline-block;
+}
+
+.each-friend-name {
+  height: 40px;
+  width: 50%;
+  font-size: 23px; 
+  padding-top: 35px; 
+  padding-left: 5px; 
+  color: #800020;
   
+}
+
+.friend-image {
+  height: 89px;
+  width: 58%;
+  margin-left: 116px;
+  margin-top: -40px; 
+  border-radius: 5px;
+  border: solid white;
+}
+
+.profile-picture {
+  margin-top: -200px; 
+  margin-left: 30px;
 }
 

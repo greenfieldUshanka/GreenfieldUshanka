@@ -1,16 +1,15 @@
-#login-header {
+.login-header {
   top: 0;
   padding-top: 20px;
-  padding-left: 50px;
+  padding-left: 30px;
   margin-top: 0px;
   background-color: #800020;
-  height: 80px;
+  height: 72px;
   position: relative;
   width: 100%;
   border-bottom: 1px solid #800020;
   color: #fff;
 }
-
 
 .create-account {
   padding-top: 20px;
@@ -34,6 +33,10 @@
   position: relative;
   display: block;
   width: 200px;
+}
+
+.left-picture {
+  margin-left: 50px;
 }
 
 
