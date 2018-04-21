@@ -46,7 +46,7 @@ class Main extends React.Component {
   fetchUsersInfo() {
     axios.get(`/render/wall/${this.state.wallId}`)
       .then( response => {
-        console.log(response);
+        console.log('RESPONSE FROM MAIN.JS ', response);
       })
       .catch( err => {
         console.log('Error from main.js', err);
@@ -75,7 +75,7 @@ class Main extends React.Component {
   render() {
     return (
       <div>
-        <AppHeader logout={this.props.logout} onChange={this.handleChange} id={this.props.id} currentPage={this.state.currentPage}/>
+        <AppHeader logout={this.props.logout} onChange={this.handleChange} id={this.props.id} currentPage={this.state.currentPage} setWallId={(id) => this.setWallId(id)}/>
         <div className="container">
           <Switch>
             <Route exact path ='/main/friends' render={() => <Friends onChange={this.handleChange} changePage={this.changePage} friends={this.state.friends} id={this.props.id} potentialFriends={this.state.potentialFriends}/>} />

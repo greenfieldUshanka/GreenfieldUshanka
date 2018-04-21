@@ -1,7 +1,7 @@
 import React from 'react';
 const axios = require('axios');
 import { Redirect } from 'react-router-dom';
-import { Form, Button } from 'semantic-ui-react';
+import { Form, Button, Input } from 'semantic-ui-react';
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -38,21 +38,21 @@ class SearchBar extends React.Component {
         id: searchThis.props.id,
       }
     })
-    .then(function (res) {
-      searchThis.props.onChange(res);
-      searchThis.setState({
-        searchTerm: '',
-        toFriends: true,
+      .then(function (res) {
+        searchThis.props.onChange(res);
+        searchThis.setState({
+          searchTerm: '',
+          toFriends: true,
+        });
+      })
+      .catch(function (err) {
+        console.log(err);
       });
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
     e.preventDefault();
   }
 
   preventRedirect() {
-      this.setState({
+    this.setState({
       toFriends: false,
     });
   }
@@ -60,21 +60,21 @@ class SearchBar extends React.Component {
 
   render() {
     if (this.state.toFriends && this.props.currentPage !== 'friends') {
-      if(this.state.mounted) {
+      if (this.state.mounted) {
         this.preventRedirect();
-      return <Redirect to={{
-        pathname: '/main/friends',
-    }}/>
+        return <Redirect to={{
+          pathname: '/main/friends',
+        }}/>;
       }
     }
     return (
       <Form onSubmit={this.searchFriends}>
         <Form.Group>
-          <Form.Input size={'small'} placeholder='username' width={6} value={this.state.searchTerm} onChange={this.handleChange} placeholder="Search for friends"/>
+          <Form.Input icon='users' iconPosition='left' size={'small'} placeholder='username' width={12} value={this.state.searchTerm} onChange={this.handleChange} placeholder="Search for friends" />
           <Button type="submit">Search</Button>
         </Form.Group>
       </Form>
-    )
+    );
   }
 }
 

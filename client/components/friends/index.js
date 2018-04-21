@@ -22,17 +22,17 @@ class Friends extends React.Component {
             </Grid.Column>
             <Grid.Column width={12} >
               <div className="card-area">
-              <br/>
-              Friends
-              <div className="ui stackable cards">
                 <br/>
-                  {this.props.friends.length ? this.props.friends.map(f => <FriendCard friend={f} id={this.props.id} key={f.id}/>) : "You have no friends with that name!"}
-              </div>
-              <br/>
+              Friends
+                <div className="ui stackable cards">
+                  <br/>
+                  {this.props.friends.length ? this.props.friends.map(f => <FriendCard friend={f} id={this.props.id} key={f.id}/>) : 'You have no friends with that name!'}
+                </div>
+                <br/>
               Potential Friends
-              <div className="ui stackable cards">
+                <div className="ui stackable cards">
                   {this.props.potentialFriends.map(f => <FriendCard friend={f} id={this.props.id} key={f.id}/>)}
-              </div>
+                </div>
               </div>
             </Grid.Column>
             <Grid.Column width={2} >
@@ -40,7 +40,7 @@ class Friends extends React.Component {
           </Grid.Row>
         </Grid>
       </div>
-    )
+    );
   }
 }
 

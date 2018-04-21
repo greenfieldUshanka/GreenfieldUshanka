@@ -6,7 +6,7 @@ class Card extends React.Component {
     super(props);
 
     this.state = {
-      buttonMessage: props.friend.is_my_friend === '0' ? 'Add Friend' : "Remove Friend",
+      buttonMessage: props.friend.is_my_friend === '0' ? 'Add Friend' : 'Remove Friend',
     };
 
     this.toggleFriend = this.toggleFriend.bind(this);
