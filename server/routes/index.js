@@ -19,6 +19,8 @@ router.post('/comments', comments.saveComments);
 router.get('/userSession', session.getSession);
 router.get('/logout', session.logout);
 
+router.post('/upload', upload.saveProfilePicture);
+
 router.route('/newAccount')
   .post(LoginController.createAccount);
 

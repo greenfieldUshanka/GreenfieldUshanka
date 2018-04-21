@@ -8,6 +8,7 @@ import moment from 'moment';
 import io from 'socket.io-client';
 import GridRow from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
+
 const vodkaOptions = [{key: '3', text: '0 - 3', value: '0 - 3'}, 
   {key: '7', text: '4 - 7', value: '4 - 7'}, 
   {key: '8', text: '8 - 12', value: '8 - 12'}, 
@@ -16,6 +17,7 @@ const statusOptions = [{key: 'hacking', text: 'Hacking', value: 'Hacking'},
   {key: 'drunk', text: 'Drunk', value: 'Drunk'}, 
   {key: 'sad', text: 'Sad', value: 'Sad'}, 
   {key: 'happy', text: 'Happy', value: 'Happy'}];
+
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
@@ -25,6 +27,7 @@ class HomePage extends React.Component {
       join: '',
       profilePic: '',
       friends: [],
+      viewId: this.props.wallId,
       currentMsg: '',
       messages: [],
       newMsg: ''
@@ -40,6 +43,13 @@ class HomePage extends React.Component {
   handleCurrentMsg(e) {
     this.setState({currentMsg: e.target.value});
   }
+
+  getFriendInfo(id) {
+    this.props.setWallId(id);
+    this.setState({viewId: id});
+    this.getUserInformation(id);
+  }
+
   getFriends() {
     let component = this;
     axios.get('/friends/' + this.props.id)
@@ -54,6 +64,7 @@ class HomePage extends React.Component {
         console.log('error getting friends:', err);
       });
   }
+
   saveUserEditInformation() {
     const profileUpdate = {
       status: this.state.mood, 
@@ -62,6 +73,7 @@ class HomePage extends React.Component {
       extra: this.state.extra, 
       id: this.props.id
     };
+
     axios.post('/editprofile', profileUpdate)
       .then( response => {
         console.log('Response ', response);
@@ -70,21 +82,25 @@ class HomePage extends React.Component {
         console.log('Error ', err);
       });
   }
+
   userVodkaTake(e, data) {
     this.setState({
       vodka: data.value, 
     });
   }
+
   userWork(e, data) {
     this.setState({
       work: data.value, 
     });
   }
+
   userMind(e, data) {
     this.setState({
       extra: data.value 
     });
   }
+
   userStatus(e, data) {
     this.setState({
       mood: data.value, 
@@ -100,23 +116,21 @@ class HomePage extends React.Component {
       formData.append('upload_preset', 'qsfgq2uy'); // Replace the preset name with your own
       formData.append('api_key', '482543561232562'); // Replace API key with your own Cloudinary key
       formData.append('timestamp', (Date.now() / 1000) | 0);
-    
+
       // Make an AJAX upload request using Axios (replace Cloudinary URL below with your own)
       return axios.post('https://api.cloudinary.com/v1_1/ushanka/image/upload', formData, {
         headers: { 'X-Requested-With': 'XMLHttpRequest' },
       }).then(response => {
         const data = response.data;
         const fileURL = data.secure_url; // You should store this URL for future references in your app
-        const resizedURL = [fileURL.slice(0, 48), 'w_300,h_300/', fileURL.slice(48)].join('');
         console.log('data!', data);
         console.log('url!', fileURL);
-        console.log('resized url!', resizedURL);
         axios.post('/upload', {
-          url: resizedURL,
+          url: fileURL,
           userid: this.props.id
         }).then(function(response) {
           console.log('saved to the db, response', response);
-          handleThis.props.friendProfile(handleThis.props.id);
+          handleThis.getUserInformation();
         });
       })
         .catch(err => {
@@ -124,16 +138,17 @@ class HomePage extends React.Component {
         });
     });
   }
+
   componentDidMount() {
+    this.getUserInformation();
     this.getFriends();
     this.props.changePage('homepage');
     this.socket.on('msg', (msg) => {
       console.log(msg);
-    }); 
+    });
   }
+
   render() {
-    console.log('props', this.props);
-    console.log('id', this.props.id, 'wall', this.props.wallId, 'view', this.state.viewId);
     return (
       <div>
         <div className="container-full-page" >
@@ -149,13 +164,13 @@ class HomePage extends React.Component {
             <Grid.Row>
               <Grid.Column >
                 <div className='profile-picture'>
+                  <Image src={this.state.profilePic} size='medium' rounded >
+                  </Image>
                   <Dropzone
-                    className="dropzone"
                     onDrop={this.handleDrop}
                     accept="image/*"
                   >
-                    <Image src={this.props.userInfo.profilePic} size='massive' rounded >
-                  </Image>
+                    <p>Drop your files or click here to upload</p>
                   </Dropzone>
                   <div className='friends-list'>
                     {
