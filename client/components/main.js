@@ -4,6 +4,7 @@ import HomePage from './homepage';
 import axios from 'axios';
 import Friends from './friends';
 import { Switch, Route } from 'react-router-dom';
+
 class Main extends React.Component {
   constructor(props) {
     super(props);
@@ -14,33 +15,36 @@ class Main extends React.Component {
       currentPage: 'homepage', //update this to whatever is first loaded
       wallId: this.props.id,
       profileInfo: {
-        username: '', 
+        username: '',
         work: '',
-        join: '',  
+        join: '',
         extra: '',
-        profilePic: '', 
+        profilePic: '',
         vodka: '',
-        mood: '', 
+        mood: '',
       }
     };
     this.fetchPostFeed = this.fetchPostFeed.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.changePage = this.changePage.bind(this);
     this.setWallId = this.setWallId.bind(this);
-    this.getUserProfile = this.getUserProfile.bind(this); 
+    this.getUserProfile = this.getUserProfile.bind(this);
   }
+
   componentDidMount() {
     this.fetchPostFeed();
     this.getUserProfile();
   }
+
   setWallId(id) {
     this.setState({
       wallId: id
     });
     console.log('from main', this.state.wallId);
     this.fetchPostFeed(id);
-    this.getUserProfile(id); 
+    this.getUserProfile(id);
   }
+
   handleChange(obj) {
     this.setState({
       friends: obj.data.filter((data) => {
@@ -51,6 +55,7 @@ class Main extends React.Component {
       })
     });
   }
+
   fetchUsersInfo() {
     axios.get(`/render/wall/${this.state.wallId}`)
       .then( response => {
@@ -60,6 +65,7 @@ class Main extends React.Component {
         console.log('Error from main.js', err);
       });
   }
+
   fetchPostFeed(wallId = this.state.wallId) {
     let thisIndex = this;
     axios.get('/postFeed/' + wallId)
@@ -82,11 +88,11 @@ class Main extends React.Component {
     axios.get(`/userProfileInfo/${wallId}`)
       .then( response => {
         let profileInfo = Object.assign({}, this.state.profileInfo); //creating copy of object
-        profileInfo.username = response.data.username;  
+        profileInfo.username = response.data.username;
         profileInfo.work = response.data.work;
         profileInfo.join = response.data.join;
         profileInfo.extra = response.data.extra;
-        profileInfo.profilePic = response.data.profilePic;  
+        profileInfo.profilePic = response.data.profilePic;
         if (response.data.vodka !== null) {
           profileInfo.vodka = response.data.vodka;
         } else {
@@ -96,7 +102,7 @@ class Main extends React.Component {
           profileInfo.mood = response.data.status;
         } else {
           profileInfo.mood = 'Status';
-        }   
+        }
         this.setState({profileInfo});
         this.fetchPostFeed();
       })
@@ -117,4 +123,5 @@ class Main extends React.Component {
     );
   }
 }
+
 export default Main;

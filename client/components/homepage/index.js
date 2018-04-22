@@ -13,6 +13,7 @@ const vodkaOptions = [{key: '3', text: '0 - 3', value: '0 - 3'},
   {key: '7', text: '4 - 7', value: '4 - 7'}, 
   {key: '8', text: '8 - 12', value: '8 - 12'}, 
   {key: '13', text: '13++', value: '13++'}];
+
 const statusOptions = [{key: 'hacking', text: 'Hacking', value: 'Hacking'}, 
   {key: 'drunk', text: 'Drunk', value: 'Drunk'}, 
   {key: 'sad', text: 'Sad', value: 'Sad'}, 
