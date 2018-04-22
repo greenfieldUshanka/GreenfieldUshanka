@@ -5,7 +5,7 @@ import PostInput from '../post/PostInput.js';
 import PostList from '../post/PostList';
 import axios from 'axios';
 import moment from 'moment';
-// import io from 'socket.io-client';
+import io from 'socket.io-client';
 import GridRow from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
 
@@ -33,28 +33,22 @@ class HomePage extends React.Component {
       messages: [],
       newMsg: ''
     };
-    // this.socket = io('http://localhost:9001');
+    this.socket = io('http://localhost:9001');
     this.saveUserEditInformation = this.saveUserEditInformation.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
-    // this.submitMessage = this.submitMessage.bind(this);
+    this.submitMessage = this.submitMessage.bind(this);
   }
 
-  // componentDidMount() {
-  // this.socket.on('msg', (msg) => {
-  //   console.log(msg);
-  // }); 
-  // }
+  submitMessage(event) {
+    this.socket.emit('new-message', {message: this.state.currentMsg});
+  }
 
-  // submitMessage(event) {
-  //   this.socket.emit('new-message', {message: this.state.currentMsg});
-  // }
-
-  // handleCurrentMsg(e) {
-  //   this.setState({currentMsg: e.target.value});
-  //   console.log('handleMsg', this.state.currentMsg);
-  // }
+  handleCurrentMsg(e) {
+    this.setState({currentMsg: e.target.value});
+  }
 
   getUserInformation(viewId = this.state.viewId) {
+    console.log('FROM GETUSERINFO', viewId);
     axios.get(`/userProfileInfo/${viewId}`)
       .then( response => {
         this.setState({
@@ -87,10 +81,13 @@ class HomePage extends React.Component {
       });
   }
 
+  
+
   getFriendInfo(id) {
     this.props.setWallId(id);
     this.setState({viewId: id});
     this.getUserInformation(id);
+    
   }
 
   getFriends() {
@@ -186,10 +183,13 @@ class HomePage extends React.Component {
     this.getUserInformation();
     this.getFriends();
     this.props.changePage('homepage');
+    this.socket.on('msg', (msg) => {
+      console.log(msg);
+    }); 
   }
 
   render() {
-    // console.log('id', this.props.id, 'wallId', this.props.wallId);
+    console.log('id', this.props.id, 'wall', this.props.wallId, 'view', this.state.viewId);
     return (
       <div>
         <div className="container-full-page" >
@@ -306,7 +306,7 @@ class HomePage extends React.Component {
                 <PostList id={this.props.id} posts={this.props.posts} fetchPostFeed={this.props.fetchPostFeed}/>
               </Grid.Column>
             </Grid.Row>
-            {/* <Grid.Row>
+            <Grid.Row>
               <Grid.Column width={4}>
                 <div className='chat-box'>
                   <Form onSubmit={this.submitMessage}>
@@ -315,7 +315,7 @@ class HomePage extends React.Component {
                   </Form>
                 </div>
               </Grid.Column>
-            </Grid.Row> */}
+            </Grid.Row>
           </Grid>
         </div>
       </div> 

@@ -29,7 +29,10 @@ class Main extends React.Component {
     this.setState({
       wallId: id
     });
-    this.fetchPostFeed(id); // XXX: fix this later
+    this.fetchPostFeed(id);
+    // XXX: fix this later
+    console.log('from main', this.state.wallId);
+    //pass the user id to go back to their profile 
   }
 
   handleChange(obj) {
@@ -75,11 +78,11 @@ class Main extends React.Component {
   render() {
     return (
       <div>
-        <AppHeader logout={this.props.logout} onChange={this.handleChange} id={this.props.id} currentPage={this.state.currentPage} setWallId={(id) => this.setWallId(id)}/>
+        <AppHeader logout={this.props.logout} onChange={this.handleChange} id={this.props.id} currentPage={this.state.currentPage} setWallId={this.setWallId}/>
         <div className="container">
           <Switch>
             <Route exact path ='/main/friends' render={() => <Friends onChange={this.handleChange} changePage={this.changePage} friends={this.state.friends} id={this.props.id} potentialFriends={this.state.potentialFriends}/>} />
-            <Route exact path ='/main' render={() => <HomePage setWallId={(id) => this.setWallId(id)} wallId={this.state.wallId} posts={this.state.messages} fetchPostFeed={this.fetchPostFeed} changePage={this.changePage} id={this.props.id}/>} />
+            <Route exact path ='/main' render={() => <HomePage setWallId={(id) => this.setWallId(id)} wallId={this.state.wallId} posts={this.state.messages} fetchPostFeed={this.fetchPostFeed} changePage={this.changePage} id={this.props.id} />} />
           </Switch>
         </div>
       </div>
