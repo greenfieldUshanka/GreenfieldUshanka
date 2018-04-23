@@ -5,7 +5,8 @@ import PostInput from '../post/PostInput.js';
 import PostList from '../post/PostList';
 import axios from 'axios';
 import moment from 'moment';
-import io from 'socket.io-client';
+import Chat from '../chat/Chat.jsx';
+// import io from 'socket.io-client';
 import GridRow from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
 
@@ -31,9 +32,9 @@ class HomePage extends React.Component {
       viewId: this.props.wallId,
       currentMsg: '',
       messages: [],
-      newMsg: ''
+      newMsg: '',
+      getFriends: this.props.id,
     };
-    this.socket = io('http://localhost:9001');
     this.saveUserEditInformation = this.saveUserEditInformation.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
     this.submitMessage = this.submitMessage.bind(this);
@@ -51,9 +52,9 @@ class HomePage extends React.Component {
     this.getUserInformation(id);
   }
 
-  getFriends() {
+  getFriends(id = this.state.getFriends) {
     let component = this;
-    axios.get('/friends/' + this.props.id)
+    axios.get('/friends/' + id)
       .then(response => {
         if (response.data && response.data.length > 0) {
           component.setState({
@@ -141,12 +142,8 @@ class HomePage extends React.Component {
   }
 
   componentDidMount() {
-    this.getUserInformation();
     this.getFriends();
     this.props.changePage('homepage');
-    this.socket.on('msg', (msg) => {
-      console.log(msg);
-    });
   }
 
   render() {
@@ -165,8 +162,6 @@ class HomePage extends React.Component {
             <Grid.Row>
               <Grid.Column >
                 <div className='profile-picture'>
-                  <Image src={this.state.profilePic} size='medium' rounded >
-                  </Image>
                   <Dropzone
                     onDrop={this.handleDrop}
                     accept="image/*"
@@ -177,12 +172,12 @@ class HomePage extends React.Component {
                     {
                       this.state.friends.length ? (
                         this.state.friends.map(friend =>
-                          <div className='each-friend'>
+                          <div className='each-friend' key={friend.full_name}>
                             <div className='each-friend-name'>
                               {friend.full_name.toUpperCase()}
                             </div> 
                             <div className='friend-image'>                      
-                              <Image src={friend.profile_picture} onClick={() => this.props.friendProfile(friend.id)} onClick={() => this.props.setWallId(friend.id)} floated='right' size='big' key={friend.id} />
+                              <Image src={friend.profile_picture} onClick={() => this.props.friendProfile(friend.id)} onClick={() => this.getFriends(friend.id)} onClick={() => this.props.setWallId(friend.id)} floated='right' size='big' key={friend.id} />
                             </div>
                           </div>
                         )) : (
@@ -269,11 +264,10 @@ class HomePage extends React.Component {
             <Grid.Row>
               <Grid.Column width={4}>
                 <div className='chat-box'>
-                  <Form onSubmit={this.submitMessage}>
-                    <Form.Input type='text' name='msg' onChange={this.handleCurrentMsg.bind(this)} />
-                    <Button type='submit'>Send</Button>
-                  </Form>
+                  <Chat user={this.props.userInfo.username}/>
                 </div>
+                <PostInput id={this.props.id} wallId={this.props.wallId} fetchPostFeed={this.props.fetchPostFeed}/>
+                <PostList id={this.props.id} posts={this.props.posts} fetchPostFeed={this.props.fetchPostFeed}/>
               </Grid.Column>
             </Grid.Row>
           </Grid>
@@ -282,4 +276,6 @@ class HomePage extends React.Component {
     );
   }
 }
+
+
 export default HomePage;

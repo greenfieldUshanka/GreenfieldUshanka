@@ -84,6 +84,7 @@ class Main extends React.Component {
       currentPage: page,
     });
   }
+
   getUserProfile(wallId = this.state.wallId) {
     axios.get(`/userProfileInfo/${wallId}`)
       .then( response => {
@@ -98,17 +99,19 @@ class Main extends React.Component {
         } else {
           profileInfo.vodka = 'Vodka Consumption';
         }
+
         if (response.data.status !== null) {
           profileInfo.mood = response.data.status;
         } else {
           profileInfo.mood = 'Status';
         }
         this.setState({profileInfo});
-        this.fetchPostFeed();
       })
       .catch( err => {
       });
   }
+
+
   render() {
     return (
       <div>
