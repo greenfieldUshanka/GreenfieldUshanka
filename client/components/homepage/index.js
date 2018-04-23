@@ -106,15 +106,19 @@ class HomePage extends React.Component {
       formData.append('upload_preset', 'qsfgq2uy'); // Replace the preset name with your own
       formData.append('api_key', '482543561232562'); // Replace API key with your own Cloudinary key
       formData.append('timestamp', (Date.now() / 1000) | 0);
-
+    
       // Make an AJAX upload request using Axios (replace Cloudinary URL below with your own)
       return axios.post('https://api.cloudinary.com/v1_1/ushanka/image/upload', formData, {
         headers: { 'X-Requested-With': 'XMLHttpRequest' },
       }).then(response => {
         const data = response.data;
         const fileURL = data.secure_url; // You should store this URL for future references in your app
+        const resizedURL = [fileURL.slice(0, 48), 'w_300,h_300/', fileURL.slice(48)].join('');
+        console.log('data!', data);
+        console.log('url!', fileURL);
+        console.log('resized url!', resizedURL);
         axios.post('/upload', {
-          url: fileURL,
+          url: resizedURL,
           userid: this.props.id
         }).then(function(response) {
           console.log('saved to the db, response', response);
@@ -149,10 +153,10 @@ class HomePage extends React.Component {
               <Grid.Column >
                 <div className='profile-picture'>
                   {this.props.id === this.props.wallId ?
-                    (<Dropzone onDrop={this.handleDrop} accept="image/*">
-                      <Image src={this.props.userInfo.profilePic} size='massive' rounded/>
+                    (<Dropzone className='dropzone' onDrop={this.handleDrop} accept="image/*">
+                      <Image src={this.props.userInfo.profilePic} rounded/>
                     </Dropzone>) :
-                    (<Image src={this.props.userInfo.profilePic} size='massive' rounded/>)
+                    (<Image className='dropzone' src={this.props.userInfo.profilePic} rounded/>)
                   }
                   <div className='friends-list'>
                     {
