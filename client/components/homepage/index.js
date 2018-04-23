@@ -7,17 +7,15 @@ import axios from 'axios';
 import moment from 'moment';
 import io from 'socket.io-client';
 import GridRow from 'semantic-ui-react';
-
+import Dropzone from 'react-dropzone';
 const vodkaOptions = [{key: '3', text: '0 - 3', value: '0 - 3'}, 
   {key: '7', text: '4 - 7', value: '4 - 7'}, 
   {key: '8', text: '8 - 12', value: '8 - 12'}, 
   {key: '13', text: '13++', value: '13++'}];
-
 const statusOptions = [{key: 'hacking', text: 'Hacking', value: 'Hacking'}, 
   {key: 'drunk', text: 'Drunk', value: 'Drunk'}, 
   {key: 'sad', text: 'Sad', value: 'Sad'}, 
   {key: 'happy', text: 'Happy', value: 'Happy'}];
-
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
@@ -27,68 +25,21 @@ class HomePage extends React.Component {
       join: '',
       profilePic: '',
       friends: [],
-      viewId: this.props.wallId,
       currentMsg: '',
       messages: [],
+      newMsg: ''
     };
-    this.socket = io('http://localhost:3000');
+    this.socket = io('http://localhost:9001');
     this.saveUserEditInformation = this.saveUserEditInformation.bind(this);
+    this.handleDrop = this.handleDrop.bind(this);
     this.submitMessage = this.submitMessage.bind(this);
   }
-
-  componentDidMount() {
-    this.socket.on('msg', (msg) => {
-      console.log('=> ', msg);
-    }); 
-  }
-
   submitMessage(event) {
     this.socket.emit('new-message', {message: this.state.currentMsg});
   }
-
   handleCurrentMsg(e) {
     this.setState({currentMsg: e.target.value});
-    console.log('handleMsg', this.state.currentMsg);
   }
-
-  getUserInformation(viewId = this.state.viewId) {
-    axios.get(`/userProfileInfo/${viewId}`)
-      .then( response => {
-        this.setState({
-          username: response.data.username,
-          work: response.data.work,
-          join: response.data.join,  
-          extra: response.data.extra
-        });
-        if (response.data.vodka !== null) {
-          this.setState({
-            vodka: response.data.vodka,
-          });
-        } else {
-          this.setState({
-            vodka: 'Vodka Consumption',
-          });
-        }
-        if (response.data.status !== null) {
-          this.setState({
-            mood: response.data.status,
-          });
-        } else {
-          this.setState({
-            mood: 'Status',
-          });
-        }
-      })
-      .catch( err => {
-      });
-  }
-
-  getFriendInfo(id) {
-    this.props.setWallId(id);
-    this.setState({viewId: id});
-    this.getUserInformation(id);
-  }
-
   getFriends() {
     let component = this;
     axios.get('/friends/' + this.props.id)
@@ -103,7 +54,6 @@ class HomePage extends React.Component {
         console.log('error getting friends:', err);
       });
   }
-
   saveUserEditInformation() {
     const profileUpdate = {
       status: this.state.mood, 
@@ -112,7 +62,6 @@ class HomePage extends React.Component {
       extra: this.state.extra, 
       id: this.props.id
     };
-
     axios.post('/editprofile', profileUpdate)
       .then( response => {
         console.log('Response ', response);
@@ -121,39 +70,70 @@ class HomePage extends React.Component {
         console.log('Error ', err);
       });
   }
-
   userVodkaTake(e, data) {
     this.setState({
       vodka: data.value, 
     });
   }
-
   userWork(e, data) {
     this.setState({
       work: data.value, 
     });
   }
-
   userMind(e, data) {
     this.setState({
       extra: data.value 
     });
   }
-
   userStatus(e, data) {
     this.setState({
       mood: data.value, 
     });
   }
 
+  handleDrop(files) {
+    const handleThis = this;
+    const uploaders = files.map(file => {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('tags', 'codeinfuse, medium, gist');
+      formData.append('upload_preset', 'qsfgq2uy'); // Replace the preset name with your own
+      formData.append('api_key', '482543561232562'); // Replace API key with your own Cloudinary key
+      formData.append('timestamp', (Date.now() / 1000) | 0);
+    
+      // Make an AJAX upload request using Axios (replace Cloudinary URL below with your own)
+      return axios.post('https://api.cloudinary.com/v1_1/ushanka/image/upload', formData, {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+      }).then(response => {
+        const data = response.data;
+        const fileURL = data.secure_url; // You should store this URL for future references in your app
+        const resizedURL = [fileURL.slice(0, 48), 'w_300,h_300/', fileURL.slice(48)].join('');
+        console.log('data!', data);
+        console.log('url!', fileURL);
+        console.log('resized url!', resizedURL);
+        axios.post('/upload', {
+          url: resizedURL,
+          userid: this.props.id
+        }).then(function(response) {
+          console.log('saved to the db, response', response);
+          handleThis.props.friendProfile(handleThis.props.id);
+        });
+      })
+        .catch(err => {
+          console.log(err);
+        });
+    });
+  }
   componentDidMount() {
-    this.getUserInformation();
     this.getFriends();
     this.props.changePage('homepage');
+    this.socket.on('msg', (msg) => {
+      console.log(msg);
+    }); 
   }
-
   render() {
-    console.log('id', this.props.id, 'wallId', this.props.wallId);
+    console.log('props', this.props);
+    console.log('id', this.props.id, 'wall', this.props.wallId, 'view', this.state.viewId);
     return (
       <div>
         <div className="container-full-page" >
@@ -162,15 +142,21 @@ class HomePage extends React.Component {
               <Grid.Column width={16}>
                 <div>
                   <Image src='https://source.unsplash.com/1600x400/?nature' rounded /> 
-                  <div className='username-on-image'><h1>{this.state.username.toUpperCase()}</h1></div>
+                  <div className='username-on-image'><h1>{this.props.userInfo.username.toUpperCase()}</h1></div>
                 </div>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column >
                 <div className='profile-picture'>
-                  <Image src='https://source.unsplash.com/300x300/?people' size='medium' rounded >
+                  <Dropzone
+                    className="dropzone"
+                    onDrop={this.handleDrop}
+                    accept="image/*"
+                  >
+                    <Image src={this.props.userInfo.profilePic} size='massive' rounded >
                   </Image>
+                  </Dropzone>
                   <div className='friends-list'>
                     {
                       this.state.friends.length ? (
@@ -180,7 +166,7 @@ class HomePage extends React.Component {
                               {friend.full_name.toUpperCase()}
                             </div> 
                             <div className='friend-image'>                      
-                              <Image src={friend.profile_picture} onClick={() => this.getFriendInfo(friend.id)} floated='right' size='big' key={friend.id} />
+                              <Image src={friend.profile_picture} onClick={() => this.props.friendProfile(friend.id)} onClick={() => this.props.setWallId(friend.id)} floated='right' size='big' key={friend.id} />
                             </div>
                           </div>
                         )) : (
@@ -215,12 +201,12 @@ class HomePage extends React.Component {
                             icon='barcode'
                             options={statusOptions}
                             search
-                            text={this.state.mood}
+                            text={this.props.userInfo.mood}
                           />
                         </div>
                         <div className='upi-workplace' >
                           <label>Add a workplace</label>
-                          <Form.Input className='input-workplace' width={14} size={'mini'} placeholder={this.state.work} onChange={this.userWork.bind(this)}/>
+                          <Form.Input className='input-workplace' width={14} size={'mini'} placeholder={this.props.userInfo.work} onChange={this.userWork.bind(this)}/>
                         </div>
                         <div className='upi-vodka'>
                           <Dropdown
@@ -232,12 +218,12 @@ class HomePage extends React.Component {
                             icon='cocktail'
                             options={vodkaOptions}
                             search
-                            text={this.state.vodka}
+                            text={this.props.userInfo.vodka}
                           />
                         </div>
                         <div className='upi-text'>
                           <label>What else is on your mind?</label>
-                          <Form.Input size={'mini'} width={14} placeholder={this.state.extra} onChange={this.userMind.bind(this)} />
+                          <Form.Input size={'mini'} width={14} placeholder={this.props.userInfo.extra} onChange={this.userMind.bind(this)} />
                         </div>
                         <div className='upi-submit'>
                           <Button type='submit'>Update Changes</Button>
@@ -250,17 +236,17 @@ class HomePage extends React.Component {
                     <div className='friends-profile-information'>
                       <Card>
                         <Card.Content header= {`Ushanka member since ${moment(this.state.join).fromNow()}`}/>
-                        <Card.Content description={`Current status: ${this.state.mood} `} >
+                        <Card.Content description={`Current status: ${this.props.userInfo.mood} `} >
                         </Card.Content>
-                        <Card.Content description={`Workplace: ${this.state.work}`} />
-                        <Card.Content name='cocktail' description={`Vodka Consumption: ${this.state.vodka}`} />
-                        <Card.Content maxLength="2" description={this.state.extra} />
+                        <Card.Content description={`Workplace: ${this.props.userInfo.work}`} />
+                        <Card.Content name='cocktail' description={`Vodka Consumption: ${this.props.userInfo.vodka}`} />
+                        <Card.Content maxLength="2" description={this.props.userInfo.extra} />
                       </Card>
                     </div>
                   </Grid.Column>)
               }
               <Grid.Column width={10}>
-                <PostInput id={this.props.id} wallId={this.props.wallId} fetchPostFeed={this.props.fetchPostFeed}/>
+                <PostInput id={this.props.id} wallId={this.props.wallId} profilePic={this.props.userInfo.profilePic} fetchPostFeed={this.props.fetchPostFeed}/>
                 <PostList id={this.props.id} posts={this.props.posts} fetchPostFeed={this.props.fetchPostFeed}/>
               </Grid.Column>
             </Grid.Row>
@@ -280,6 +266,4 @@ class HomePage extends React.Component {
     );
   }
 }
-
-
 export default HomePage;

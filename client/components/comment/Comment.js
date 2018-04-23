@@ -4,7 +4,7 @@ import moment from 'moment';
 const Comment = (props) => (<div className="ui comments">
   <div className="comment">
     <a className="avatar">
-      <img src={props.comment.profileImage}/>
+      <img src={props.comment.profilePic}/>
     </a>
     <div className="content">
       <a className="author">{props.comment.author}</a>

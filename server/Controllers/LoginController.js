@@ -1,7 +1,6 @@
 const DB = require('../DB');
 const Promise = require('bluebird');
 const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'));
-
 const LoginController = {
   createAccount: (req, res) => {
     DB.query('SELECT `username` FROM `users` WHERE `username` = ?', [req.body.newUsername], (err, data) => {
@@ -24,7 +23,6 @@ const LoginController = {
         }
       }
     });
-
   },
   Login: (req, res) => {
     console.log('LOGIN CONTROLLER: ', req.params.username)
@@ -48,8 +46,6 @@ const LoginController = {
         res.send('wrong'); 
       }
     });
-
   }
 };
-
 module.exports = LoginController;

@@ -20,7 +20,7 @@ class Post extends React.Component {
           <div className="ui comments">
             <div className="comment">
               <a className="avatar">
-                <img src="https://i.imgur.com/HbR0x7G.jpg"/>
+                <img src={this.props.post.profilePic}/>
               </a>
               <div className="content">
                 <a className="author">{this.props.post.author}</a>
