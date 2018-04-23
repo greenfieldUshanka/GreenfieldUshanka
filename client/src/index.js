@@ -4,7 +4,6 @@ import Main from '../components/main';
 import Login from '../components/userLogin/Login.jsx';
 import './index.css';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import Friends from '../components/friends';
 import axios from 'axios';
 
 class App extends React.Component {

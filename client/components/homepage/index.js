@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Image, Form, Grid, TextArea, Button, Icon, Dropdown, Label, Header } from 'semantic-ui-react';
+import {Button, Card, Dropdown, Form, Grid, Header, Icon, Image} from 'semantic-ui-react';
 import './index.css';
 import PostInput from '../post/PostInput.js';
 import PostList from '../post/PostList';
@@ -33,7 +33,6 @@ class HomePage extends React.Component {
       newMsg: '',
       getFriends: this.props.id,
     };
-    console.log('status: ', this.state.status);
     this.saveUserEditInformation = this.saveUserEditInformation.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
   }
@@ -65,36 +64,11 @@ class HomePage extends React.Component {
 
     axios.post('/editprofile', profileUpdate)
       .then( response => {
-        console.log('Response ', response);
         component.props.friendProfile(component.props.id);
       })
       .catch( err => {
         console.log('Error ', err);
       });
-  }
-
-  userVodkaTake(e, data) {
-    this.setState({
-      vodka: data.value, 
-    });
-  }
-
-  userWork(e, data) {
-    this.setState({
-      work: data.value, 
-    });
-  }
-
-  userMind(e, data) {
-    this.setState({
-      extra: data.value 
-    });
-  }
-
-  userStatus(e, data) {
-    this.setState({
-      status: data.value,
-    });
   }
 
   handleDrop(files) {
@@ -114,14 +88,10 @@ class HomePage extends React.Component {
         const data = response.data;
         const fileURL = data.secure_url; // You should store this URL for future references in your app
         const resizedURL = [fileURL.slice(0, 48), 'w_300,h_300/', fileURL.slice(48)].join('');
-        console.log('data!', data);
-        console.log('url!', fileURL);
-        console.log('resized url!', resizedURL);
         axios.post('/upload', {
           url: resizedURL,
           userid: this.props.id
         }).then(function(response) {
-          console.log('saved to the db, response', response);
           handleThis.props.friendProfile(handleThis.props.id);
         });
       })
@@ -167,7 +137,17 @@ class HomePage extends React.Component {
                               {friend.full_name.toUpperCase()}
                             </div> 
                             <div className='friend-image'>                      
-                              <Image src={friend.profile_picture} onClick={() => this.props.friendProfile(friend.id)} onClick={() => this.getFriends(friend.id)} onClick={() => this.props.setWallId(friend.id)} floated='right' size='big' key={friend.id} />
+                              <Image
+                                src={friend.profile_picture}
+                                onClick={
+                                  () => {
+                                    this.props.setWallId(friend.id);
+                                    this.getFriends(friend.id);
+                                  }
+                                }
+                                floated='right'
+                                size='big'
+                                key={friend.id} />
                             </div>
                           </div>
                         )) : (
@@ -245,7 +225,7 @@ class HomePage extends React.Component {
                   (<Grid.Column width={6}>
                     <div className='friends-profile-information'>
                       <Card>
-                        <Card.Content header= {`Ushanka member since ${moment(this.state.join).fromNow()}`}/>
+                        <Card.Content header= {`Ushanka member since ${moment(this.props.userInfo.join).fromNow()}`}/>
                         <Card.Content description={`Current status: ${this.props.userInfo.status} `} >
                         </Card.Content>
                         <Card.Content description={`Workplace: ${this.props.userInfo.work}`} />
@@ -269,6 +249,5 @@ class HomePage extends React.Component {
     );
   }
 }
-
 
 export default HomePage;

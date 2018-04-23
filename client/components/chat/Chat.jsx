@@ -1,5 +1,5 @@
-import React from 'react'; 
-import { Form, Button } from 'semantic-ui-react';
+import React from 'react';
+import {Button, Form} from 'semantic-ui-react';
 import io from 'socket.io-client';
 import './index.css';
 

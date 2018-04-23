@@ -5,7 +5,7 @@ const PersonalInfoController = {
     DB.query('SELECT * from users WHERE id=?', [req.params.id], (err, data) => {
       if (err) { 
         console.log('Error from personalInfo', err); 
-        res.send(err)
+        res.send(err);
       }
       res.status(200).send({
         username: data[0].username, 

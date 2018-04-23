@@ -1,7 +1,8 @@
 import React from 'react';
+import {Redirect} from 'react-router-dom';
+import {Button, Form} from 'semantic-ui-react';
+
 const axios = require('axios');
-import { Redirect } from 'react-router-dom';
-import { Form, Button, Input } from 'semantic-ui-react';
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -31,7 +32,7 @@ class SearchBar extends React.Component {
 
 
   searchFriends(e) {
-    var searchThis = this;
+    const searchThis = this;
     axios.get('/friends', {
       params: {
         term: searchThis.state.searchTerm,
@@ -70,7 +71,14 @@ class SearchBar extends React.Component {
     return (
       <Form onSubmit={this.searchFriends}>
         <Form.Group>
-          <Form.Input icon='users' iconPosition='left' size={'small'} placeholder='username' width={12} value={this.state.searchTerm} onChange={this.handleChange} placeholder="Search for friends" />
+          <Form.Input
+            icon='users'
+            iconPosition='left'
+            size={'small'}
+            width={12}
+            value={this.state.searchTerm}
+            onChange={this.handleChange}
+            placeholder="Search for friends" />
           <Button type="submit">Search</Button>
         </Form.Group>
       </Form>
