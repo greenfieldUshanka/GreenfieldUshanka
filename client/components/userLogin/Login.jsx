@@ -38,7 +38,7 @@ class Login extends React.Component {
               newUsername: this.state.newUsername,
               newPassword: hashedPassword,
               profilePicture:
-                'https://source.unsplash.com/1600x900/?featured/?dog,cat,robots'
+                'https://source.unsplash.com/300x300/?featured/?dog,cat,robots'
             };
             let component = this;
             axios

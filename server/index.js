@@ -6,7 +6,10 @@ const session = require('cookie-session');
 const router = require('./routes/index.js');
 const path = require('path');
 const PORT = process.env.PORT;
+
 const app = express();
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
@@ -16,6 +19,7 @@ app.use(session({
 }));
 app.use(express.static(__dirname + '/../client/public'));
 app.use('/', router);
+
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, '../client/public/index.html'), function(err) {
     if (err) {
@@ -23,15 +27,7 @@ app.get('/*', function(req, res) {
     }
   });
 });
-server = app.listen(PORT, () => {
+
+app.listen(PORT, () => {
   console.log('Listening on port ' + PORT);
-});
-const socketio = require('socket.io');
-const websocket = socketio(server);
-websocket.on('connection', (socket) => {
-  console.log('A client just joined on', socket.id);
-  socket.on('new-message', (msg) => {
-    console.log(msg);
-    websocket.emit('msg', 'hello');
-  }); 
 });

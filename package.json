@@ -6,7 +6,7 @@
   "scripts": {
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
-    "socket-server": "nodemon socket-server/socket.js"
+    "socket": "nodemon socket/index.js"
   },
   "repository": {
     "type": "git",
@@ -40,6 +40,7 @@
     "semantic-ui-react": "^0.79.1",
     "socket.io": "^2.1.0",
     "socket.io-client": "^2.1.0",
+    "socket.io.users": "^2.0.2",
     "underscore": "^1.8.3"
   },
   "devDependencies": {

@@ -3,29 +3,29 @@ import {Form, Grid, Button, Input, Icon, Header} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import './index.css';
 import SearchBar from '../SearchBar.jsx';
-// const AppHeader = (props) => {
+
+
+
 class AppHeader extends React.Component {
   constructor(props) {
-    super(props); 
-    this.backToUserProfile = this.backToUserProfile.bind(this); 
+    super(props);
+    this.backToUserProfile = this.backToUserProfile.bind(this);
   }
   backToUserProfile() {
-    this.props.setWallId(this.props.id); 
-    console.log('FROM APPHEADER', this.props.id);
+    this.props.setWallId(this.props.id);
   }
-  // console.log('AppHeader', props.id);
+
   render() {
-    console.log('APPHEADER', this.props);
     return (
       <header className='home-page-header'>
         <Grid>
           <Grid.Row>
-            <Grid.Column width={4}> 
+            <Grid.Column width={4}>
               <Form>
                 <Form.Field inline>
                   <Header as='h6' icon>
                     <Icon onClick={this.backToUserProfile} color={'grey'} name='home' />
-                  </Header> 
+                  </Header>
                   <Link className='name' to={'/main'}>ushanka</Link>
                 </Form.Field>
               </Form>
@@ -50,4 +50,5 @@ class AppHeader extends React.Component {
     );
   }
 }
+
 export default AppHeader;

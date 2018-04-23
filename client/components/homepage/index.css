@@ -174,12 +174,28 @@
 }
 
 .profile-picture {
-  margin-top: -200px; 
+  margin-top: -200px;
   margin-left: 30px;
 }
 
 .dropzone {
-  width : 25%;
-  height : 25%;
+  width : 300px;
+  height : 300px;
   border : 0px;
 }
+
+.chat-box {
+  background-color: #fff;
+  border: solid lightgrey;
+  border-width: 2px;
+  border-radius: 4px;
+  height: 200px;
+  width: 100%;
+}
+
+
+
+
+
+
+

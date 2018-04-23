@@ -22,34 +22,34 @@ class Card extends React.Component {
       id: this.props.id, 
       button: this.state.buttonMessage,
     })
-    .then(function (res) {
-      if (res.data === 'added') {
-        refThis.setState({
-          buttonMessage: 'Friend Added!'
-        });
-        if(refThis.state.buttonMessage === 'Friend Added!') {
-          setTimeout(() => {
-            refThis.setState({
-              buttonMessage: 'Remove Friend'
-            });
-          }, 1500)
-        }
-      } else if (res.data === 'deleted') {
+      .then(function (res) {
+        if (res.data === 'added') {
+          refThis.setState({
+            buttonMessage: 'Friend Added!'
+          });
+          if (refThis.state.buttonMessage === 'Friend Added!') {
+            setTimeout(() => {
+              refThis.setState({
+                buttonMessage: 'Remove Friend'
+              });
+            }, 1500);
+          }
+        } else if (res.data === 'deleted') {
           refThis.setState({
             buttonMessage: 'Friend Removed!'
           });
-          if(refThis.state.buttonMessage === 'Friend Removed!') {
+          if (refThis.state.buttonMessage === 'Friend Removed!') {
             setTimeout(() => {
               refThis.setState({
                 buttonMessage: 'Add Friend'
               });
-            }, 1500)
+            }, 1500);
           }
-      }
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
+        }
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
   }
 
   render() {
@@ -70,7 +70,7 @@ class Card extends React.Component {
           {this.state.buttonMessage}
         </div>
       </div>
-    )
+    );
   }
 }
 
