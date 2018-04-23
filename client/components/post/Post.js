@@ -8,8 +8,7 @@ class Post extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      comments: [],
-      postId: this.props.post.id
+      comments: []
     };
   }
 
@@ -39,7 +38,7 @@ class Post extends React.Component {
           </div>
         </div>
         <div className="ui bottom attached segment">
-          <CommentInput authorId={this.props.id} postId={this.state.postId} fetchComments={this.props.fetchPostFeed}/>
+          <CommentInput authorId={this.props.id} postId={this.props.post.id} fetchComments={this.props.fetchPostFeed}/>
           <CommentList comments={this.props.post.comments}/>
         </div>
       </div>
