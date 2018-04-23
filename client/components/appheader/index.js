@@ -5,7 +5,7 @@ import './index.css';
 import SearchBar from '../SearchBar.jsx';
 
 
-// const AppHeader = (props) => {
+
 class AppHeader extends React.Component {
   constructor(props) {
     super(props); 
@@ -16,7 +16,7 @@ class AppHeader extends React.Component {
     this.props.setWallId(this.props.id); 
     console.log('FROM APPHEADER', this.props.id);
   }
-  // console.log('AppHeader', props.id);
+
   render() {
     console.log('APPHEADER', this.props);
     return (

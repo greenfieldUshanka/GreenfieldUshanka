@@ -13,27 +13,38 @@ class Main extends React.Component {
       friends: [],
       potentialFriends: [],
       currentPage: 'homepage', //update this to whatever is first loaded
-      wallId: this.props.id, 
+      wallId: this.props.id,
+      profileInfo: {
+        username: '', 
+        work: '',
+        join: '',  
+        extra: '',
+        profilePic: '', 
+        vodka: '',
+        mood: '', 
+      }
     };
     this.fetchPostFeed = this.fetchPostFeed.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.changePage = this.changePage.bind(this);
     this.setWallId = this.setWallId.bind(this);
+    this.getUserProfile = this.getUserProfile.bind(this); 
   }
 
   componentDidMount() {
     this.fetchPostFeed();
+    this.getUserProfile();
   }
 
   setWallId(id) {
     this.setState({
       wallId: id
     });
-    this.fetchPostFeed(id);
-    // XXX: fix this later
     console.log('from main', this.state.wallId);
-    //pass the user id to go back to their profile 
+    this.fetchPostFeed(id);
+    this.getUserProfile(id); 
   }
+
 
   handleChange(obj) {
     this.setState({
@@ -75,6 +86,33 @@ class Main extends React.Component {
     });
   }
 
+  getUserProfile(wallId = this.state.wallId) {
+    axios.get(`/userProfileInfo/${wallId}`)
+      .then( response => {
+        let profileInfo = Object.assign({}, this.state.profileInfo); //creating copy of object
+        profileInfo.username = response.data.username;  
+        profileInfo.work = response.data.work;
+        profileInfo.join = response.data.join;
+        profileInfo.extra = response.data.extra;
+        profileInfo.profilePic = response.data.profilePic;  
+        if (response.data.vodka !== null) {
+          profileInfo.vodka = response.data.vodka;
+        } else {
+          profileInfo.vodka = 'Vodka Consumption';
+        }
+
+        if (response.data.status !== null) {
+          profileInfo.mood = response.data.status;
+        } else {
+          profileInfo.mood = 'Status';
+        }   
+        this.setState({profileInfo});
+      })
+      .catch( err => {
+      });
+  }
+
+
   render() {
     return (
       <div>
@@ -82,7 +120,7 @@ class Main extends React.Component {
         <div className="container">
           <Switch>
             <Route exact path ='/main/friends' render={() => <Friends onChange={this.handleChange} changePage={this.changePage} friends={this.state.friends} id={this.props.id} potentialFriends={this.state.potentialFriends}/>} />
-            <Route exact path ='/main' render={() => <HomePage setWallId={(id) => this.setWallId(id)} wallId={this.state.wallId} posts={this.state.messages} fetchPostFeed={this.fetchPostFeed} changePage={this.changePage} id={this.props.id} />} />
+            <Route exact path ='/main' render={() => <HomePage setWallId={(id) => this.setWallId(id)} wallId={this.state.wallId} posts={this.state.messages} fetchPostFeed={this.fetchPostFeed} changePage={this.changePage} id={this.props.id} userInfo={this.state.profileInfo} friendProfile={this.getUserProfile} />} />
           </Switch>
         </div>
       </div>

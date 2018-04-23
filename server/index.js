@@ -28,18 +28,6 @@ app.get('/*', function(req, res) {
   });
 });
 
-server = app.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log('Listening on port ' + PORT);
-});
-
-
-const socketio = require('socket.io');
-const websocket = socketio(server);
-
-websocket.on('connection', (socket) => {
-  console.log('A client just joined on', socket.id);
-  socket.on('new-message', (msg) => {
-    console.log(msg);
-    websocket.emit('msg', 'hello');
-  }); 
 });
