@@ -144,7 +144,7 @@ class HomePage extends React.Component {
             <Grid.Row>
               <Grid.Column width={16}>
                 <div>
-                  <Image src='https://source.unsplash.com/1600x400/?nature' rounded /> 
+                  <Image src='http://www.mentalbrick.com/e3/wp-content/uploads/2017/06/802645-american-flag-flags-old-glory-usa-1600x400.jpg' rounded /> 
                   <div className='username-on-image'><h1>{this.props.userInfo.username.toUpperCase()}</h1></div>
                 </div>
               </Grid.Column>
@@ -245,7 +245,7 @@ class HomePage extends React.Component {
                   (<Grid.Column width={6}>
                     <div className='friends-profile-information'>
                       <Card>
-                        <Card.Content header= {`Ushanka member since ${moment(this.state.join).fromNow()}`}/>
+                        <Card.Content header= {`Ushanka member since ${moment(this.props.userInfo.join).fromNow()}`}/>
                         <Card.Content description={`Current status: ${this.props.userInfo.status} `} >
                         </Card.Content>
                         <Card.Content description={`Workplace: ${this.props.userInfo.work}`} />

@@ -38,7 +38,7 @@ class Login extends React.Component {
               newUsername: this.state.newUsername,
               newPassword: hashedPassword,
               profilePicture:
-                'https://source.unsplash.com/300x300/?featured/?dog,cat,robots'
+                'https://i.imgur.com/xNeChun.jpg'
             };
             let component = this;
             axios
@@ -93,10 +93,13 @@ class Login extends React.Component {
         <header className='login-header' >
           <Grid>
             <Grid.Row>
-              <Grid.Column width={8}>
+              <Grid.Column width={1}>
+                <Image src='https://cdn1.iconfinder.com/data/icons/russian-icons-1/100/hat_fill-512.png' size='mini' />
+              </Grid.Column>
+              <Grid.Column width={7}> 
                 <Form>
                   <Form.Field inline>
-                    <h1>ushanka icon placeholder</h1>
+                    <h1 >ushanka</h1>
                   </Form.Field>
                 </Form>
               </Grid.Column>
@@ -116,41 +119,39 @@ class Login extends React.Component {
           <Grid>
             <Grid.Column width={8} className='left-side-Login' >
               <div className='left-picture' >
-                <Image src='https://source.unsplash.com/300x300/?featured/?dog,cat,robots' size='large' rounded/>
+                <Image src='https://pbs.twimg.com/profile_images/566996160204644352/W9hRSNuY.jpeg' size='large' rounded/>
               </div>
             </Grid.Column>
             <Grid.Column width={8} >
               <Form className='STARTING-FORM' onSubmit={this.handleCreateAccount} > 
                 <Grid.Row className='create-account'>
-                  <h1>Create a new account </h1>
+                  <h1>Kreate new account </h1>
                 </Grid.Row>
                 <Grid.Row className='full-name-row'>
-                  <Form.Input name='fullName' size={'small'} placeholder='Full name' width={14} onChange={this.userAllInputFieldsChange.bind(this)}/>
+                  <Form.Input name='fullName' size={'small'} placeholder='Full Name' width={14} onChange={this.userAllInputFieldsChange.bind(this)}/>
                 </Grid.Row>
                 <Grid.Row className='new-username-password'>
                   <Form.Group>
-                    <Form.Input name='newUsername' size={'small'} placeholder='New username ' width={7} onChange={this.userAllInputFieldsChange.bind(this)} />
-                    <Form.Input name='newPassword' size={'small'} placeholder='New password ' type='password' autoComplete='off' width={7} onChange={this.userAllInputFieldsChange.bind(this)} />
+                    <Form.Input name='newUsername' size={'small'} placeholder='New Username ' width={7} onChange={this.userAllInputFieldsChange.bind(this)} />
+                    <Form.Input name='newPassword' size={'small'} placeholder='New Password ' type='password' autoComplete='off' width={7} onChange={this.userAllInputFieldsChange.bind(this)} />
                   </Form.Group>
                 </Grid.Row>
                 <Grid.Row className='funny-stuff-cc-ssn'>
                   <Form.Group>
-                    <Form.Input size={'small'} placeholder='Credit card information ' width={8} />
-                    <Form.Input size={'small'} placeholder='Social security number ' width={6} />
+                    <Form.Input size={'small'} placeholder='Kredit Kard ' width={8} />
+                    <Form.Input size={'small'} placeholder='Social Sekurity ' width={6} />
                   </Form.Group>
                 </Grid.Row>
                 <Grid.Row className='funny-stuff-bd-ad'>
                   <Form.Group>
-                    <Form.Input size={'small'} placeholder='Birthday ' width={7} />
                     <Form.Input size={'small'} placeholder='Address ' width={7} />
+                    <Form.Input size={'small'} placeholder='Mother Maiden Name ' width={7} />
                   </Form.Group>
                 </Grid.Row>
                 <Grid.Row >
                   <Grid.Column width={8}>
                     <h6>
-            By clicking Create Account, you agree to our Terms and that you have read our 
-            Data Policy, including our Cookie Use. You may receive SMS Notifications from 
-            ushanka and can opt out at any time.
+                    Klick Kreate Account you agree to Term and Data Policies. Must include social sekurity and kredit kard. You receive much SMS and email from Ushanka. 
                     </h6>
                   </Grid.Column>
                   <Grid.Column width={8} >
@@ -159,11 +160,11 @@ class Login extends React.Component {
                 <Grid.Row className='agree-terms'>
                   <Form.Checkbox
                     inline
-                    label='I agree to the terms and conditions'
+                    label='Kneel to ushanka'
                     required />
                 </Grid.Row>
                 <Grid.Row className='create-account'>
-                  <Button type='submit'>Create Account</Button>
+                  <Button type='submit'>Kreate Account</Button>
                 </Grid.Row>
               </Form>
             </Grid.Column>

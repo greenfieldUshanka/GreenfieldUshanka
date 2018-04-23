@@ -17,9 +17,11 @@ class Chat extends React.Component {
 
   submitMessage(event) {
     this.socket.emit('new-message', {message: this.state.currentMsg, user: this.props.user});
+    this.setState({currentMsg: ''});
   }
 
   handleCurrentMsg(e) {
+
     this.setState({currentMsg: e.target.value});
   }
 
@@ -53,7 +55,7 @@ class Chat extends React.Component {
         <div className='send-msg'>
           <Form onSubmit={this.submitMessage} >
             <Form.Group>
-              <Form.Input width={14} type='text' name='msg' onChange={this.handleCurrentMsg.bind(this)} />
+              <Form.Input width={14} type='text' name='msg' value={this.state.currentMsg} onChange={this.handleCurrentMsg.bind(this)} />
               <Button className='send-button' type='submit'>Send</Button>
             </Form.Group> 
           </Form>
