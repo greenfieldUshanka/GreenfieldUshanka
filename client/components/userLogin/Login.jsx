@@ -1,10 +1,11 @@
-import React from 'react'; 
-import { Image, Form, Grid, Button } from 'semantic-ui-react';
+import React from 'react';
+import {Button, Form, Grid, Image} from 'semantic-ui-react';
 import axios from 'axios';
-const Promise = require('bluebird');
-const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'));
 import './index.css';
 import {Redirect} from 'react-router-dom';
+
+const Promise = require('bluebird');
+const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'));
 
 
 class Login extends React.Component {
@@ -63,7 +64,6 @@ class Login extends React.Component {
 
   handleLogin(event) {
     let component = this;
-    console.log('FROM LOGIN.JSX', this.state.username);
     axios
       .get(`/Login/${this.state.username}/${this.state.password}`)
       .then(response => {

@@ -3,7 +3,7 @@ import AppHeader from './appheader';
 import HomePage from './homepage';
 import axios from 'axios';
 import Friends from './friends';
-import { Switch, Route } from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 
 class Main extends React.Component {
   constructor(props) {
@@ -38,7 +38,6 @@ class Main extends React.Component {
   }
 
   setProfileInfo(key, value) {
-    console.log('key value: ', key, value);
     let profileInfo = this.state.profileInfo;
     profileInfo[key] = value;
     this.setState({profileInfo});
@@ -48,7 +47,6 @@ class Main extends React.Component {
     this.setState({
       wallId: id
     });
-    console.log('from main', this.state.wallId);
     this.fetchPostFeed(id);
     this.getUserProfile(id);
   }
@@ -62,16 +60,6 @@ class Main extends React.Component {
         return (data.id !== this.props.id && data.is_my_friend === '0');
       })
     });
-  }
-
-  fetchUsersInfo() {
-    axios.get(`/render/wall/${this.state.wallId}`)
-      .then( response => {
-        console.log('RESPONSE FROM MAIN.JS ', response);
-      })
-      .catch( err => {
-        console.log('Error from main.js', err);
-      });
   }
 
   fetchPostFeed(wallId = this.state.wallId) {
@@ -96,13 +84,13 @@ class Main extends React.Component {
   getUserProfile(wallId = this.state.wallId) {
     axios.get(`/userProfileInfo/${wallId}`)
       .then( response => {
-        console.log('getuserprofile:', response);
         let profileInfo = Object.assign({}, this.state.profileInfo); //creating copy of object
         profileInfo.username = response.data.username;
-        profileInfo.work = response.data.work;
+        profileInfo.work = response.data.work || '';
         profileInfo.join = response.data.join;
         profileInfo.extra = response.data.extra;
         profileInfo.profilePic = response.data.profilePic;
+        profileInfo.join = response.data.join;
         if (response.data.vodka !== null) {
           profileInfo.vodka = response.data.vodka;
         } else {

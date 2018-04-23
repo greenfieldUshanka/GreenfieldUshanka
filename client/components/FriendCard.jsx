@@ -16,7 +16,7 @@ class Card extends React.Component {
     // ping server with request to add friend, server -> router -> controller sees if they are your friend
     // and adds them if they aren't and sends back a message with the result regardless, and changes the
     // button text with this message
-    var refThis = this;
+    const refThis = this;
     axios.post('/toggleFriend', {
       potentialFriendId: this.props.friend.id, // change this to data I know to test friend logic
       id: this.props.id, 
@@ -66,7 +66,7 @@ class Card extends React.Component {
           </div>
         </div>
         <div className="ui bottom attached button" onClick={this.toggleFriend}>
-          <i className="add icon"></i>
+          <i className="add icon" />
           {this.state.buttonMessage}
         </div>
       </div>

@@ -4,10 +4,10 @@ const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'));
 const LoginController = {
   createAccount: (req, res) => {
     DB.query('SELECT `username` FROM `users` WHERE `username` = ?', [req.body.newUsername], (err, data) => {
-      if(err) {
+      if (err) {
         res.send(err);
       } else {
-        if(!data.length) {
+        if (!data.length) {
           DB.query(`INSERT INTO users (full_name, username, password, profile_picture) 
               VALUES (?, ?, ?, ?) `, [req.body.fullName, req.body.newUsername, req.body.newPassword, req.body.profilePicture], (err, data) => {
             if (err) {
@@ -25,7 +25,7 @@ const LoginController = {
     });
   },
   Login: (req, res) => {
-    console.log('LOGIN CONTROLLER: ', req.params.username)
+    console.log('LOGIN CONTROLLER: ', req.params.username);
     DB.query('SELECT * FROM users WHERE username = ?', [req.params.username], (err, data) => {
       if (data.length) {
         bcrypt.compareAsync(req.params.password, data[0].password)

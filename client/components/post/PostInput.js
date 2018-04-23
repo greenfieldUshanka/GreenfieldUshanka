@@ -18,7 +18,7 @@ class PostInput extends React.Component {
   }
 
   submitPost(event) {
-    var component = this;
+    const component = this;
     event.preventDefault();
     axios.post('/postFeed', {
       postText: this.state.content,

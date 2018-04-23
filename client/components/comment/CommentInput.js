@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Input, Form, Button } from 'semantic-ui-react';
+import {Button, Form, Input} from 'semantic-ui-react';
 
 class CommentInput extends React.Component {
   constructor(props) {

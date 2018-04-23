@@ -7,9 +7,6 @@ import './post.css';
 class Post extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      comments: []
-    };
   }
 
   render() {

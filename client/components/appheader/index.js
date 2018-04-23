@@ -1,9 +1,8 @@
 import React from 'react';
-import {Form, Grid, Button, Input, Icon, Header} from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import {Button, Form, Grid, Header, Icon} from 'semantic-ui-react';
+import {Link} from 'react-router-dom';
 import './index.css';
 import SearchBar from '../SearchBar.jsx';
-
 
 
 class AppHeader extends React.Component {
