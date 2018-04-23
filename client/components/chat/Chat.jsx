@@ -1,7 +1,5 @@
 import React from 'react'; 
-import GridColumn, { Card, Image, Form, Grid, TextArea, Button, Icon, Dropdown, Label, Header } from 'semantic-ui-react';
-import axios from 'axios';
-import moment from 'moment';
+import { Form, Button } from 'semantic-ui-react';
 import io from 'socket.io-client';
 import './index.css';
 

@@ -21,7 +21,7 @@ class Main extends React.Component {
         extra: '',
         profilePic: '',
         vodka: '',
-        mood: '',
+        status: '',
       }
     };
     this.fetchPostFeed = this.fetchPostFeed.bind(this);
@@ -29,11 +29,19 @@ class Main extends React.Component {
     this.changePage = this.changePage.bind(this);
     this.setWallId = this.setWallId.bind(this);
     this.getUserProfile = this.getUserProfile.bind(this);
+    this.setProfileInfo = this.setProfileInfo.bind(this);
   }
 
   componentDidMount() {
     this.fetchPostFeed();
     this.getUserProfile();
+  }
+
+  setProfileInfo(key, value) {
+    console.log('key value: ', key, value);
+    let profileInfo = this.state.profileInfo;
+    profileInfo[key] = value;
+    this.setState({profileInfo});
   }
 
   setWallId(id) {
@@ -88,6 +96,7 @@ class Main extends React.Component {
   getUserProfile(wallId = this.state.wallId) {
     axios.get(`/userProfileInfo/${wallId}`)
       .then( response => {
+        console.log('getuserprofile:', response);
         let profileInfo = Object.assign({}, this.state.profileInfo); //creating copy of object
         profileInfo.username = response.data.username;
         profileInfo.work = response.data.work;
@@ -101,9 +110,9 @@ class Main extends React.Component {
         }
 
         if (response.data.status !== null) {
-          profileInfo.mood = response.data.status;
+          profileInfo.status = response.data.status;
         } else {
-          profileInfo.mood = 'Status';
+          profileInfo.status = 'Status';
         }
         this.setState({profileInfo});
       })
@@ -119,7 +128,17 @@ class Main extends React.Component {
         <div className="container">
           <Switch>
             <Route exact path ='/main/friends' render={() => <Friends onChange={this.handleChange} changePage={this.changePage} friends={this.state.friends} id={this.props.id} potentialFriends={this.state.potentialFriends}/>} />
-            <Route exact path ='/main' render={() => <HomePage setWallId={(id) => this.setWallId(id)} wallId={this.state.wallId} posts={this.state.messages} fetchPostFeed={this.fetchPostFeed} changePage={this.changePage} id={this.props.id} userInfo={this.state.profileInfo} friendProfile={this.getUserProfile} />} />
+            <Route exact path ='/main' render={() =>
+              <HomePage
+                setWallId={(id) => this.setWallId(id)}
+                wallId={this.state.wallId}
+                posts={this.state.messages}
+                fetchPostFeed={this.fetchPostFeed}
+                changePage={this.changePage}
+                id={this.props.id}
+                userInfo={this.state.profileInfo}
+                setProfileInfo={this.setProfileInfo}
+                friendProfile={this.getUserProfile} />} />
           </Switch>
         </div>
       </div>

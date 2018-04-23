@@ -1,13 +1,11 @@
 import React from 'react';
-import GridColumn, { Card, Image, Form, Grid, TextArea, Button, Icon, Dropdown, Label, Header } from 'semantic-ui-react';
+import { Card, Image, Form, Grid, TextArea, Button, Icon, Dropdown, Label, Header } from 'semantic-ui-react';
 import './index.css';
 import PostInput from '../post/PostInput.js';
 import PostList from '../post/PostList';
 import axios from 'axios';
 import moment from 'moment';
 import Chat from '../chat/Chat.jsx';
-// import io from 'socket.io-client';
-import GridRow from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
 
 const vodkaOptions = [{key: '3', text: '0 - 3', value: '0 - 3'}, 
@@ -35,21 +33,9 @@ class HomePage extends React.Component {
       newMsg: '',
       getFriends: this.props.id,
     };
+    console.log('status: ', this.state.status);
     this.saveUserEditInformation = this.saveUserEditInformation.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
-    this.submitMessage = this.submitMessage.bind(this);
-  }
-  submitMessage(event) {
-    this.socket.emit('new-message', {message: this.state.currentMsg});
-  }
-  handleCurrentMsg(e) {
-    this.setState({currentMsg: e.target.value});
-  }
-
-  getFriendInfo(id) {
-    this.props.setWallId(id);
-    this.setState({viewId: id});
-    this.getUserInformation(id);
   }
 
   getFriends(id = this.state.getFriends) {
@@ -68,17 +54,19 @@ class HomePage extends React.Component {
   }
 
   saveUserEditInformation() {
+    let component = this;
     const profileUpdate = {
-      status: this.state.mood, 
-      work: this.state.work,
-      vodka: this.state.vodka,
-      extra: this.state.extra, 
+      status: this.props.userInfo.status,
+      work: this.props.userInfo.work,
+      vodka: this.props.userInfo.vodka,
+      extra: this.props.userInfo.extra,
       id: this.props.id
     };
 
     axios.post('/editprofile', profileUpdate)
       .then( response => {
         console.log('Response ', response);
+        component.props.friendProfile(component.props.id);
       })
       .catch( err => {
         console.log('Error ', err);
@@ -105,7 +93,7 @@ class HomePage extends React.Component {
 
   userStatus(e, data) {
     this.setState({
-      mood: data.value, 
+      status: data.value,
     });
   }
 
@@ -125,14 +113,12 @@ class HomePage extends React.Component {
       }).then(response => {
         const data = response.data;
         const fileURL = data.secure_url; // You should store this URL for future references in your app
-        console.log('data!', data);
-        console.log('url!', fileURL);
         axios.post('/upload', {
           url: fileURL,
           userid: this.props.id
         }).then(function(response) {
           console.log('saved to the db, response', response);
-          handleThis.getUserInformation();
+          handleThis.props.friendProfile(handleThis.props.id);
         });
       })
         .catch(err => {
@@ -162,12 +148,12 @@ class HomePage extends React.Component {
             <Grid.Row>
               <Grid.Column >
                 <div className='profile-picture'>
-                  <Dropzone
-                    onDrop={this.handleDrop}
-                    accept="image/*"
-                  >
-                    <p>Drop your files or click here to upload</p>
-                  </Dropzone>
+                  {this.props.id === this.props.wallId ?
+                    (<Dropzone onDrop={this.handleDrop} accept="image/*">
+                      <Image src={this.props.userInfo.profilePic} size='massive' rounded/>
+                    </Dropzone>) :
+                    (<Image src={this.props.userInfo.profilePic} size='massive' rounded/>)
+                  }
                   <div className='friends-list'>
                     {
                       this.state.friends.length ? (
@@ -204,7 +190,7 @@ class HomePage extends React.Component {
                         </div>
                         <div className='upi-status'>
                           <Dropdown
-                            onChange={this.userStatus.bind(this)}
+                            onChange={(e, data) => this.props.setProfileInfo('status', data.value)}
                             button 
                             className='icon'
                             floating
@@ -212,16 +198,21 @@ class HomePage extends React.Component {
                             icon='barcode'
                             options={statusOptions}
                             search
-                            text={this.props.userInfo.mood}
+                            text={this.props.userInfo.status}
                           />
                         </div>
                         <div className='upi-workplace' >
                           <label>Add a workplace</label>
-                          <Form.Input className='input-workplace' width={14} size={'mini'} placeholder={this.props.userInfo.work} onChange={this.userWork.bind(this)}/>
+                          <Form.Input
+                            className='input-workplace'
+                            width={14}
+                            size={'mini'}
+                            placeholder={this.props.userInfo.work}
+                            onChange={(e, data) => this.props.setProfileInfo('work', data.value)}/>
                         </div>
                         <div className='upi-vodka'>
                           <Dropdown
-                            onChange={this.userVodkaTake.bind(this)}
+                            onChange={(e, data) => this.props.setProfileInfo('vodka', data.value)}
                             button 
                             className='icon'
                             floating
@@ -234,7 +225,11 @@ class HomePage extends React.Component {
                         </div>
                         <div className='upi-text'>
                           <label>What else is on your mind?</label>
-                          <Form.Input size={'mini'} width={14} placeholder={this.props.userInfo.extra} onChange={this.userMind.bind(this)} />
+                          <Form.Input
+                            size={'mini'}
+                            width={14}
+                            placeholder={this.props.userInfo.extra}
+                            onChange={(e, data) => this.props.setProfileInfo('extra', data.value)} />
                         </div>
                         <div className='upi-submit'>
                           <Button type='submit'>Update Changes</Button>
@@ -247,7 +242,7 @@ class HomePage extends React.Component {
                     <div className='friends-profile-information'>
                       <Card>
                         <Card.Content header= {`Ushanka member since ${moment(this.state.join).fromNow()}`}/>
-                        <Card.Content description={`Current status: ${this.props.userInfo.mood} `} >
+                        <Card.Content description={`Current status: ${this.props.userInfo.status} `} >
                         </Card.Content>
                         <Card.Content description={`Workplace: ${this.props.userInfo.work}`} />
                         <Card.Content name='cocktail' description={`Vodka Consumption: ${this.props.userInfo.vodka}`} />
@@ -257,16 +252,10 @@ class HomePage extends React.Component {
                   </Grid.Column>)
               }
               <Grid.Column width={10}>
-                <PostInput id={this.props.id} wallId={this.props.wallId} profilePic={this.props.userInfo.profilePic} fetchPostFeed={this.props.fetchPostFeed}/>
-                <PostList id={this.props.id} posts={this.props.posts} fetchPostFeed={this.props.fetchPostFeed}/>
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-              <Grid.Column width={4}>
                 <div className='chat-box'>
                   <Chat user={this.props.userInfo.username}/>
                 </div>
-                <PostInput id={this.props.id} wallId={this.props.wallId} fetchPostFeed={this.props.fetchPostFeed}/>
+                <PostInput id={this.props.id} wallId={this.props.wallId} profilePic={this.props.userInfo.profilePic} fetchPostFeed={this.props.fetchPostFeed}/>
                 <PostList id={this.props.id} posts={this.props.posts} fetchPostFeed={this.props.fetchPostFeed}/>
               </Grid.Column>
             </Grid.Row>

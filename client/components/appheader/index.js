@@ -13,11 +13,9 @@ class AppHeader extends React.Component {
   }
   backToUserProfile() {
     this.props.setWallId(this.props.id);
-    console.log('FROM APPHEADER', this.props.id);
   }
 
   render() {
-    console.log('APPHEADER', this.props);
     return (
       <header className='home-page-header'>
         <Grid>
