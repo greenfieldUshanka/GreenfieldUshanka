@@ -103,6 +103,7 @@ class Main extends React.Component {
         profileInfo.join = response.data.join;
         profileInfo.extra = response.data.extra;
         profileInfo.profilePic = response.data.profilePic;
+        profileInfo.join = response.data.join;
         if (response.data.vodka !== null) {
           profileInfo.vodka = response.data.vodka;
         } else {
