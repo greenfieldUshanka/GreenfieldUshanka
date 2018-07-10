@@ -5,8 +5,10 @@ const LoginController = {
   createAccount: (req, res) => {
     DB.query('SELECT `username` FROM `users` WHERE `username` = ?', [req.body.newUsername], (err, data) => {
       if(err) {
+        console.log("HERE I AM IN", err);
         res.send(err);
       } else {
+        console.log("HERE I AM ", data);
         if(!data.length) {
           DB.query(`INSERT INTO users (full_name, username, password, profile_picture) 
               VALUES (?, ?, ?, ?) `, [req.body.fullName, req.body.newUsername, req.body.newPassword, req.body.profilePicture], (err, data) => {

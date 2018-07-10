@@ -9,18 +9,16 @@ const PersonalInfoController = {
       }
       res.status(200).send({
         username: data[0].username, 
-        profilePic: data[0].profile_picture, 
-        work: data[0].work, 
+        profilePic: data[0].profile_picture,
         join: data[0].created_at,
-        vodka: data[0].vodka_consumption,
-        status: data[0].status,
-        extra: data[0].txt
+        treats: data[0].treats,
+        status: data[0].status
       });
     });
   },
   SaveUpdatedProfile: (req, res) => {
-    DB.query('UPDATE users SET work = ? , vodka_consumption = ? , txt = ? , status = ? WHERE id = ?', 
-      [req.body.work, req.body.vodka, req.body.extra, req.body.status, req.body.id], (err, data) => {
+    DB.query('UPDATE users SET treats = ? , status = ? WHERE id = ?', 
+      [req.body.treats, req.body.status, req.body.id], (err, data) => {
         if (err) { 
           console.log('Error from personalInfoController', err); 
           res.send(err);

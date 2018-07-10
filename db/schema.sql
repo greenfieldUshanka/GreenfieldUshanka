@@ -1,4 +1,4 @@
--- DROP DATABASE IF EXISTS greenfield;
+DROP DATABASE IF EXISTS greenfield;
 CREATE DATABASE greenfield;
 
 USE greenfield;
@@ -9,9 +9,7 @@ CREATE TABLE users (
   `password` VARCHAR(255) NOT NULL,
   `full_name` VARCHAR(255) NOT NULL,
   `profile_picture` VARCHAR(255) NOT NULL,
-  `work` VARCHAR (255),
-  `vodka_consumption` VARCHAR(255) ,
-  `txt` VARCHAR (255),
+  `treats` VARCHAR(255) ,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,  
   `status` VARCHAR (255),
   PRIMARY KEY (`id`),

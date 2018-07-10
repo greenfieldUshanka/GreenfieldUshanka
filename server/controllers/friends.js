@@ -4,7 +4,7 @@ const searchFriends = function(req, res) {
   const id = req.query.id;
   const term = req.query.term;
   if (term.length) { // old 'SELECT * FROM `users` WHERE `full_name` LIKE ? OR `username` LIKE ?', ['%'+term+'%', '%'+term+'%']
-    con.query('SELECT `username`, `full_name`, `profile_picture`, `vodka_consumption`, users.`id` ' +
+    con.query('SELECT `username`, `full_name`, `profile_picture`, `treats`, users.`id` ' +
               ', IF(uf.`id` IS NULL, \'0\', \'1\') AS `is_my_friend` FROM `users` LEFT JOIN `user_friends` `uf` ON ' +
               'uf.`id_one`=users.`id` AND uf.`id_two`=? WHERE (`full_name` LIKE ? OR `username` LIKE ?) ' +
               'ORDER BY `is_my_friend` DESC', [id, '%' + term + '%', '%' + term + '%' ], function(err, data) {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Image, Form, Grid, TextArea, Button, Icon, Dropdown, Label, Header } from 'semantic-ui-react';
 import './index.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PostInput from '../post/PostInput.js';
 import PostList from '../post/PostList';
 import axios from 'axios';
@@ -8,22 +9,11 @@ import moment from 'moment';
 import Chat from '../chat/Chat.jsx';
 import Dropzone from 'react-dropzone';
 
-const vodkaOptions = [{key: '3', text: '0 - 3', value: '0 - 3'}, 
-  {key: '7', text: '4 - 7', value: '4 - 7'}, 
-  {key: '8', text: '8 - 12', value: '8 - 12'}, 
-  {key: '13', text: '13++', value: '13++'}];
-
-const statusOptions = [{key: 'hacking', text: 'Hacking', value: 'Hacking'}, 
-  {key: 'drunk', text: 'Drunk', value: 'Drunk'}, 
-  {key: 'sad', text: 'Sad', value: 'Sad'}, 
-  {key: 'happy', text: 'Happy', value: 'Happy'}];
-
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       username: '',
-      work: '',
       join: '',
       profilePic: '',
       friends: [],
@@ -56,10 +46,8 @@ class HomePage extends React.Component {
   saveUserEditInformation() {
     let component = this;
     const profileUpdate = {
+      treats: this.props.userInfo.treats,
       status: this.props.userInfo.status,
-      work: this.props.userInfo.work,
-      vodka: this.props.userInfo.vodka,
-      extra: this.props.userInfo.extra,
       id: this.props.id
     };
 
@@ -73,28 +61,11 @@ class HomePage extends React.Component {
       });
   }
 
-  userVodkaTake(e, data) {
+  handleStateChange(e) {
+    const { name, value } = e.target; 
     this.setState({
-      vodka: data.value, 
-    });
-  }
-
-  userWork(e, data) {
-    this.setState({
-      work: data.value, 
-    });
-  }
-
-  userMind(e, data) {
-    this.setState({
-      extra: data.value 
-    });
-  }
-
-  userStatus(e, data) {
-    this.setState({
-      status: data.value,
-    });
+      [name]: value
+    }); 
   }
 
   handleDrop(files) {
@@ -114,9 +85,6 @@ class HomePage extends React.Component {
         const data = response.data;
         const fileURL = data.secure_url; // You should store this URL for future references in your app
         const resizedURL = [fileURL.slice(0, 48), 'w_300,h_300/', fileURL.slice(48)].join('');
-        console.log('data!', data);
-        console.log('url!', fileURL);
-        console.log('resized url!', resizedURL);
         axios.post('/upload', {
           url: resizedURL,
           userid: this.props.id
@@ -138,132 +106,84 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className="container-full-page" >
-          <Grid>
-            <Grid.Row>
-              <Grid.Column width={16}>
-                <div>
-                  <Image src='https://source.unsplash.com/1600x400/?nature' rounded /> 
-                  <div className='username-on-image'><h1>{this.props.userInfo.username.toUpperCase()}</h1></div>
-                </div>
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-              <Grid.Column >
-                <div className='profile-picture'>
-                  {this.props.id === this.props.wallId ?
-                    (<Dropzone className='dropzone' onDrop={this.handleDrop} accept="image/*">
-                      <Image src={this.props.userInfo.profilePic} rounded/>
-                    </Dropzone>) :
-                    (<Image className='dropzone' src={this.props.userInfo.profilePic} rounded/>)
-                  }
-                  <div className='friends-list'>
-                    {
-                      this.state.friends.length ? (
-                        this.state.friends.map(friend =>
-                          <div className='each-friend' key={friend.full_name}>
-                            <div className='each-friend-name'>
-                              {friend.full_name.toUpperCase()}
-                            </div> 
-                            <div className='friend-image'>                      
-                              <Image src={friend.profile_picture} onClick={() => this.props.friendProfile(friend.id)} onClick={() => this.getFriends(friend.id)} onClick={() => this.props.setWallId(friend.id)} floated='right' size='big' key={friend.id} />
-                            </div>
-                          </div>
-                        )) : (
-                        null
-                      )
-                    }
+      <div className="container-full-page">
+        <div className="img-container">
+          <img src='https://i.imgur.com/j1h9yGv.jpg' /> 
+        </div>
+        <div className='profile-picture'>
+          {this.props.id === this.props.wallId ?
+            (<Dropzone className='dropzone' onDrop={this.handleDrop} accept="image/*">
+              <img src={this.props.userInfo.profilePic} />
+            </Dropzone>) :
+            (<img className='dropzone' src={this.props.userInfo.profilePic} />)
+          }
+          <div className='username-on-image'>
+            <h1>{this.props.userInfo.username.toUpperCase()}</h1>
+          </div>
+        </div> 
+        <div className="friends-list">
+          {
+            this.state.friends.length ? (
+              this.state.friends.map(friend =>
+                <div className='each-friend' key={friend.full_name}>
+                  <div className='each-friend-name'>
+                    {friend.full_name.toUpperCase()}
+                  </div> 
+                  <div>                      
+                    <img className='friend-image' src={friend.profile_picture} onClick={() => this.props.friendProfile(friend.id)} onClick={() => this.getFriends(friend.id)} onClick={() => this.props.setWallId(friend.id)} key={friend.id} />
                   </div>
                 </div>
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-              {
-                this.props.id === this.props.wallId ? 
-                  (<Grid.Column width={6}>
-                    <div className='user-profile-information'>
-                      <Form onSubmit={this.saveUserEditInformation}>
-                        <div className='upi-personal-info'>
-                          <Header size='medium'>
-                            <Icon name='world' />
-                            <Header.Content>
-                                Personal Information
-                            </Header.Content>
-                          </Header>
-                        </div>
-                        <div className='upi-status'>
-                          <Dropdown
-                            onChange={(e, data) => this.props.setProfileInfo('status', data.value)}
-                            button 
-                            className='icon'
-                            floating
-                            labeled
-                            icon='barcode'
-                            options={statusOptions}
-                            search
-                            text={this.props.userInfo.status}
-                          />
-                        </div>
-                        <div className='upi-workplace' >
-                          <label>Add a workplace</label>
-                          <Form.Input
-                            className='input-workplace'
-                            width={14}
-                            size={'mini'}
-                            placeholder={this.props.userInfo.work}
-                            onChange={(e, data) => this.props.setProfileInfo('work', data.value)}/>
-                        </div>
-                        <div className='upi-vodka'>
-                          <Dropdown
-                            onChange={(e, data) => this.props.setProfileInfo('vodka', data.value)}
-                            button 
-                            className='icon'
-                            floating
-                            labeled
-                            icon='cocktail'
-                            options={vodkaOptions}
-                            search
-                            text={this.props.userInfo.vodka}
-                          />
-                        </div>
-                        <div className='upi-text'>
-                          <label>What else is on your mind?</label>
-                          <Form.Input
-                            size={'mini'}
-                            width={14}
-                            placeholder={this.props.userInfo.extra}
-                            onChange={(e, data) => this.props.setProfileInfo('extra', data.value)} />
-                        </div>
-                        <div className='upi-submit'>
-                          <Button type='submit'>Update Changes</Button>
-                        </div>
-                      </Form>
-                    </div>
-                  </Grid.Column>)
-                  :
-                  (<Grid.Column width={6}>
-                    <div className='friends-profile-information'>
-                      <Card>
-                        <Card.Content header= {`Ushanka member since ${moment(this.state.join).fromNow()}`}/>
-                        <Card.Content description={`Current status: ${this.props.userInfo.status} `} >
-                        </Card.Content>
-                        <Card.Content description={`Workplace: ${this.props.userInfo.work}`} />
-                        <Card.Content name='cocktail' description={`Vodka Consumption: ${this.props.userInfo.vodka}`} />
-                        <Card.Content maxLength="2" description={this.props.userInfo.extra} />
-                      </Card>
-                    </div>
-                  </Grid.Column>)
-              }
-              <Grid.Column width={10}>
-                <div className='chat-box'>
-                  <Chat user={this.props.userInfo.username}/>
+              )) : (
+              null
+            )
+          }
+        </div>
+        <div className="secondMainContainer">
+          { this.props.id === this.props.wallId ? 
+            (<div className="userInfoContainer">
+              <div className="uIContainertitle">
+                <div className="personalInfoIcon"><FontAwesomeIcon icon="globe-americas" size="lg" /> </div> 
+              Intro 
+              </div>
+              <div className="statusContainer">
+                <label className="personalInfoLabel">Add a temporary bio:</label>
+                <input name="status" onChange={(e) => this.props.setProfileInfo('status', e.target.value)} className="statusInput" /> 
+                <div onClick={this.saveUserEditInformation} className="statusIcon"><FontAwesomeIcon icon="plus" size="lg" /></div> 
+              </div>
+              <div className="treatsContainer">
+                <label className="treatsLabel">Treats so far: </label>
+                <div className="treatsDropdown">
+                  <button className="treatsBtn">{this.props.userInfo.treats || 'treats'}</button> 
+                  <div className="treatsdrop">
+                    <div onClick={this.saveUserEditInformation} onClick={(e) => this.props.setProfileInfo('treats', '0 - 3')}>0 - 3</div>
+                    <div onClick={this.saveUserEditInformation} onClick={(e) => this.props.setProfileInfo('treats', '4 - 7')}>4 - 7</div>
+                    <div onClick={this.saveUserEditInformation} onClick={(e) => this.props.setProfileInfo('treats', '8++')}>8++</div>
+                  </div>
                 </div>
-                <PostInput id={this.props.id} wallId={this.props.wallId} profilePic={this.props.userInfo.profilePic} fetchPostFeed={this.props.fetchPostFeed}/>
-                <PostList id={this.props.id} posts={this.props.posts} fetchPostFeed={this.props.fetchPostFeed}/>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
+              </div>
+            </div>)
+            :
+            (
+              <div className="userInfoContainer">
+                <div className="uIContainertitle">
+                  <div className="personalInfoIcon"><FontAwesomeIcon icon="globe-americas" size="lg" /> </div> 
+                    Intro 
+                </div>
+                <div className="statusContainer">
+                  <label className="friendViewStatus">Current status:</label>
+                  <div className="friendViewStatusDiv">{this.props.userInfo.status}</div>
+                </div>
+                <div className="statusContainer">
+                  <label className="friendViewStatus">Treats so far:</label>
+                  <div className="friendViewStatusDiv">{this.props.userInfo.treats}</div>
+                </div>
+              </div>
+            )
+          }
+          <div className="userComments">
+            <PostInput id={this.props.id} wallId={this.props.wallId} profilePic={this.props.userInfo.profilePic} fetchPostFeed={this.props.fetchPostFeed}/>
+            <PostList id={this.props.id} posts={this.props.posts} fetchPostFeed={this.props.fetchPostFeed}/>
+          </div>
         </div>
       </div> 
     );
@@ -272,3 +192,4 @@ class HomePage extends React.Component {
 
 
 export default HomePage;
+

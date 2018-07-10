@@ -19,8 +19,8 @@ class CommentInput extends React.Component {
   }
 
   submitComment(event) {
-    let component = this;
     event.preventDefault();
+    let component = this;
     axios.post('/comments', {
       postText: component.state.content,
       authorId: component.props.authorId,
@@ -37,10 +37,10 @@ class CommentInput extends React.Component {
     return (<div className="ui comments">
       <Form>
         <div className="field">
-          <Input placeholder="Share big Amerikan opinion" value={this.state.content} onChange={this.onChange} />
+          <Input placeholder="Share your opinion" value={this.state.content} onChange={this.onChange} />
         </div>
         <div className="field">
-          <Button size='small' onClick={this.submitComment}>Komment</Button>
+          <Button size='small' onClick={this.submitComment}>Comment</Button>
         </div>
       </Form>
     </div>);

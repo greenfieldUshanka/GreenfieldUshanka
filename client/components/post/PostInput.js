@@ -37,7 +37,7 @@ class PostInput extends React.Component {
       <form className="ui form">
         <div className="field">
           <label>Post Message</label>
-          <textarea placeholder="Type Amerikan words" rows="3" value={this.state.content} onChange={this.onChange}>
+          <textarea placeholder="What's on your mind" rows="3" value={this.state.content} onChange={this.onChange}>
           </textarea>
         </div>
         <div className="field">

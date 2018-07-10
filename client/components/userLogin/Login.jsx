@@ -1,10 +1,12 @@
 import React from 'react'; 
-import { Image, Form, Grid, Button } from 'semantic-ui-react';
+// import { Image, Form, Grid, Button } from 'semantic-ui-react';
 import axios from 'axios';
 const Promise = require('bluebird');
 const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'));
 import './index.css';
 import {Redirect} from 'react-router-dom';
+import LoginHeader from '../appheader/LoginHeader.jsx';
+import logo from '../../images/logopb.png';
 
 
 class Login extends React.Component {
@@ -19,7 +21,6 @@ class Login extends React.Component {
       isLoggedIn: false
     };
     this.handleCreateAccount = this.handleCreateAccount.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
   }
 
   userAllInputFieldsChange(e) {
@@ -29,6 +30,7 @@ class Login extends React.Component {
   }
 
   handleCreateAccount(event) {
+    event.preventDefault();
     bcrypt.genSaltAsync(10) 
       .then(salt => {
         bcrypt.hashAsync(this.state.newPassword, salt, null)
@@ -56,12 +58,12 @@ class Login extends React.Component {
               .catch(err => {
                 console.log('Error from handleCreateAccount', err);
               });
-            event.preventDefault();
           });
       });
   }
 
   handleLogin(event) {
+    event.preventDefault();
     let component = this;
     console.log('FROM LOGIN.JSX', this.state.username);
     axios
@@ -79,7 +81,6 @@ class Login extends React.Component {
       .catch(err => {
         console.log('Error from handleLogin', err);
       });
-    event.preventDefault();
   }
 
   render() {
@@ -90,7 +91,80 @@ class Login extends React.Component {
     }
     return (
       <div>
-        <header className='login-header' >
+        {/* HEADER */}
+        <div className="header">
+          <div className="row">
+            <div className="col-1-of-2">
+              <div className="logoNameContainer">
+                <img className="logo" src={logo} /> 
+                <div className="appName">
+              petBook
+                </div> 
+              </div>
+            </div>
+            <div className="col-1-of-2">
+              <form className="loginForm" onSubmit={this.handleLogin.bind(this)}>
+                <div className="loginContainer">
+                  <div className="label">Email</div>
+                  <input onChange={this.userAllInputFieldsChange.bind(this)} className="input" name="username" /> 
+                </div> 
+                <div className="loginContainer">
+                  <div className="label">Password</div>
+                  <input onChange={this.userAllInputFieldsChange.bind(this)} className="input" name="password" type="password" />
+                </div> 
+                <input className="loginBtn" type="submit" value="Log In" />
+              </form>
+              <div className="forgotAccount">
+                <a>Forgot Account?</a> 
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* CREATE ACCOUNT */}
+        <div className="mainLoginContainer">
+          <div className="row">
+            <div className="col-1-of-2">
+              <div className="leftContainer">
+              
+              </div>
+            </div>
+            <div className="col-1-of-2">
+              <div className="rightContainer">
+                <div className="caTitle">
+                Create a New Account 
+                </div>
+                <div className="caSubTitle">
+                It's free and always will be  
+                </div>
+
+                <form className="form" onSubmit={this.handleCreateAccount}>
+                  <input onChange={this.userAllInputFieldsChange.bind(this)} className="input1" name="fullName" placeholder="First name"/>
+
+                  <div className="formContainer">
+                    <input onChange={this.userAllInputFieldsChange.bind(this)} className="input2" name="newUsername" placeholder="Username"/>
+                    <input onChange={this.userAllInputFieldsChange.bind(this)} className="input2" type="password" name='newPassword' placeholder="New Password"/>
+                  </div>
+
+                  <div className="formContainer">
+                By clicking Sign Up, you agree to our Terms, Data Policy and Cookies Policy. You may receive SMS Notifications from us and can opt out any time.
+                  </div>
+                  <input className="formBtn" type="submit" value="Sign Up" />
+                </form>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    );
+  } 
+}
+
+export default Login;
+
+
+{ /* <header className='login-header' >
           <Grid>
             <Grid.Row>
               <Grid.Column width={8}>
@@ -168,10 +242,4 @@ class Login extends React.Component {
               </Form>
             </Grid.Column>
           </Grid>
-        </div>
-      </div>
-    );
-  } 
-}
-
-export default Login;
+        </div> */ }

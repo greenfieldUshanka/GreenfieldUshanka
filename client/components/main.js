@@ -3,6 +3,7 @@ import AppHeader from './appheader';
 import HomePage from './homepage';
 import axios from 'axios';
 import Friends from './friends';
+import Chat from './chat/Chat.jsx';
 import { Switch, Route } from 'react-router-dom';
 
 class Main extends React.Component {
@@ -16,11 +17,9 @@ class Main extends React.Component {
       wallId: this.props.id,
       profileInfo: {
         username: '',
-        work: '',
         join: '',
-        extra: '',
         profilePic: '',
-        vodka: '',
+        treats: 'treats',
         status: '',
       }
     };
@@ -99,14 +98,12 @@ class Main extends React.Component {
         console.log('getuserprofile:', response);
         let profileInfo = Object.assign({}, this.state.profileInfo); //creating copy of object
         profileInfo.username = response.data.username;
-        profileInfo.work = response.data.work;
         profileInfo.join = response.data.join;
-        profileInfo.extra = response.data.extra;
         profileInfo.profilePic = response.data.profilePic;
-        if (response.data.vodka !== null) {
-          profileInfo.vodka = response.data.vodka;
+        if (response.data.treats !== null) {
+          profileInfo.treats = response.data.treats;
         } else {
-          profileInfo.vodka = 'Vodka Consumption';
+          profileInfo.treats = 'treats';
         }
 
         if (response.data.status !== null) {
@@ -124,7 +121,7 @@ class Main extends React.Component {
   render() {
     return (
       <div>
-        <AppHeader logout={this.props.logout} onChange={this.handleChange} id={this.props.id} currentPage={this.state.currentPage} setWallId={this.setWallId}/>
+        <AppHeader logout={this.props.logout} onChange={this.handleChange} id={this.props.id} changePage={this.changePage} currentPage={this.state.currentPage} setWallId={this.setWallId} />
         <div className="container">
           <Switch>
             <Route exact path ='/main/friends' render={() => <Friends onChange={this.handleChange} changePage={this.changePage} friends={this.state.friends} id={this.props.id} potentialFriends={this.state.potentialFriends}/>} />

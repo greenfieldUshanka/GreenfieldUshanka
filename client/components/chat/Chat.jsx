@@ -24,6 +24,7 @@ class Chat extends React.Component {
   }
 
   componentDidMount() {
+    this.props.changePage('chat');
     const context = this; 
     this.socket.on('receive-message', (msg) => {
       let messages = context.state.messages; 

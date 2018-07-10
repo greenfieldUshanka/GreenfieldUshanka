@@ -54,24 +54,29 @@ class Card extends React.Component {
 
   render() {
     return (
-      <div className="ui card">
-        <a className="image" href="#">
-          <img src={this.props.friend.profile_picture} />
-        </a>
-        <div className="content">
-          <a className="header" href="#">{this.props.friend.full_name}</a>
-          <div className="meta">
-            <a>{this.props.friend.username}</a><br/>
-            <a>Drinks {this.props.friend.vodka_consumption} handles of vodka a week</a>
-          </div>
+      <div className="friendCard">
+        <div className="friendCardUsername">
+          {this.props.friend.username}
         </div>
-        <div className="ui bottom attached button" onClick={this.toggleFriend}>
-          <i className="add icon"></i>
-          {this.state.buttonMessage}
-        </div>
+        <img className="friendCardImage" src={this.props.friend.profile_picture} />
+        <div className="friendCardMessage" onClick={this.toggleFriend}>{this.state.buttonMessage}</div>
       </div>
     );
   }
 }
 
 export default Card;
+
+        // {/* <a className="image" href="#">
+        //   <img src={this.props.friend.profile_picture} />
+        // </a>
+        // <div className="content">
+        //   <a className="header" href="#">{this.props.friend.full_name}</a>
+        //   <div className="meta">
+        //     <a>{this.props.friend.username}</a><br/>
+        //   </div>
+        // </div>
+        // <div className="ui bottom attached button" onClick={this.toggleFriend}>
+        //   <i className="add icon"></i>
+        //   {this.state.buttonMessage}
+        //   </div>

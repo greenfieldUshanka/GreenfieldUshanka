@@ -1,11 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Main from '../components/main';
-import Login from '../components/userLogin/Login.jsx';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { faPlus, faSearch, faPaw, faCircle, faGlobeAmericas } from '@fortawesome/free-solid-svg-icons';
+library.add(fab, faPlus, faSearch, faPaw, faCircle, faGlobeAmericas);
 import './index.css';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import Friends from '../components/friends';
 import axios from 'axios';
+import Main from '../components/main';
+import Login from '../components/userLogin/Login.jsx';
+import Friends from '../components/friends';
+import Chat from '../components/chat/Chat.jsx'; 
 
 class App extends React.Component {
   constructor(props) {
